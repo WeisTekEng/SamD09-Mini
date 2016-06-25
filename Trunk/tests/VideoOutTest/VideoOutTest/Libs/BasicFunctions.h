@@ -2,7 +2,7 @@
  * BasicFunctions.h
  *
  * Created: 6/25/2016 10:51:17 AM
- *  Author: ocybr
+ *  Author: Weistek Engineering (Jeremy G)
  */ 
 
 #ifndef BASICFUNCTIONS_H
@@ -16,6 +16,7 @@
 
 //init
 void init_TC1(void);
+void TC1_Handler();
 
 //timers and wait
 void wait(uint32_t	count);

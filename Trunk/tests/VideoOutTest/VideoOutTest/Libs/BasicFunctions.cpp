@@ -2,7 +2,7 @@
  * BasicFunctions.cpp
  *
  * Created: 6/25/2016 10:50:57 AM
- *  Author: ocybr
+ *  Author: Weistek Engineering (Jeremy G)
  */ 
 
 #include "Includes.h"
@@ -20,6 +20,13 @@ void init_TC1(void)
 	REG_TC1_CTRLA |= TC_CTRLA_ENABLE;				// Enable TC1 clock
 	while(TC1->COUNT16.STATUS.bit.SYNCBUSY==1);		// Wait for clock to sync
 	NVIC_EnableIRQ(TC1_IRQn);						// Enable TCI interrupt in the nested interrupt controller.
+}
+
+//Handlers
+void TC1_Handler()
+{
+	//REG_PORT_OUTTGL0 = PORT_PA11;			// internal command to toggle pin.
+	REG_TC1_INTFLAG = TC_INTFLAG_OVF;		// reset interrupt flag
 }
 
 //crude wait function.
