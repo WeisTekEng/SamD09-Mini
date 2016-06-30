@@ -3,7 +3,8 @@
  *
  * Created: 6/27/2016 8:52:16 PM
  * Author : WeistekEng (Jeremy G).
- * USART  : Tx pin is now PA24 PAD2, Rx pin is now PA25 PAD3
+ * USART  : Tx pin is now PA24 PAD2, Rx pin is now PA25 PAD3 <- sercom0
+ * I2C    : SDA pin is PA14 PAD0, SCL pin is PA15 PAD1 <- sercom1
  */ 
 
 
@@ -11,14 +12,21 @@
 
 //#define MY_BAUDREG_VALUE 64278    // 64278 (F_CPU=F_SERCOM=8MHz) -> 9600 BAUD
 #define MY_BAUDREG_VALUE 55470      // 55470 (F_CPU=F_SERCOM=1MHz) -> 9600 BAUD
+#define div_ceil(a,b)(((a)+(b)-1)/(b))
+
 uint32_t USART_BAUD_MODIFIER_SLOW = 1048553;
-long USART_BAUD_MODIFIER_FAST = 115199;
+/*to figure baud rate, attach scope to TX pin and transmit a single letter.
+* capture this, and measure the shortest pulse. take the inverse of this pulse eg.
+* for 9600 bps = 1/x,x = 100us*/
+long USART_BAUD_MODIFIER_FAST = 115199; //<- this does not work? wrong clock selected?
 
 // prototypes
-void init_TC1(void);
+void init_TC1(void); //this inits TC1 for 1 second blinks of the led.
 void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data);
-//static inline void pin_set_peripheral_function(uint32_t pinmux);
-uint8_t UART_sercom_init(Sercom *const sercom_module);
+static inline void pin_set_peripheral_function(uint32_t pinmux);
+uint8_t UART_sercom_init(Sercom *const sercom_module); //init USART module
+uint8_t I2C_sercom_init(Sercom *const sercom_module); // init i2c module.
+
 
 void init_TC1(void)
 {
@@ -36,6 +44,47 @@ void TC1_Handler()
 {
 	REG_PORT_OUTTGL0 = PORT_PA14;		// troggle PA02
 	REG_TC1_INTFLAG = TC_INTFLAG_OVF;	// reset interrupt flag - NEEDED HERE!
+}
+
+void I2C_sercom_init()
+{
+	/* port mux configuration*/
+	PORT->Group[0].PINCFG[PIN_PA22].reg = PORT_PINCFG_PMUXEN; /* SDA */
+	PORT->Group[0].PINCFG[PIN_PA23].reg = PORT_PINCFG_PMUXEN; /* SCL */
+
+	/*PMUX: even = n/2, odd: (n-1)/2 */
+	pin_set_peripheral_function(PINMUX_PA14C_SERCOM0_PAD0); // SAMD09 SDA
+	pin_set_peripheral_function(PINMUX_PA15C_SERCOM0_PAD1); // SAMD09 SCL
+
+	/* APBCMASK */
+	PM->APBCMASK.reg |= PM_APBCMASK_SERCOM1;
+
+	/*gclk configuration for sercom1 module*/
+	GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID (SERCOM0_GCLK_ID_CORE) |
+	GCLK_CLKCTRL_GEN(0) |
+	GCLK_CLKCTRL_CLKEN;
+
+	/* set configuration for SERCOM1 I2C module */
+	SERCOM0->I2CM.CTRLB.reg = SERCOM_I2CM_CTRLB_SMEN; /* smart mode enable */
+	while (SERCOM0->I2CM.SYNCBUSY.reg);
+
+	/* Set baudrate */
+	uint32_t fgclk = 8000000; /* 8MHz */
+	uint32_t fscl = 100000; /* 100kHz SCL */
+	uint32_t trise = 215; /* 215 ns rising time */
+	int32_t numerator = fgclk - fscl*(10 + fgclk*trise/1000000000);
+	int32_t denominator = 2*fscl;
+	int32_t tmp_baud = (int32_t)(div_ceil(numerator, denominator));
+	SERCOM0->I2CM.BAUD.bit.BAUD = SERCOM_I2CM_BAUD_BAUD(tmp_baud);
+	while (SERCOM0->I2CM.SYNCBUSY.reg);
+
+	SERCOM0->I2CM.CTRLA.reg = SERCOM_I2CM_CTRLA_ENABLE | /* enable module */
+	SERCOM_I2CM_CTRLA_MODE_I2C_MASTER | /* i2c master mode */
+	SERCOM_I2CM_CTRLA_SDAHOLD(3); /* SDA hold time to 600ns */
+	while (SERCOM0->I2CM.SYNCBUSY.reg);
+
+	SERCOM0->I2CM.STATUS.reg |= SERCOM_I2CM_STATUS_BUSSTATE(1); /* set to idle state */
+	while (SERCOM0->I2CM.SYNCBUSY.reg);
 }
 
 static inline void pin_set_peripheral_function(uint32_t pinmux)
@@ -65,7 +114,7 @@ static inline void pin_set_peripheral_function(uint32_t pinmux)
 void UART_sercom_init()
 {
 	//port muxer config
-	PORT->Group[1].PINCFG[PINMUX_PA22C_SERCOM1_PAD0].bit.PMUXEN = 1;
+	PORT->Group[1].PINCFG[PINMUX_PA24C_SERCOM1_PAD2].bit.PMUXEN = 1;
 	PORT->Group[1].PINCFG[PINMUX_PA25C_SERCOM1_PAD3].bit.PMUXEN = 1;
 	
 	//Pmux eve = n/1, odd = (n-1)/2
@@ -102,6 +151,15 @@ void SERCOM1_Handler()  // SERCOM1 ISR
     while(!(SERCOM1->USART.INTFLAG.reg & 2)); // wait until TX complete;
 }
 
+void SERCOM0_Handler()  // SERCOM0 ISR
+{
+	uint8_t buffer;
+	buffer  = SERCOM0->I2CM.DATA.reg;
+	while(!(SERCOM0->I2CM.INTFLAG.reg & 1)); // wait UART module ready to receive data
+	SERCOM0->I2CM.DATA.reg = buffer;               // just sent that byte aback
+	while(!(SERCOM0->I2CM.INTFLAG.reg & 2)); // wait until TX complete;
+}
+
 
 void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
 {
@@ -110,14 +168,26 @@ void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
     while(!(sercom_module->USART.INTFLAG.reg & 2)); //wait until TX complete;
 }
 
+void I2C_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
+{
+	while(!(sercom_module->I2CM.INTFLAG.reg & 1)); //wait UART module ready to receive data
+	sercom_module->I2CM.DATA.reg = data;
+	while(!(sercom_module->I2CM.INTFLAG.reg & 2)); //wait until TX complete;
+}
+
 int main(void)
 {
     /* Initialize the SAM system */
     SystemInit();
 	init_TC1();
 	REG_PORT_DIR0 |= (1 << 14);
+	//REG_PORT_OUT0 |= (1 << 11);
 	
-	UART_sercom_init();
+	UART_sercom_init(); //init usart
+	//I2C_sercom_init(); //init i2c
+	
+	//I2C_sercom_simpleWrite(SERCOM0,'0b01');
+
 	
 	UART_sercom_simpleWrite(SERCOM1, 'H');
 	UART_sercom_simpleWrite(SERCOM1, 'e');
