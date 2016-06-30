@@ -1,22 +1,29 @@
 /*
  * main.c
- *Project:	miniSam USART bootloader.
- *Author:	Weistek Engineering (jeremy G.)
- *website:	www.weistekengineering.com
- *date:		06-29-2016f
- *Summery:	If PA15 bootpin is held low, micro will enter USART bootloader mode.
- *		if PA15 is high, micro runs user program if there is one at new start
- *		memor. Look at APP_START for start location of user flash.
+ *Project:		miniSam USART bootloader.
+ *Author:		Weistek Engineering (jeremy G.)
+ *website:		www.weistekengineering.com
+ *date:			06-29-2016f
+ *Summery:		Modified version of the Samd10 bootloader.
+ *			If PA15 bootpin is held low, micro will enter USART bootloader mode.
+ *			if PA15 is high, micro runs user program if there is one at new start
+ *			memor. Look at APP_START for start location of user flash.
  *
- *Update:	fixed write_nvm function, would fall to dummy handler.
+ *Impportant pins : 	UART pins [PA25 PAD3 -> TXd, PA24 PAD2 -> RXd]
+ *			Boot En Pin PA15: enabled boot on reset when DTR pin HIGH. Change to PA27?
+ *			USART reset pin -> RTS -> RST PIN#. Used to reset the micro when
+ *			Serial is plugged in, pulse RTS LOW. Almost arduino esqe.
  *
- *Todo:		need to fix Verify flash function, flash contents don't match.
+ *Update:		fixed write_nvm function, would fall to dummy handler.
+ *
+ *Todo:			need to fix Verify flash function, flash contents don't match.
+ *			or they seem not to.
  */ 
 
 
 #include "sam.h"
 
-#define PORTA 0
+#define PORTA 0 //Samd09 only has one port Port0
 
 /* Application starts from 1kB memory - Bootloader size is 1kB */
 /* Change the address if higher boot size is needed */
@@ -40,9 +47,6 @@
 #define BOOT_PORT			PORTA
 #define BOOT_PIN			15 //14		//PA15 for bootloader en, toggled by the python script. or DTR from serial coms.
 
-uint32_t USART_BAUD_MODIFIER_SLOW = 1048553;
-#define MY_BAUDREG_VALUE 64278    // 64278 (F_CPU=F_SERCOM=8MHz) -> 9600 BAUD
-//#define MY_BAUDREG_VALUE 55470      // 55470 (F_CPU=F_SERCOM=1MHz) -> 9600 BAUD
 #define div_ceil(a,b)(((a)+(b)-1)/(b))			//extracted function from samd_math.h <- something like that.
 
 /* SERCOM USART GCLK Frequency */
@@ -59,33 +63,7 @@ uint8_t aVER[31] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
 					' ','s','e','r','i','a','l',' ','b','o','o','t',
 					'l','o','a','d','e','r'};
 
-enum uart_pad_settings {
-	UART_RX_PAD0_TX_PAD2 = SERCOM_USART_CTRLA_RXPO(0) | SERCOM_USART_CTRLA_TXPO(1),
-	UART_RX_PAD1_TX_PAD2 = SERCOM_USART_CTRLA_RXPO(1) | SERCOM_USART_CTRLA_TXPO(1),
-	UART_RX_PAD2_TX_PAD0 = SERCOM_USART_CTRLA_RXPO(2),
-	UART_RX_PAD3_TX_PAD0 = SERCOM_USART_CTRLA_RXPO(3),
-	UART_RX_PAD1_TX_PAD0 = SERCOM_USART_CTRLA_RXPO(1),
-	UART_RX_PAD3_TX_PAD2 = SERCOM_USART_CTRLA_RXPO(3) | SERCOM_USART_CTRLA_TXPO(1),
-};
 
-/*
-void uart_init(uint16_t baud_val, enum uart_pad_settings pad_conf)
-{
-	/* Enable & configure alternate function D for pins PA10 & PA11 */
-	/* Change following 3 lines if different SERCOM/SERCOM pins are used *//*
-	PORT->Group[0].WRCONFIG.reg = 0x53010C00;
-	PM->APBCMASK.reg |= (1u << 4);
-	GCLK->CLKCTRL.reg = 0x4010;
-	
-	BOOT_SERCOM->USART.CTRLA.reg = pad_conf | SERCOM_USART_CTRLA_MODE(1) | SERCOM_USART_CTRLA_DORD;
-	BOOT_SERCOM->USART.CTRLB.reg = SERCOM_USART_CTRLB_RXEN | SERCOM_USART_CTRLB_TXEN | SERCOM_USART_CTRLB_CHSIZE(0);
-	while(BOOT_SERCOM->USART.SYNCBUSY.bit.CTRLB);
-	BOOT_SERCOM->USART.BAUD.reg = baud_val;
-	BOOT_SERCOM->USART.CTRLA.bit.ENABLE = 1;
-	while(BOOT_SERCOM->USART.SYNCBUSY.bit.ENABLE);
-}
-*/
-	
 static inline void pin_set_peripheral_function(uint32_t pinmux)
 {
     /* the variable pinmux consist of two components:
@@ -109,7 +87,8 @@ static inline void pin_set_peripheral_function(uint32_t pinmux)
     // set new values
     PORT->Group[port].PMUX[pin/2].reg |=  ( (uint8_t)( (pinmux&0xFFFF) <<(4*(pin&1)) ) ); 
 }
-	
+
+/*init USART module on SERCOM1*/
 void UART_sercom_init()
 {
 	//port muxer config
@@ -140,7 +119,8 @@ void UART_sercom_init()
 	SERCOM1->USART.CTRLA.reg |= SERCOM_USART_CTRLA_ENABLE;
 	
 }
-	
+
+/* interrupt handler for Sercom1 USART */
 void SERCOM1_Handler()  // SERCOM1 ISR
 {
 	uint8_t buffer;
@@ -150,6 +130,7 @@ void SERCOM1_Handler()  // SERCOM1 ISR
 	while(!(SERCOM1->USART.INTFLAG.reg & 2)); // wait until TX complete;
 }	
 
+//this will be replaced with UART_sercom_simpleWrite function.
 void uart_write_byte(uint8_t data)
 {
 	while(!BOOT_SERCOM->USART.INTFLAG.bit.DRE);
@@ -164,6 +145,7 @@ void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
 	while(!(sercom_module->USART.INTFLAG.reg & 2)); //wait until TX complete;
 }
 
+//this will be replaced with UART_sercom_simpleRead function.
 uint8_t uart_read_byte(void)
 {
 	while(!BOOT_SERCOM->USART.INTFLAG.bit.RXC);
@@ -220,7 +202,7 @@ void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer,
 int main(void)
 { 
 	/* Check if boot pin is held low - Jump to application if boot pin is high */
-	//PORT->Group[BOOT_PORT].OUTSET.reg = (1u << BOOT_PIN);
+	//PORT->Group[BOOT_PORT].OUTSET.reg = (1u << BOOT_PIN); //<- works without this definition.
 
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
@@ -239,12 +221,10 @@ int main(void)
 	/* Make CPU to run at 8MHz by clearing prescalar bits */ 
     SYSCTRL->OSC8M.bit.PRESC = 0;
 	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
-	/* Change pad_conf argument if different pad settings is used */
-	//uart_init(BAUD_VAL, UART_RX_PAD3_TX_PAD2);
+	
+	/* Config Usart */
 	UART_sercom_init();
 	info();
-	//uart_init(64278, UART_RX_PAD3_TX_PAD2);
-	//UART_sercom_simpleWrite(SERCOM1,'*');
     while (1) 
     {
         data_8 = uart_read_byte();
@@ -306,3 +286,38 @@ void info()
 		UART_sercom_simpleWrite(SERCOM1,aVER[i]);	
 	}
 }
+
+////////////////////////////////////////////
+/* NOTES old functions kept for reference.*/
+////////////////////////////////////////////
+
+//kept as a good reminder for what pads are attached to what pins.
+/*
+enum uart_pad_settings {
+	UART_RX_PAD0_TX_PAD2 = SERCOM_USART_CTRLA_RXPO(0) | SERCOM_USART_CTRLA_TXPO(1),
+	UART_RX_PAD1_TX_PAD2 = SERCOM_USART_CTRLA_RXPO(1) | SERCOM_USART_CTRLA_TXPO(1),
+	UART_RX_PAD2_TX_PAD0 = SERCOM_USART_CTRLA_RXPO(2),
+	UART_RX_PAD3_TX_PAD0 = SERCOM_USART_CTRLA_RXPO(3),
+	UART_RX_PAD1_TX_PAD0 = SERCOM_USART_CTRLA_RXPO(1),
+	UART_RX_PAD3_TX_PAD2 = SERCOM_USART_CTRLA_RXPO(3) | SERCOM_USART_CTRLA_TXPO(1),
+};
+*/
+
+/*
+void uart_init(uint16_t baud_val, enum uart_pad_settings pad_conf)
+{
+	/* Enable & configure alternate function D for pins PA10 & PA11 */
+	/* Change following 3 lines if different SERCOM/SERCOM pins are used *//*
+	PORT->Group[0].WRCONFIG.reg = 0x53010C00;
+	PM->APBCMASK.reg |= (1u << 4);
+	GCLK->CLKCTRL.reg = 0x4010;
+	
+	BOOT_SERCOM->USART.CTRLA.reg = pad_conf | SERCOM_USART_CTRLA_MODE(1) | SERCOM_USART_CTRLA_DORD;
+	BOOT_SERCOM->USART.CTRLB.reg = SERCOM_USART_CTRLB_RXEN | SERCOM_USART_CTRLB_TXEN | SERCOM_USART_CTRLB_CHSIZE(0);
+	while(BOOT_SERCOM->USART.SYNCBUSY.bit.CTRLB);
+	BOOT_SERCOM->USART.BAUD.reg = baud_val;
+	BOOT_SERCOM->USART.CTRLA.bit.ENABLE = 1;
+	while(BOOT_SERCOM->USART.SYNCBUSY.bit.ENABLE);
+}
+*/
+
