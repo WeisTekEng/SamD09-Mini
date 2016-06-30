@@ -10,7 +10,7 @@
  *			memor. Look at APP_START for start location of user flash.
  *
  *Impportant pins : 	UART pins [PA25 PAD3 -> TXd, PA24 PAD2 -> RXd]
- *			Boot En Pin PA15: enabled boot on reset when DTR pin HIGH. Change to PA27?
+ *			Boot En Pin PA15: enabled boot on reset when DTR pin LOW. Change to PA27?
  *			USART reset pin -> RTS -> RST PIN#. Used to reset the micro when
  *			Serial is plugged in, pulse RTS LOW. Almost arduino esqe.
  *
