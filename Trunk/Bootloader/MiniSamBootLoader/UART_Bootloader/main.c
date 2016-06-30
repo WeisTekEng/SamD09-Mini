@@ -20,6 +20,8 @@
 
 /* Application starts from 1kB memory - Bootloader size is 1kB */
 /* Change the address if higher boot size is needed */
+/*good site for quick conversions.*/
+/*http://www.binaryhexconverter.com/hex-to-decimal-converter*/
 #define APP_START	0x00000500 //This gives 1280 bytes of bootloader space.
 
 /* Target application size can be 15kB */
