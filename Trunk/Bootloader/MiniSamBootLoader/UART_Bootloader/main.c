@@ -1,5 +1,16 @@
 /*
- * UART_Bootloader.c
+ * main.c
+ *Project:	miniSam USART bootloader.
+ *Author:	Weistek Engineering (jeremy G.)
+ *website:	www.weistekengineering.com
+ *date:		06-29-2016f
+ *Summery:	If PA15 bootpin is held low, micro will enter USART bootloader mode.
+ *		if PA15 is high, micro runs user program if there is one at new start
+ *		memor. Look at APP_START for start location of user flash.
+ *
+ *Update:	fixed write_nvm function, would fall to dummy handler.
+ *
+ *Todo:		need to fix Verify flash function, flash contents don't match.
  */ 
 
 
