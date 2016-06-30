@@ -6,43 +6,43 @@
 #include "sam.h"
 
 #define PORTA 0
-#define PORTB 1
 
 /* Application starts from 1kB memory - Bootloader size is 1kB */
 /* Change the address if higher boot size is needed */
-#define APP_START	0x00000500
+#define APP_START	0x00000500 //This gives 1280 bytes of bootloader space.
 
 /* Target application size can be 15kB */
 /* APP_SIZE is the application section size in kB */
 /* Change as per APP_START */
-#define APP_SIZE	13
+#define APP_SIZE	13	//This is how much flash memory is left for the application.
 
 /* Flash page size is 64 bytes */
-#define PAGE_SIZE	64
+#define PAGE_SIZE	64	//used to read and write to flash.
 /* Memory pointer for flash memory */
 #define NVM_MEMORY        ((volatile uint16_t *)FLASH_ADDR)
 
 /* Change the following if different SERCOM and boot pins are used */
-#define BOOT_SERCOM			SERCOM1
+#define BOOT_SERCOM			SERCOM1		//miniSam uses Sercom1 for USART
 #define BOOT_SERCOM_BAUD	115200
 #define BOOT_PORT			PORTA
-#define BOOT_PIN			15 //14
+#define BOOT_PIN			15 //14		//PA15 for bootloader en, toggled by the python script. or DTR from serial coms.
 
 uint32_t USART_BAUD_MODIFIER_SLOW = 1048553;
 #define MY_BAUDREG_VALUE 64278    // 64278 (F_CPU=F_SERCOM=8MHz) -> 9600 BAUD
 //#define MY_BAUDREG_VALUE 55470      // 55470 (F_CPU=F_SERCOM=1MHz) -> 9600 BAUD
-#define div_ceil(a,b)(((a)+(b)-1)/(b))
+#define div_ceil(a,b)(((a)+(b)-1)/(b))			//extracted function from samd_math.h <- something like that.
 
 /* SERCOM USART GCLK Frequency */
-#define SERCOM_GCLK		8000000UL
-#define BAUD_VAL	(65536.0*(1.0-((float)(16.0*(float)BOOT_SERCOM_BAUD)/(float)SERCOM_GCLK)))
+#define SERCOM_GCLK		8000000UL		//processor speed.
+#define BAUD_VAL	(65536.0*(1.0-((float)(16.0*(float)BOOT_SERCOM_BAUD)/(float)SERCOM_GCLK))) //calculate baud rate from SERCOM_GCLK
 
 uint8_t data_8 = 1;
 uint32_t file_size, i, dest_addr, app_start_address;
 uint8_t page_buffer[PAGE_SIZE];
 uint32_t *flash_ptr;
 
-uint8_t ver[31] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
+//Version information.
+uint8_t aVER[31] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
 					' ','s','e','r','i','a','l',' ','b','o','o','t',
 					'l','o','a','d','e','r'};
 
@@ -290,6 +290,6 @@ void info()
 	
 	for(i = 0;i<=31;i++)
 	{
-		UART_sercom_simpleWrite(SERCOM1,ver[i]);	
+		UART_sercom_simpleWrite(SERCOM1,aVER[i]);	
 	}
 }
