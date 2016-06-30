@@ -64,6 +64,7 @@ uint8_t aVER[31] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
 					'l','o','a','d','e','r'};
 
 
+/*pin pad setup for SERCOM1 and USART*/
 static inline void pin_set_peripheral_function(uint32_t pinmux)
 {
     /* the variable pinmux consist of two components:
