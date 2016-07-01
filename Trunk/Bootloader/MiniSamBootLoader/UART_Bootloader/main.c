@@ -5,23 +5,24 @@
  *website:		www.weistekengineering.com
  *date:			06-29-2016f
  *Summery:		Modified version of the Samd10 bootloader.
- *			If PA15 bootpin is held low, micro will enter USART bootloader mode.
- *			if PA15 is high, micro runs user program if there is one at new start
- *			memor. Look at APP_START for start location of user flash.
+ *				If PA15 bootpin is held low, micro will enter USART bootloader mode.
+ *				if PA15 is high, micro runs user program if there is one at new start
+ *				memory. Look at APP_START for start location of user flash.
  *
- *Impportant pins : 	UART pins [PA25 PAD3 -> TXd, PA24 PAD2 -> RXd]
- *			Boot En Pin PA15: enabled boot on reset when DTR pin LOW. Change to PA27?
- *			USART reset pin -> RTS -> RST PIN#. Used to reset the micro when
- *			Serial is plugged in, pulse RTS LOW. Almost arduino esqe.
+ *Important pins : 	UART pins [PA25 PAD3 -> TXd, PA24 PAD2 -> RXd]
+ *					Boot En Pin PA15: enabled boot on reset when DTR pin LOW. Change to PA27?
+ *					USART reset pin -> RTS -> RST PIN#. Used to reset the micro when
+ *					Serial is plugged in, pulse RTS LOW. Almost arduino esqe.
  *
- *Update:		fixed write_nvm function, would fall to dummy handler.
+ *Update:			fixed write_nvm function, would fall to dummy handler.
  *
- *Todo:			need to fix Verify flash function, flash contents don't match.
- *			or they seem not to.
+ *Todo:				need to fix Verify flash function, flash contents don't match.
+ *					or they seem not to.
  */ 
 
 
 #include "sam.h"
+#include <component/nvmctrl.h>
 
 #define PORTA 0 //Samd09 only has one port Port0
 
@@ -29,7 +30,7 @@
 /* Change the address if higher boot size is needed */
 /*good site for quick conversions.*/
 /*http://www.binaryhexconverter.com/hex-to-decimal-converter*/
-#define APP_START	0x00000500 //This gives 1280 bytes of bootloader space.
+#define APP_START	0x00000600 //This gives 1536 bytes of bootloader space.
 
 /* Target application size can be 15kB */
 /* APP_SIZE is the application section size in kB */
@@ -38,6 +39,7 @@
 
 /* Flash page size is 64 bytes */
 #define PAGE_SIZE	64	//used to read and write to flash.
+
 /* Memory pointer for flash memory */
 #define NVM_MEMORY        ((volatile uint16_t *)FLASH_ADDR)
 
@@ -59,9 +61,8 @@ uint8_t page_buffer[PAGE_SIZE];
 uint32_t *flash_ptr;
 
 //Version information.
-uint8_t aVER[31] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
-					' ','s','e','r','i','a','l',' ','b','o','o','t',
-					'l','o','a','d','e','r'};
+uint8_t aVER[29] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
+					' ','b','o','o','t','l','o','a','d','e','r',' ','V','0','.','1'};
 
 
 /*pin pad setup for SERCOM1 and USART*/
@@ -92,18 +93,13 @@ static inline void pin_set_peripheral_function(uint32_t pinmux)
 /*init USART module on SERCOM1*/
 void UART_sercom_init()
 {
-	//port muxer config
-	PORT->Group[1].PINCFG[PINMUX_PA24C_SERCOM1_PAD2].bit.PMUXEN = 1;
-	PORT->Group[1].PINCFG[PINMUX_PA25C_SERCOM1_PAD3].bit.PMUXEN = 1;
 	
 	//Pmux eve = n/1, odd = (n-1)/2
-	//PORT->Group[1].PMUX[PINMUX_PA22C_SERCOM1_PAD0 >> 1].reg = 0x23;
 	pin_set_peripheral_function(PINMUX_PA25C_SERCOM1_PAD3); // SAMD09 TX
 	pin_set_peripheral_function(PINMUX_PA24C_SERCOM1_PAD2); // SAMD09 RX
 	
 	//apbcmak
 	PM->APBCMASK.reg |= PM_APBCMASK_SERCOM1;
-	
 	
 	//gclk config
 	GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID(SERCOM1_GCLK_ID_CORE) | GCLK_CLKCTRL_GEN(0) | GCLK_CLKCTRL_CLKEN;
@@ -208,9 +204,9 @@ int main(void)
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
 	{
-		app_start_address = *(uint32_t *)(APP_START + 4);
+		app_start_address = /**(uint32_t *)*/(APP_START + 4);
 		/* Rebase the Stack Pointer */
-		__set_MSP(*(uint32_t *) APP_START);
+		__set_MSP(*(uint32_t *) APP_START + 4);
 
 		/* Rebase the vector table base address */
 		SCB->VTOR = ((uint32_t) APP_START & SCB_VTOR_TBLOFF_Msk);
@@ -282,7 +278,7 @@ void info()
 {
 	uint8_t i;
 	
-	for(i = 0;i<=31;i++)
+	for(i = 0;i<=29;i++)
 	{
 		UART_sercom_simpleWrite(SERCOM1,aVER[i]);	
 	}

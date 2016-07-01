@@ -101,8 +101,9 @@ for x in range(0, nb_blocks):
 		out = ''
 		out += input_file.read(1)
 		length = ser.write(out)
-		print (str(out)+"\n")
-		#time.sleep(0.001)
+		
+		time.sleep(0.01)
+	print (str(out)+"\n")
 
 	#print (".")
 	while ser.inWaiting == 0:
@@ -114,7 +115,7 @@ for x in range(0, nb_blocks):
 		sys.exit()
 
 # Program last page
-print ("Programming page %d" % nb_blocks)
+print ("Programming last page %d" % nb_blocks)
 length = ser.write('p')
 while ser.inWaiting == 0:
 	pass
@@ -143,6 +144,7 @@ if read != 's':
 # Close file
 input_file.close()
 print ("\n")
+
 
 # Open input file for verifying flash
 input_file = open(args.inputfile, 'rb')

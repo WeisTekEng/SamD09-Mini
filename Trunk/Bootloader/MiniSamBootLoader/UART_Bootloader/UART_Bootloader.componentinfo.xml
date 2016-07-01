@@ -28,7 +28,7 @@
 					<Description></Description>
 					<Files>
 						<d4p1:anyType i:type="FileInfo">
-							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD11_DFP\1.0.30\include</AbsolutePath>
+							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include</AbsolutePath>
 							<Attribute></Attribute>
 							<Category>include</Category>
 							<Condition>C</Condition>
@@ -39,18 +39,18 @@
 							<SourcePath></SourcePath>
 						</d4p1:anyType>
 						<d4p1:anyType i:type="FileInfo">
-							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD11_DFP\1.0.30\include\sam.h</AbsolutePath>
+							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include\sam.h</AbsolutePath>
 							<Attribute></Attribute>
 							<Category>header</Category>
 							<Condition>C</Condition>
-							<FileContentHash>QqcKUfcXj4IuopNrqBMw+A==</FileContentHash>
+							<FileContentHash>hCux+0vd+/oxjEfKgT2B4A==</FileContentHash>
 							<FileVersion></FileVersion>
 							<Name>include/sam.h</Name>
 							<SelectString></SelectString>
 							<SourcePath></SourcePath>
 						</d4p1:anyType>
 						<d4p1:anyType i:type="FileInfo">
-							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD11_DFP\1.0.30\templates\main.c</AbsolutePath>
+							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\templates\main.c</AbsolutePath>
 							<Attribute>template</Attribute>
 							<Category>source</Category>
 							<Condition>C Exe</Condition>
@@ -61,7 +61,7 @@
 							<SourcePath></SourcePath>
 						</d4p1:anyType>
 						<d4p1:anyType i:type="FileInfo">
-							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD11_DFP\1.0.30\templates\main.cpp</AbsolutePath>
+							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\templates\main.cpp</AbsolutePath>
 							<Attribute>template</Attribute>
 							<Category>source</Category>
 							<Condition>C Exe</Condition>
@@ -72,55 +72,55 @@
 							<SourcePath></SourcePath>
 						</d4p1:anyType>
 						<d4p1:anyType i:type="FileInfo">
-							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD11_DFP\1.0.30\gcc\system_samd11.c</AbsolutePath>
+							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\gcc\system_samd09.c</AbsolutePath>
 							<Attribute>config</Attribute>
 							<Category>source</Category>
 							<Condition>GCC Exe</Condition>
-							<FileContentHash>SChOoQqgr7a/S70IzUIS8w==</FileContentHash>
+							<FileContentHash>BZQCdutnNFPo2u3khw7idA==</FileContentHash>
 							<FileVersion></FileVersion>
-							<Name>gcc/system_samd11.c</Name>
+							<Name>gcc/system_samd09.c</Name>
 							<SelectString></SelectString>
 							<SourcePath></SourcePath>
 						</d4p1:anyType>
 						<d4p1:anyType i:type="FileInfo">
-							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD11_DFP\1.0.30\gcc\gcc\startup_samd11.c</AbsolutePath>
+							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\gcc\gcc\startup_samd09.c</AbsolutePath>
 							<Attribute>config</Attribute>
 							<Category>source</Category>
 							<Condition>GCC Exe</Condition>
-							<FileContentHash>F7+HygHlJ8K8IcAPkmCO9Q==</FileContentHash>
+							<FileContentHash>hGwESxVCsG5DWySGdNXwZA==</FileContentHash>
 							<FileVersion></FileVersion>
-							<Name>gcc/gcc/startup_samd11.c</Name>
+							<Name>gcc/gcc/startup_samd09.c</Name>
 							<SelectString></SelectString>
 							<SourcePath></SourcePath>
 						</d4p1:anyType>
 						<d4p1:anyType i:type="FileInfo">
-							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD11_DFP\1.0.30\gcc\gcc\samd11d14am_flash.ld</AbsolutePath>
+							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\gcc\gcc\samd09d14a_flash.ld</AbsolutePath>
 							<Attribute>config</Attribute>
 							<Category>linkerScript</Category>
 							<Condition>GCC Exe</Condition>
-							<FileContentHash>QMooFSicJpFAQSEW1ngZzw==</FileContentHash>
+							<FileContentHash>rkUNvPKb6LAPwzOWFpRi2w==</FileContentHash>
 							<FileVersion></FileVersion>
-							<Name>gcc/gcc/samd11d14am_flash.ld</Name>
+							<Name>gcc/gcc/samd09d14a_flash.ld</Name>
 							<SelectString></SelectString>
 							<SourcePath></SourcePath>
 						</d4p1:anyType>
 						<d4p1:anyType i:type="FileInfo">
-							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD11_DFP\1.0.30\gcc\gcc\samd11d14am_sram.ld</AbsolutePath>
+							<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\gcc\gcc\samd09d14a_sram.ld</AbsolutePath>
 							<Attribute>config</Attribute>
 							<Category>other</Category>
 							<Condition>GCC Exe</Condition>
-							<FileContentHash>n9lyF/Qb5SPULQS5Ymr1Xw==</FileContentHash>
+							<FileContentHash>rnWyuQBaMo/Ji6fLVksDUQ==</FileContentHash>
 							<FileVersion></FileVersion>
-							<Name>gcc/gcc/samd11d14am_sram.ld</Name>
+							<Name>gcc/gcc/samd09d14a_sram.ld</Name>
 							<SelectString></SelectString>
 							<SourcePath></SourcePath>
 						</d4p1:anyType>
 					</Files>
-					<PackName>SAMD11_DFP</PackName>
-					<PackPath>C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/SAMD11_DFP/1.0.30/Atmel.SAMD11_DFP.pdsc</PackPath>
-					<PackVersion>1.0.30</PackVersion>
+					<PackName>SAMD09_DFP</PackName>
+					<PackPath>C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/SAMD09_DFP/1.0.25/Atmel.SAMD09_DFP.pdsc</PackPath>
+					<PackVersion>1.0.25</PackVersion>
 					<PresentInProject>true</PresentInProject>
-					<ReferenceConditionId>ATSAMD11D14AM</ReferenceConditionId>
+					<ReferenceConditionId>ATSAMD09D14A</ReferenceConditionId>
 					<RteComponents>
 						<d4p1:string></d4p1:string>
 					</RteComponents>
