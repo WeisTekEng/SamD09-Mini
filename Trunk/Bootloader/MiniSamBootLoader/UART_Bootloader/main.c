@@ -22,26 +22,66 @@
 
 
 #include "sam.h"
-#include <component/nvmctrl.h>
+#include "nvmctrl.h"
+//#include <system.h>
+
+#define bool	_Bool
 
 #define PORTA 0 //Samd09 only has one port Port0
 
-/* Application starts from 1kB memory - Bootloader size is 1kB */
-/* Change the address if higher boot size is needed */
-/*good site for quick conversions.*/
-/*http://www.binaryhexconverter.com/hex-to-decimal-converter*/
-#define APP_START	0x00000600 //This gives 1536 bytes of bootloader space.
+/**
+ * \internal Internal device instance struct
+ *
+ * This struct contains information about the NVM module which is
+ * often used by the different functions. The information is loaded
+ * into the struct in the nvm_init() function.
+ */
+struct _nvm_module {
+	/** Number of bytes contained per page. */
+	uint16_t page_size;
+	/** Total number of pages in the NVM memory. */
+	uint16_t number_of_pages;
+	/** If \c false, a page write command will be issued automatically when the
+	 *  page buffer is full. */
+	bool manual_page_write;
+};
 
-/* Target application size can be 15kB */
-/* APP_SIZE is the application section size in kB */
-/* Change as per APP_START */
-#define APP_SIZE	13	//This is how much flash memory is left for the application.
+/**
+ * \internal Instance of the internal device struct
+ */
+static struct _nvm_module _nvm_dev;
+/**
+ * \brief NVM controller configuration structure.
+ *
+ * Configuration structure for the NVM controller within the device.
+ */
+struct nvm_config {
 
-/* Flash page size is 64 bytes */
-#define PAGE_SIZE	64	//used to read and write to flash.
+	bool manual_page_write;
 
-/* Memory pointer for flash memory */
-#define NVM_MEMORY        ((volatile uint16_t *)FLASH_ADDR)
+};
+
+volatile enum status_code{
+	STATUS_OK                       = 0x00,
+	STATUS_FAIL						= 0x01,
+};
+
+
+volatile enum status_code nvm_set_config()
+{
+	
+	/*get a pointer to the module hardware instance.*/
+	Nvmctrl *const nvm_module = NVMCTRL;
+	
+	/* Initialize the internal device struct */
+	_nvm_dev.page_size         = (8 << nvm_module->PARAM.bit.PSZ);
+	_nvm_dev.number_of_pages   = nvm_module->PARAM.bit.NVMP;
+
+	/* If the security bit is set, the auxiliary space cannot be written */
+	if (nvm_module->STATUS.reg & NVMCTRL_STATUS_SB) {
+		return STATUS_FAIL;
+	}
+};
 
 /* Change the following if different SERCOM and boot pins are used */
 #define BOOT_SERCOM			SERCOM1		//miniSam uses Sercom1 for USART
@@ -55,9 +95,25 @@
 #define SERCOM_GCLK		8000000UL		//processor speed.
 #define BAUD_VAL	(65536.0*(1.0-((float)(16.0*(float)BOOT_SERCOM_BAUD)/(float)SERCOM_GCLK))) //calculate baud rate from SERCOM_GCLK
 
+/* Application starts from 1kB memory - Bootloader size is 1kB */
+/* Change the address if higher boot size is needed */
+/*good site for quick conversions.*/
+/*http://www.binaryhexconverter.com/hex-to-decimal-converter*/
+#define APP_START	0x00000800 //This gives 1536 bytes of bootloader space.
+
+/* Target application size can be 15kB */
+/* APP_SIZE is the application section size in kB */
+/* Change as per APP_START */
+#define APP_SIZE	13	//This is how much flash memory is left for the application.
+
+
+
+/* Memory pointer for flash memory */
+#define NVM_MEMORY			((volatile uint16_t *)FLASH_ADDR)
+#define NVM_USER_MEMORY		((volatile uint16_t *)NVMCTRL_USER)
+
 uint8_t data_8 = 1;
 uint32_t file_size, i, dest_addr, app_start_address;
-uint8_t page_buffer[PAGE_SIZE];
 uint32_t *flash_ptr;
 
 //Version information.
@@ -151,18 +207,52 @@ uint8_t uart_read_byte(void)
 
 void nvm_erase_row(const uint32_t row_address)
 {
+	/* Check if the address to erase is not aligned to the start of a row */
+	if(row_address > ((uint32_t)_nvm_dev.page_size * _nvm_dev.number_of_pages))
+	{
+		return 0;
+	}
+
+	/* Get a pointer to the module hardware instance */
+	if(row_address & ((_nvm_dev.page_size * NVMCTRL_ROW_PAGES)-1))
+	{
+		return 0;
+	}
+	
+	
 	/* Check if the module is busy */
 	while(!NVMCTRL->INTFLAG.bit.READY);
+	
 	/* Clear error flags */
 	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
+	
 	/* Set address and command */
-	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address / 2];
+	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address /4 ];
+	
 	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMD_ER | NVMCTRL_CTRLA_CMDEX_KEY;
+	
 	while(!NVMCTRL->INTFLAG.bit.READY);
+	
+	return 1;
 }
 
 void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer, uint16_t length)
 {
+	/* Check if the destination address is valid */
+	if (destination_address >
+	((uint32_t)_nvm_dev.page_size * _nvm_dev.number_of_pages)) {
+		return 0;
+	}
+	
+	/* Check if the write address not aligned to the start of a page */
+	if (destination_address & (_nvm_dev.page_size - 1)) {
+		return 0;
+	}
+	
+	/* Check if the write length is longer than a NVM page */
+	if (length > _nvm_dev.page_size) {
+		return 0;
+	}
 
 	/* Check if the module is busy */
 	while(!NVMCTRL->INTFLAG.bit.READY);
@@ -183,8 +273,10 @@ void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer,
 	for (uint16_t k = 0; k < length; k += 2) 
 	{
 		uint16_t data;
+		
 		/* Copy first byte of the 16-bit chunk to the temporary buffer */
 		data = buffer[k];
+		
 		/* If we are not at the end of a write request with an odd byte count,
 		 * store the next byte of data as well */
 		if (k < (length - 1)) {
@@ -193,6 +285,14 @@ void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer,
 		/* Store next 16-bit chunk to the NVM memory space */
 		NVM_MEMORY[nvm_address++] = data;
 	}
+	
+	/* If automatic page write mode is enable, then perform a manual NVM
+	 * write when the length of data to be programmed is less than page size
+	 */
+	if ((_nvm_dev.manual_page_write == 0) && (length < NVMCTRL_PAGE_SIZE)) {
+		NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_WP;
+	}
+	
 	while(!NVMCTRL->INTFLAG.bit.READY);
 }
 
@@ -204,7 +304,7 @@ int main(void)
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
 	{
-		app_start_address = /**(uint32_t *)*/(APP_START + 4);
+		app_start_address = *(uint32_t *)(APP_START + 4);
 		/* Rebase the Stack Pointer */
 		__set_MSP(*(uint32_t *) APP_START + 4);
 
@@ -214,12 +314,20 @@ int main(void)
 		/* Jump to application Reset Handler in the application */
 		asm("bx %0"::"r"(app_start_address));
 	}
+	REG_PORT_DIR0 |= (1 << 14);
+	REG_PORT_OUT0 |= (1<<14);
 	
 	/* Make CPU to run at 8MHz by clearing prescalar bits */ 
     SYSCTRL->OSC8M.bit.PRESC = 0;
 	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
 	
 	/* Config Usart */
+	nvm_set_config();
+	
+	/* Flash page size is 64 bytes */
+	#define PAGE_SIZE	_nvm_dev.page_size	//used to read and write to flash.
+	uint8_t page_buffer[PAGE_SIZE];
+	
 	UART_sercom_init();
 	info();
     while (1) 
@@ -245,12 +353,12 @@ int main(void)
 		else if (data_8 == 'p')
 		{
 			uart_write_byte('s');
-			for (i = 0; i < PAGE_SIZE; i++)
+			for (i = 0; i < _nvm_dev.page_size; i++)
 			{
 				page_buffer[i] = uart_read_byte();
 			}
-			nvm_write_buffer(dest_addr, page_buffer, PAGE_SIZE);
-			dest_addr += PAGE_SIZE;
+			nvm_write_buffer(dest_addr, page_buffer, _nvm_dev.page_size);
+			dest_addr += _nvm_dev.page_size;
 			uart_write_byte('s');
 		}
 		else if (data_8 == 'v')
@@ -258,7 +366,7 @@ int main(void)
 			/* now we get stuck here... varifing pages fails on the first page.
 			don't know why.*/
 			uart_write_byte('s');
-			for (i = 0; i < (PAGE_SIZE); i++)
+			for (i = 0; i < (_nvm_dev.page_size); i++)
 			{
 				app_start_address = *flash_ptr;
 				//uart_write_byte((uint8_t)app_start_address);

@@ -3,41 +3,41 @@ UART_Bootloader.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000050c  00000000  00000000  00010000  2**2
+  0 .text         000005ac  00000000  00000000  00008000  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .relocate     00000020  20000000  0000050c  00020000  2**0
+  1 .relocate     00000020  20000000  000005ac  00010000  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000070  20000020  0000052c  00020020  2**2
+  2 .bss          00000038  20000020  000005cc  00010020  2**2
                   ALLOC
-  3 .stack        00000400  20000090  0000059c  00020020  2**0
+  3 .stack        00000400  20000058  00000604  00010020  2**0
                   ALLOC
-  4 .ARM.attributes 00000028  00000000  00000000  00020020  2**0
+  4 .ARM.attributes 00000028  00000000  00000000  00010020  2**0
                   CONTENTS, READONLY
-  5 .comment      00000059  00000000  00000000  00020048  2**0
+  5 .comment      0000005b  00000000  00000000  00010048  2**0
                   CONTENTS, READONLY
-  6 .debug_info   0000637f  00000000  00000000  000200a1  2**0
+  6 .debug_info   000064ab  00000000  00000000  000100a3  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000053b  00000000  00000000  00026420  2**0
+  7 .debug_abbrev 00000605  00000000  00000000  0001654e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    00000274  00000000  00000000  0002695b  2**0
+  8 .debug_loc    0000026e  00000000  00000000  00016b53  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_aranges 00000088  00000000  00000000  00026bcf  2**0
+  9 .debug_aranges 00000090  00000000  00000000  00016dc1  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 000000c8  00000000  00000000  00026c57  2**0
+ 10 .debug_ranges 000000b8  00000000  00000000  00016e51  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  0000a451  00000000  00000000  00026d1f  2**0
+ 11 .debug_macro  0000a320  00000000  00000000  00016f09  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00000d92  00000000  00000000  00031170  2**0
+ 12 .debug_line   00000d46  00000000  00000000  00021229  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    00041387  00000000  00000000  00031f02  2**0
+ 13 .debug_str    00041229  00000000  00000000  00021f6f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  00000140  00000000  00000000  0007328c  2**2
+ 14 .debug_frame  00000150  00000000  00000000  00063198  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <_sfixed>:
-   0:	20000490 	.word	0x20000490
+   0:	20000458 	.word	0x20000458
    4:	000000f1 	.word	0x000000f1
    8:	000000ed 	.word	0x000000ed
    c:	000000ed 	.word	0x000000ed
@@ -56,7 +56,7 @@ Disassembly of section .text:
   5c:	00000000 	.word	0x00000000
   60:	000000ed 	.word	0x000000ed
   64:	000000ed 	.word	0x000000ed
-  68:	00000219 	.word	0x00000219
+  68:	00000239 	.word	0x00000239
 	...
   74:	000000ed 	.word	0x000000ed
   78:	000000ed 	.word	0x000000ed
@@ -81,40 +81,40 @@ Disassembly of section .text:
   a6:	bd10      	pop	{r4, pc}
   a8:	20000020 	.word	0x20000020
   ac:	00000000 	.word	0x00000000
-  b0:	0000050c 	.word	0x0000050c
+  b0:	000005ac 	.word	0x000005ac
 
 000000b4 <frame_dummy>:
-  b4:	4b08      	ldr	r3, [pc, #32]	; (d8 <frame_dummy+0x24>)
-  b6:	b510      	push	{r4, lr}
+  b4:	b508      	push	{r3, lr}
+  b6:	4b08      	ldr	r3, [pc, #32]	; (d8 <frame_dummy+0x24>)
   b8:	2b00      	cmp	r3, #0
   ba:	d003      	beq.n	c4 <frame_dummy+0x10>
-  bc:	4907      	ldr	r1, [pc, #28]	; (dc <frame_dummy+0x28>)
-  be:	4808      	ldr	r0, [pc, #32]	; (e0 <frame_dummy+0x2c>)
+  bc:	4807      	ldr	r0, [pc, #28]	; (dc <frame_dummy+0x28>)
+  be:	4908      	ldr	r1, [pc, #32]	; (e0 <frame_dummy+0x2c>)
   c0:	e000      	b.n	c4 <frame_dummy+0x10>
   c2:	bf00      	nop
   c4:	4807      	ldr	r0, [pc, #28]	; (e4 <frame_dummy+0x30>)
   c6:	6803      	ldr	r3, [r0, #0]
   c8:	2b00      	cmp	r3, #0
   ca:	d100      	bne.n	ce <frame_dummy+0x1a>
-  cc:	bd10      	pop	{r4, pc}
+  cc:	bd08      	pop	{r3, pc}
   ce:	4b06      	ldr	r3, [pc, #24]	; (e8 <frame_dummy+0x34>)
   d0:	2b00      	cmp	r3, #0
   d2:	d0fb      	beq.n	cc <frame_dummy+0x18>
   d4:	4798      	blx	r3
   d6:	e7f9      	b.n	cc <frame_dummy+0x18>
   d8:	00000000 	.word	0x00000000
-  dc:	20000024 	.word	0x20000024
-  e0:	0000050c 	.word	0x0000050c
-  e4:	0000050c 	.word	0x0000050c
+  dc:	000005ac 	.word	0x000005ac
+  e0:	20000024 	.word	0x20000024
+  e4:	000005ac 	.word	0x000005ac
   e8:	00000000 	.word	0x00000000
 
 000000ec <Dummy_Handler>:
-
-/**
  * \brief Default interrupt handler for unused IRQs.
  */
 void Dummy_Handler(void)
 {
+        while (1) {
+        }
   ec:	e7fe      	b.n	ec <Dummy_Handler>
 	...
 
@@ -125,985 +125,1126 @@ void Dummy_Handler(void)
  */
 void Reset_Handler(void)
 {
-  f0:	481d      	ldr	r0, [pc, #116]	; (168 <Reset_Handler+0x78>)
-  f2:	491e      	ldr	r1, [pc, #120]	; (16c <Reset_Handler+0x7c>)
-  f4:	b570      	push	{r4, r5, r6, lr}
+  f0:	481c      	ldr	r0, [pc, #112]	; (164 <Reset_Handler+0x74>)
+  f2:	491d      	ldr	r1, [pc, #116]	; (168 <Reset_Handler+0x78>)
+  f4:	b510      	push	{r4, lr}
+  f6:	2300      	movs	r3, #0
 
         /* Initialize the relocate segment */
         pSrc = &_etext;
         pDest = &_srelocate;
 
         if (pSrc != pDest) {
-  f6:	4288      	cmp	r0, r1
-  f8:	d002      	beq.n	100 <Reset_Handler+0x10>
-  fa:	2300      	movs	r3, #0
+  f8:	4288      	cmp	r0, r1
+  fa:	d101      	bne.n	100 <Reset_Handler+0x10>
+  fc:	4b1b      	ldr	r3, [pc, #108]	; (16c <Reset_Handler+0x7c>)
+  fe:	e007      	b.n	110 <Reset_Handler+0x20>
                 for (; pDest < &_erelocate;) {
-  fc:	4c1c      	ldr	r4, [pc, #112]	; (170 <Reset_Handler+0x80>)
-  fe:	e003      	b.n	108 <Reset_Handler+0x18>
- 100:	4b1c      	ldr	r3, [pc, #112]	; (174 <Reset_Handler+0x84>)
+ 100:	4c1b      	ldr	r4, [pc, #108]	; (170 <Reset_Handler+0x80>)
+ 102:	18ca      	adds	r2, r1, r3
+ 104:	42a2      	cmp	r2, r4
+ 106:	d2f9      	bcs.n	fc <Reset_Handler+0xc>
                         *pDest++ = *pSrc++;
+ 108:	58c4      	ldr	r4, [r0, r3]
+ 10a:	3304      	adds	r3, #4
+ 10c:	6014      	str	r4, [r2, #0]
+ 10e:	e7f7      	b.n	100 <Reset_Handler+0x10>
                 }
         }
 
         /* Clear the zero segment */
         for (pDest = &_szero; pDest < &_ezero;) {
- 102:	4a1d      	ldr	r2, [pc, #116]	; (178 <Reset_Handler+0x88>)
+ 110:	4a18      	ldr	r2, [pc, #96]	; (174 <Reset_Handler+0x84>)
+ 112:	4293      	cmp	r3, r2
+ 114:	d202      	bcs.n	11c <Reset_Handler+0x2c>
                 *pDest++ = 0;
- 104:	2100      	movs	r1, #0
- 106:	e006      	b.n	116 <Reset_Handler+0x26>
-        /* Initialize the relocate segment */
-        pSrc = &_etext;
-        pDest = &_srelocate;
-
-        if (pSrc != pDest) {
-                for (; pDest < &_erelocate;) {
- 108:	18ca      	adds	r2, r1, r3
- 10a:	42a2      	cmp	r2, r4
- 10c:	d2f8      	bcs.n	100 <Reset_Handler+0x10>
-                        *pDest++ = *pSrc++;
- 10e:	58c5      	ldr	r5, [r0, r3]
- 110:	3304      	adds	r3, #4
- 112:	6015      	str	r5, [r2, #0]
- 114:	e7f8      	b.n	108 <Reset_Handler+0x18>
-                }
-        }
-
-        /* Clear the zero segment */
-        for (pDest = &_szero; pDest < &_ezero;) {
- 116:	4293      	cmp	r3, r2
- 118:	d201      	bcs.n	11e <Reset_Handler+0x2e>
-                *pDest++ = 0;
- 11a:	c302      	stmia	r3!, {r1}
- 11c:	e7fb      	b.n	116 <Reset_Handler+0x26>
+ 116:	2200      	movs	r2, #0
+ 118:	c304      	stmia	r3!, {r2}
+ 11a:	e7f9      	b.n	110 <Reset_Handler+0x20>
         }
 
         /* Set the vector table base address */
         pSrc = (uint32_t *) & _sfixed;
         SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
- 11e:	21ff      	movs	r1, #255	; 0xff
+ 11c:	21ff      	movs	r1, #255	; 0xff
 
         /* Change default QOS values to have the best performance and correct USB behaviour */
         SBMATRIX->SFR[SBMATRIX_SLAVE_HMCRAMC0].reg = 2;
- 120:	2002      	movs	r0, #2
+ 11e:	2002      	movs	r0, #2
                 *pDest++ = 0;
         }
 
         /* Set the vector table base address */
         pSrc = (uint32_t *) & _sfixed;
         SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
- 122:	4b16      	ldr	r3, [pc, #88]	; (17c <Reset_Handler+0x8c>)
- 124:	4a16      	ldr	r2, [pc, #88]	; (180 <Reset_Handler+0x90>)
- 126:	438b      	bics	r3, r1
- 128:	6093      	str	r3, [r2, #8]
+ 120:	4b15      	ldr	r3, [pc, #84]	; (178 <Reset_Handler+0x88>)
+ 122:	4a16      	ldr	r2, [pc, #88]	; (17c <Reset_Handler+0x8c>)
+ 124:	438b      	bics	r3, r1
+ 126:	6093      	str	r3, [r2, #8]
         SBMATRIX->SFR[SBMATRIX_SLAVE_HMCRAMC0].reg = 2;
 #if defined(ID_USB)
         USB->DEVICE.QOSCTRL.bit.CQOS = 2;
         USB->DEVICE.QOSCTRL.bit.DQOS = 2;
 #endif
         DMAC->QOSCTRL.bit.DQOS = 2;
- 12a:	2230      	movs	r2, #48	; 0x30
+ 128:	2230      	movs	r2, #48	; 0x30
         /* Set the vector table base address */
         pSrc = (uint32_t *) & _sfixed;
         SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
 
         /* Change default QOS values to have the best performance and correct USB behaviour */
         SBMATRIX->SFR[SBMATRIX_SLAVE_HMCRAMC0].reg = 2;
- 12c:	4b15      	ldr	r3, [pc, #84]	; (184 <Reset_Handler+0x94>)
- 12e:	6258      	str	r0, [r3, #36]	; 0x24
+ 12a:	4b15      	ldr	r3, [pc, #84]	; (180 <Reset_Handler+0x90>)
+ 12c:	6258      	str	r0, [r3, #36]	; 0x24
 #if defined(ID_USB)
         USB->DEVICE.QOSCTRL.bit.CQOS = 2;
         USB->DEVICE.QOSCTRL.bit.DQOS = 2;
 #endif
         DMAC->QOSCTRL.bit.DQOS = 2;
- 130:	4b15      	ldr	r3, [pc, #84]	; (188 <Reset_Handler+0x98>)
- 132:	7b99      	ldrb	r1, [r3, #14]
- 134:	4391      	bics	r1, r2
- 136:	3a10      	subs	r2, #16
- 138:	4311      	orrs	r1, r2
- 13a:	7399      	strb	r1, [r3, #14]
+ 12e:	4b15      	ldr	r3, [pc, #84]	; (184 <Reset_Handler+0x94>)
+ 130:	7b99      	ldrb	r1, [r3, #14]
+ 132:	4391      	bics	r1, r2
+ 134:	3a10      	subs	r2, #16
+ 136:	4311      	orrs	r1, r2
+ 138:	7399      	strb	r1, [r3, #14]
         DMAC->QOSCTRL.bit.FQOS = 2;
- 13c:	7b99      	ldrb	r1, [r3, #14]
- 13e:	3a14      	subs	r2, #20
- 140:	4391      	bics	r1, r2
- 142:	3a04      	subs	r2, #4
- 144:	4311      	orrs	r1, r2
- 146:	7399      	strb	r1, [r3, #14]
+ 13a:	7b99      	ldrb	r1, [r3, #14]
+ 13c:	3a14      	subs	r2, #20
+ 13e:	4391      	bics	r1, r2
+ 140:	3a04      	subs	r2, #4
+ 142:	4311      	orrs	r1, r2
+ 144:	7399      	strb	r1, [r3, #14]
         DMAC->QOSCTRL.bit.WRBQOS = 2;
- 148:	2103      	movs	r1, #3
- 14a:	7b9a      	ldrb	r2, [r3, #14]
- 14c:	438a      	bics	r2, r1
- 14e:	4302      	orrs	r2, r0
- 150:	739a      	strb	r2, [r3, #14]
+ 146:	2103      	movs	r1, #3
+ 148:	7b9a      	ldrb	r2, [r3, #14]
+ 14a:	438a      	bics	r2, r1
+ 14c:	4302      	orrs	r2, r0
+ 14e:	739a      	strb	r2, [r3, #14]
 
         /* Overwriting the default value of the NVMCTRL.CTRLB.MANW bit (errata reference 13134) */
         NVMCTRL->CTRLB.bit.MANW = 1;
- 152:	4a0e      	ldr	r2, [pc, #56]	; (18c <Reset_Handler+0x9c>)
- 154:	317d      	adds	r1, #125	; 0x7d
- 156:	6853      	ldr	r3, [r2, #4]
- 158:	430b      	orrs	r3, r1
- 15a:	6053      	str	r3, [r2, #4]
+ 150:	4a0d      	ldr	r2, [pc, #52]	; (188 <Reset_Handler+0x98>)
+ 152:	317d      	adds	r1, #125	; 0x7d
+ 154:	6853      	ldr	r3, [r2, #4]
+ 156:	430b      	orrs	r3, r1
+ 158:	6053      	str	r3, [r2, #4]
 
         /* Initialize the C library */
         __libc_init_array();
- 15c:	4b0c      	ldr	r3, [pc, #48]	; (190 <Reset_Handler+0xa0>)
- 15e:	4798      	blx	r3
+ 15a:	4b0c      	ldr	r3, [pc, #48]	; (18c <Reset_Handler+0x9c>)
+ 15c:	4798      	blx	r3
 
         /* Branch to main function */
         main();
- 160:	4b0c      	ldr	r3, [pc, #48]	; (194 <Reset_Handler+0xa4>)
- 162:	4798      	blx	r3
- 164:	e7fe      	b.n	164 <Reset_Handler+0x74>
- 166:	46c0      	nop			; (mov r8, r8)
- 168:	0000050c 	.word	0x0000050c
- 16c:	20000000 	.word	0x20000000
- 170:	20000020 	.word	0x20000020
- 174:	20000020 	.word	0x20000020
- 178:	20000090 	.word	0x20000090
- 17c:	00000000 	.word	0x00000000
- 180:	e000ed00 	.word	0xe000ed00
- 184:	410070fc 	.word	0x410070fc
- 188:	41004800 	.word	0x41004800
- 18c:	41004000 	.word	0x41004000
- 190:	000004a1 	.word	0x000004a1
- 194:	00000331 	.word	0x00000331
+ 15e:	4b0c      	ldr	r3, [pc, #48]	; (190 <Reset_Handler+0xa0>)
+ 160:	4798      	blx	r3
 
-00000198 <UART_sercom_init>:
+        /* Infinite loop */
+        while (1);
+ 162:	e7fe      	b.n	162 <Reset_Handler+0x72>
+ 164:	000005ac 	.word	0x000005ac
+ 168:	20000000 	.word	0x20000000
+ 16c:	20000020 	.word	0x20000020
+ 170:	20000020 	.word	0x20000020
+ 174:	20000058 	.word	0x20000058
+ 178:	00000000 	.word	0x00000000
+ 17c:	e000ed00 	.word	0xe000ed00
+ 180:	410070fc 	.word	0x410070fc
+ 184:	41004800 	.word	0x41004800
+ 188:	41004000 	.word	0x41004000
+ 18c:	00000541 	.word	0x00000541
+ 190:	0000038d 	.word	0x0000038d
+
+00000194 <nvm_set_config>:
+	
+	/*get a pointer to the module hardware instance.*/
+	Nvmctrl *const nvm_module = NVMCTRL;
+	
+	/* Initialize the internal device struct */
+	_nvm_dev.page_size         = (8 << nvm_module->PARAM.bit.PSZ);
+ 194:	2108      	movs	r1, #8
+ 196:	4a06      	ldr	r2, [pc, #24]	; (1b0 <nvm_set_config+0x1c>)
+ 198:	4806      	ldr	r0, [pc, #24]	; (1b4 <nvm_set_config+0x20>)
+ 19a:	6893      	ldr	r3, [r2, #8]
+ 19c:	035b      	lsls	r3, r3, #13
+ 19e:	0f5b      	lsrs	r3, r3, #29
+ 1a0:	4099      	lsls	r1, r3
+ 1a2:	8001      	strh	r1, [r0, #0]
+	_nvm_dev.number_of_pages   = nvm_module->PARAM.bit.NVMP;
+ 1a4:	6893      	ldr	r3, [r2, #8]
+ 1a6:	8043      	strh	r3, [r0, #2]
+
+	/* If the security bit is set, the auxiliary space cannot be written */
+	if (nvm_module->STATUS.reg & NVMCTRL_STATUS_SB) {
+ 1a8:	8b13      	ldrh	r3, [r2, #24]
+		return STATUS_FAIL;
+ 1aa:	2001      	movs	r0, #1
+	}
+};
+ 1ac:	4770      	bx	lr
+ 1ae:	46c0      	nop			; (mov r8, r8)
+ 1b0:	41004000 	.word	0x41004000
+ 1b4:	2000003c 	.word	0x2000003c
+
+000001b8 <UART_sercom_init>:
     */
     uint16_t pad = pinmux >> 16;    // get pad (port+pin)
     uint8_t port = pad >> 5;        // get port
     uint8_t pin  = pad & 0x1F;      // get number of pin - no port information anymore
     
     PORT->Group[port].PINCFG[pin].bit.PMUXEN =1;
- 198:	4a18      	ldr	r2, [pc, #96]	; (1fc <UART_sercom_init+0x64>)
+ 1b8:	4a18      	ldr	r2, [pc, #96]	; (21c <UART_sercom_init+0x64>)
     PORT->Group[port].PMUX[pin/2].reg |=  ( (uint8_t)( (pinmux&0xFFFF) <<(4*(pin&1)) ) ); 
 }
 
 /*init USART module on SERCOM1*/
 void UART_sercom_init()
 {
- 19a:	b530      	push	{r4, r5, lr}
+ 1ba:	b530      	push	{r4, r5, lr}
     */
     uint16_t pad = pinmux >> 16;    // get pad (port+pin)
     uint8_t port = pad >> 5;        // get port
     uint8_t pin  = pad & 0x1F;      // get number of pin - no port information anymore
     
     PORT->Group[port].PINCFG[pin].bit.PMUXEN =1;
- 19c:	0011      	movs	r1, r2
- 19e:	2501      	movs	r5, #1
- 1a0:	3159      	adds	r1, #89	; 0x59
- 1a2:	780b      	ldrb	r3, [r1, #0]
+ 1bc:	1c11      	adds	r1, r2, #0
+ 1be:	2501      	movs	r5, #1
+ 1c0:	3159      	adds	r1, #89	; 0x59
+ 1c2:	780b      	ldrb	r3, [r1, #0]
     
     /* each pinmux register is for two pins! with pin/2 you can get the index of the needed pinmux register
        the p mux resiter is 8Bit   (7:4 odd pin; 3:0 evan bit)  */
     // reset pinmux values.                             VV shift if pin is odd (if evan:  (4*(pin & 1))==0  )
     PORT->Group[port].PMUX[pin/2].reg &= ~( 0xF << (4*(pin & 1)) );
- 1a4:	240f      	movs	r4, #15
+ 1c4:	240f      	movs	r4, #15
     */
     uint16_t pad = pinmux >> 16;    // get pad (port+pin)
     uint8_t port = pad >> 5;        // get port
     uint8_t pin  = pad & 0x1F;      // get number of pin - no port information anymore
     
     PORT->Group[port].PINCFG[pin].bit.PMUXEN =1;
- 1a6:	432b      	orrs	r3, r5
- 1a8:	700b      	strb	r3, [r1, #0]
+ 1c6:	432b      	orrs	r3, r5
+ 1c8:	700b      	strb	r3, [r1, #0]
     
     /* each pinmux register is for two pins! with pin/2 you can get the index of the needed pinmux register
        the p mux resiter is 8Bit   (7:4 odd pin; 3:0 evan bit)  */
     // reset pinmux values.                             VV shift if pin is odd (if evan:  (4*(pin & 1))==0  )
     PORT->Group[port].PMUX[pin/2].reg &= ~( 0xF << (4*(pin & 1)) );
- 1aa:	0013      	movs	r3, r2
+ 1ca:	1c13      	adds	r3, r2, #0
                     //          
     // set new values
     PORT->Group[port].PMUX[pin/2].reg |=  ( (uint8_t)( (pinmux&0xFFFF) <<(4*(pin&1)) ) ); 
- 1ac:	2120      	movs	r1, #32
+ 1cc:	2120      	movs	r1, #32
     PORT->Group[port].PINCFG[pin].bit.PMUXEN =1;
     
     /* each pinmux register is for two pins! with pin/2 you can get the index of the needed pinmux register
        the p mux resiter is 8Bit   (7:4 odd pin; 3:0 evan bit)  */
     // reset pinmux values.                             VV shift if pin is odd (if evan:  (4*(pin & 1))==0  )
     PORT->Group[port].PMUX[pin/2].reg &= ~( 0xF << (4*(pin & 1)) );
- 1ae:	333c      	adds	r3, #60	; 0x3c
- 1b0:	7818      	ldrb	r0, [r3, #0]
+ 1ce:	333c      	adds	r3, #60	; 0x3c
+ 1d0:	7818      	ldrb	r0, [r3, #0]
     */
     uint16_t pad = pinmux >> 16;    // get pad (port+pin)
     uint8_t port = pad >> 5;        // get port
     uint8_t pin  = pad & 0x1F;      // get number of pin - no port information anymore
     
     PORT->Group[port].PINCFG[pin].bit.PMUXEN =1;
- 1b2:	3258      	adds	r2, #88	; 0x58
+ 1d2:	3258      	adds	r2, #88	; 0x58
     
     /* each pinmux register is for two pins! with pin/2 you can get the index of the needed pinmux register
        the p mux resiter is 8Bit   (7:4 odd pin; 3:0 evan bit)  */
     // reset pinmux values.                             VV shift if pin is odd (if evan:  (4*(pin & 1))==0  )
     PORT->Group[port].PMUX[pin/2].reg &= ~( 0xF << (4*(pin & 1)) );
- 1b4:	4020      	ands	r0, r4
- 1b6:	7018      	strb	r0, [r3, #0]
+ 1d4:	4020      	ands	r0, r4
+ 1d6:	7018      	strb	r0, [r3, #0]
                     //          
     // set new values
     PORT->Group[port].PMUX[pin/2].reg |=  ( (uint8_t)( (pinmux&0xFFFF) <<(4*(pin&1)) ) ); 
- 1b8:	7818      	ldrb	r0, [r3, #0]
- 1ba:	4308      	orrs	r0, r1
- 1bc:	7018      	strb	r0, [r3, #0]
- 1be:	2002      	movs	r0, #2
+ 1d8:	7818      	ldrb	r0, [r3, #0]
+ 1da:	4308      	orrs	r0, r1
+ 1dc:	7018      	strb	r0, [r3, #0]
+ 1de:	2002      	movs	r0, #2
     */
     uint16_t pad = pinmux >> 16;    // get pad (port+pin)
     uint8_t port = pad >> 5;        // get port
     uint8_t pin  = pad & 0x1F;      // get number of pin - no port information anymore
     
     PORT->Group[port].PINCFG[pin].bit.PMUXEN =1;
- 1c0:	7811      	ldrb	r1, [r2, #0]
- 1c2:	4329      	orrs	r1, r5
- 1c4:	7011      	strb	r1, [r2, #0]
+ 1e0:	7811      	ldrb	r1, [r2, #0]
+ 1e2:	4329      	orrs	r1, r5
+ 1e4:	7011      	strb	r1, [r2, #0]
     
     /* each pinmux register is for two pins! with pin/2 you can get the index of the needed pinmux register
        the p mux resiter is 8Bit   (7:4 odd pin; 3:0 evan bit)  */
     // reset pinmux values.                             VV shift if pin is odd (if evan:  (4*(pin & 1))==0  )
     PORT->Group[port].PMUX[pin/2].reg &= ~( 0xF << (4*(pin & 1)) );
- 1c6:	781a      	ldrb	r2, [r3, #0]
- 1c8:	43a2      	bics	r2, r4
- 1ca:	701a      	strb	r2, [r3, #0]
+ 1e6:	781a      	ldrb	r2, [r3, #0]
+ 1e8:	43a2      	bics	r2, r4
+ 1ea:	701a      	strb	r2, [r3, #0]
                     //          
     // set new values
     PORT->Group[port].PMUX[pin/2].reg |=  ( (uint8_t)( (pinmux&0xFFFF) <<(4*(pin&1)) ) ); 
- 1cc:	7819      	ldrb	r1, [r3, #0]
+ 1ec:	7819      	ldrb	r1, [r3, #0]
 	//Pmux eve = n/1, odd = (n-1)/2
 	pin_set_peripheral_function(PINMUX_PA25C_SERCOM1_PAD3); // SAMD09 TX
 	pin_set_peripheral_function(PINMUX_PA24C_SERCOM1_PAD2); // SAMD09 RX
 	
 	//apbcmak
 	PM->APBCMASK.reg |= PM_APBCMASK_SERCOM1;
- 1ce:	4a0c      	ldr	r2, [pc, #48]	; (200 <UART_sercom_init+0x68>)
+ 1ee:	4a0c      	ldr	r2, [pc, #48]	; (220 <UART_sercom_init+0x68>)
        the p mux resiter is 8Bit   (7:4 odd pin; 3:0 evan bit)  */
     // reset pinmux values.                             VV shift if pin is odd (if evan:  (4*(pin & 1))==0  )
     PORT->Group[port].PMUX[pin/2].reg &= ~( 0xF << (4*(pin & 1)) );
                     //          
     // set new values
     PORT->Group[port].PMUX[pin/2].reg |=  ( (uint8_t)( (pinmux&0xFFFF) <<(4*(pin&1)) ) ); 
- 1d0:	4301      	orrs	r1, r0
- 1d2:	7019      	strb	r1, [r3, #0]
+ 1f0:	4301      	orrs	r1, r0
+ 1f2:	7019      	strb	r1, [r3, #0]
 	//Pmux eve = n/1, odd = (n-1)/2
 	pin_set_peripheral_function(PINMUX_PA25C_SERCOM1_PAD3); // SAMD09 TX
 	pin_set_peripheral_function(PINMUX_PA24C_SERCOM1_PAD2); // SAMD09 RX
 	
 	//apbcmak
 	PM->APBCMASK.reg |= PM_APBCMASK_SERCOM1;
- 1d4:	2108      	movs	r1, #8
- 1d6:	6a13      	ldr	r3, [r2, #32]
- 1d8:	430b      	orrs	r3, r1
- 1da:	6213      	str	r3, [r2, #32]
+ 1f4:	2108      	movs	r1, #8
+ 1f6:	6a13      	ldr	r3, [r2, #32]
+ 1f8:	430b      	orrs	r3, r1
+ 1fa:	6213      	str	r3, [r2, #32]
 	
 	//gclk config
 	GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID(SERCOM1_GCLK_ID_CORE) | GCLK_CLKCTRL_GEN(0) | GCLK_CLKCTRL_CLKEN;
- 1dc:	4a09      	ldr	r2, [pc, #36]	; (204 <UART_sercom_init+0x6c>)
- 1de:	4b0a      	ldr	r3, [pc, #40]	; (208 <UART_sercom_init+0x70>)
- 1e0:	805a      	strh	r2, [r3, #2]
+ 1fc:	4a09      	ldr	r2, [pc, #36]	; (224 <UART_sercom_init+0x6c>)
+ 1fe:	4b0a      	ldr	r3, [pc, #40]	; (228 <UART_sercom_init+0x70>)
+ 200:	805a      	strh	r2, [r3, #2]
 	
 	//Config SERCOM1 module for UART
 	SERCOM1->USART.CTRLA.reg = SERCOM_USART_CTRLA_MODE_USART_INT_CLK | SERCOM_USART_CTRLA_DORD | SERCOM_USART_CTRLA_RXPO(0x3) | SERCOM_USART_CTRLA_TXPO(0x1);
- 1e2:	4b0a      	ldr	r3, [pc, #40]	; (20c <UART_sercom_init+0x74>)
- 1e4:	4a0a      	ldr	r2, [pc, #40]	; (210 <UART_sercom_init+0x78>)
- 1e6:	601a      	str	r2, [r3, #0]
+ 202:	4b0a      	ldr	r3, [pc, #40]	; (22c <UART_sercom_init+0x74>)
+ 204:	4a0a      	ldr	r2, [pc, #40]	; (230 <UART_sercom_init+0x78>)
+ 206:	601a      	str	r2, [r3, #0]
 	
 	SERCOM1->USART.CTRLB.reg = SERCOM_USART_CTRLB_RXEN | SERCOM_USART_CTRLB_TXEN | SERCOM_USART_CTRLB_CHSIZE(0);
- 1e8:	22c0      	movs	r2, #192	; 0xc0
- 1ea:	0292      	lsls	r2, r2, #10
- 1ec:	605a      	str	r2, [r3, #4]
+ 208:	22c0      	movs	r2, #192	; 0xc0
+ 20a:	0292      	lsls	r2, r2, #10
+ 20c:	605a      	str	r2, [r3, #4]
 	
 	SERCOM1->USART.BAUD.reg = BAUD_VAL;//65535.0f * (1.0f - (float)(16*(float)(9600)/(USART_BAUD_MODIFIER_SLOW))); //This gets the miniSam exactly at 9800 baud.
- 1ee:	4a09      	ldr	r2, [pc, #36]	; (214 <UART_sercom_init+0x7c>)
- 1f0:	819a      	strh	r2, [r3, #12]
+ 20e:	4a09      	ldr	r2, [pc, #36]	; (234 <UART_sercom_init+0x7c>)
+ 210:	819a      	strh	r2, [r3, #12]
 	/* for 115200 baud compiler does not like this.*/
 	//SERCOM1->USART.BAUD.reg = 65535.0f * (1.0f - (float)(16*(float)(USART_BAUD_MODIFIER_FAST)/(8000000)));
 	
 	SERCOM1->USART.CTRLA.reg |= SERCOM_USART_CTRLA_ENABLE;
- 1f2:	681a      	ldr	r2, [r3, #0]
- 1f4:	4302      	orrs	r2, r0
- 1f6:	601a      	str	r2, [r3, #0]
+ 212:	681a      	ldr	r2, [r3, #0]
+ 214:	4302      	orrs	r2, r0
+ 216:	601a      	str	r2, [r3, #0]
 	
 }
- 1f8:	bd30      	pop	{r4, r5, pc}
- 1fa:	46c0      	nop			; (mov r8, r8)
- 1fc:	41004400 	.word	0x41004400
- 200:	40000400 	.word	0x40000400
- 204:	0000400f 	.word	0x0000400f
- 208:	40000c00 	.word	0x40000c00
- 20c:	42000c00 	.word	0x42000c00
- 210:	40310004 	.word	0x40310004
- 214:	ffffc504 	.word	0xffffc504
+ 218:	bd30      	pop	{r4, r5, pc}
+ 21a:	46c0      	nop			; (mov r8, r8)
+ 21c:	41004400 	.word	0x41004400
+ 220:	40000400 	.word	0x40000400
+ 224:	0000400f 	.word	0x0000400f
+ 228:	40000c00 	.word	0x40000c00
+ 22c:	42000c00 	.word	0x42000c00
+ 230:	40310004 	.word	0x40310004
+ 234:	ffffc504 	.word	0xffffc504
 
-00000218 <SERCOM1_Handler>:
-/* interrupt handler for Sercom1 USART */
-void SERCOM1_Handler()  // SERCOM1 ISR
-{
-	uint8_t buffer;
-	buffer  = SERCOM1->USART.DATA.reg;
-	while(!(SERCOM1->USART.INTFLAG.reg & 1)); // wait UART module ready to receive data
- 218:	2101      	movs	r1, #1
+00000238 <SERCOM1_Handler>:
 
 /* interrupt handler for Sercom1 USART */
 void SERCOM1_Handler()  // SERCOM1 ISR
 {
 	uint8_t buffer;
 	buffer  = SERCOM1->USART.DATA.reg;
- 21a:	4b07      	ldr	r3, [pc, #28]	; (238 <SERCOM1_Handler+0x20>)
- 21c:	8d1a      	ldrh	r2, [r3, #40]	; 0x28
- 21e:	b292      	uxth	r2, r2
+ 238:	4b06      	ldr	r3, [pc, #24]	; (254 <SERCOM1_Handler+0x1c>)
+ 23a:	8d1a      	ldrh	r2, [r3, #40]	; 0x28
+ 23c:	b292      	uxth	r2, r2
 	while(!(SERCOM1->USART.INTFLAG.reg & 1)); // wait UART module ready to receive data
- 220:	7e18      	ldrb	r0, [r3, #24]
- 222:	4208      	tst	r0, r1
- 224:	d0fc      	beq.n	220 <SERCOM1_Handler+0x8>
+ 23e:	7e19      	ldrb	r1, [r3, #24]
+ 240:	07c9      	lsls	r1, r1, #31
+ 242:	d5fc      	bpl.n	23e <SERCOM1_Handler+0x6>
 	SERCOM1->USART.DATA.reg = buffer;               // just sent that byte aback
- 226:	4904      	ldr	r1, [pc, #16]	; (238 <SERCOM1_Handler+0x20>)
- 228:	b2d2      	uxtb	r2, r2
- 22a:	850a      	strh	r2, [r1, #40]	; 0x28
+ 244:	4903      	ldr	r1, [pc, #12]	; (254 <SERCOM1_Handler+0x1c>)
+ 246:	b2d2      	uxtb	r2, r2
+ 248:	850a      	strh	r2, [r1, #40]	; 0x28
 	while(!(SERCOM1->USART.INTFLAG.reg & 2)); // wait until TX complete;
- 22c:	2202      	movs	r2, #2
- 22e:	7e19      	ldrb	r1, [r3, #24]
- 230:	4211      	tst	r1, r2
- 232:	d0fc      	beq.n	22e <SERCOM1_Handler+0x16>
+ 24a:	7e1a      	ldrb	r2, [r3, #24]
+ 24c:	0792      	lsls	r2, r2, #30
+ 24e:	d5fc      	bpl.n	24a <SERCOM1_Handler+0x12>
 }	
- 234:	4770      	bx	lr
- 236:	46c0      	nop			; (mov r8, r8)
- 238:	42000c00 	.word	0x42000c00
+ 250:	4770      	bx	lr
+ 252:	46c0      	nop			; (mov r8, r8)
+ 254:	42000c00 	.word	0x42000c00
 
-0000023c <uart_write_byte>:
+00000258 <uart_write_byte>:
 
 //this will be replaced with UART_sercom_simpleWrite function.
 void uart_write_byte(uint8_t data)
 {
 	while(!BOOT_SERCOM->USART.INTFLAG.bit.DRE);
- 23c:	4a03      	ldr	r2, [pc, #12]	; (24c <uart_write_byte+0x10>)
- 23e:	7e13      	ldrb	r3, [r2, #24]
- 240:	07db      	lsls	r3, r3, #31
- 242:	d5fc      	bpl.n	23e <uart_write_byte+0x2>
+ 258:	4b03      	ldr	r3, [pc, #12]	; (268 <uart_write_byte+0x10>)
+ 25a:	7e1a      	ldrb	r2, [r3, #24]
+ 25c:	07d2      	lsls	r2, r2, #31
+ 25e:	d5fb      	bpl.n	258 <uart_write_byte>
 	BOOT_SERCOM->USART.DATA.reg = (uint16_t)data;
- 244:	4b01      	ldr	r3, [pc, #4]	; (24c <uart_write_byte+0x10>)
- 246:	b280      	uxth	r0, r0
- 248:	8518      	strh	r0, [r3, #40]	; 0x28
+ 260:	b280      	uxth	r0, r0
+ 262:	8518      	strh	r0, [r3, #40]	; 0x28
 	
 }
- 24a:	4770      	bx	lr
- 24c:	42000c00 	.word	0x42000c00
-
-00000250 <UART_sercom_simpleWrite>:
-
-void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
-{
-	while(!(sercom_module->USART.INTFLAG.reg & 1)); //wait UART module ready to receive data
- 250:	2301      	movs	r3, #1
- 252:	7e02      	ldrb	r2, [r0, #24]
- 254:	421a      	tst	r2, r3
- 256:	d0fc      	beq.n	252 <UART_sercom_simpleWrite+0x2>
-	sercom_module->USART.DATA.reg = data;
-	while(!(sercom_module->USART.INTFLAG.reg & 2)); //wait until TX complete;
- 258:	2302      	movs	r3, #2
-}
-
-void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
-{
-	while(!(sercom_module->USART.INTFLAG.reg & 1)); //wait UART module ready to receive data
-	sercom_module->USART.DATA.reg = data;
- 25a:	b289      	uxth	r1, r1
- 25c:	8501      	strh	r1, [r0, #40]	; 0x28
-	while(!(sercom_module->USART.INTFLAG.reg & 2)); //wait until TX complete;
- 25e:	7e02      	ldrb	r2, [r0, #24]
- 260:	421a      	tst	r2, r3
- 262:	d0fc      	beq.n	25e <UART_sercom_simpleWrite+0xe>
-}
  264:	4770      	bx	lr
+ 266:	46c0      	nop			; (mov r8, r8)
+ 268:	42000c00 	.word	0x42000c00
+
+0000026c <UART_sercom_simpleWrite>:
+
+void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
+{
+	while(!(sercom_module->USART.INTFLAG.reg & 1)); //wait UART module ready to receive data
+ 26c:	7e03      	ldrb	r3, [r0, #24]
+ 26e:	07db      	lsls	r3, r3, #31
+ 270:	d5fc      	bpl.n	26c <UART_sercom_simpleWrite>
+	sercom_module->USART.DATA.reg = data;
+ 272:	b289      	uxth	r1, r1
+ 274:	8501      	strh	r1, [r0, #40]	; 0x28
+	while(!(sercom_module->USART.INTFLAG.reg & 2)); //wait until TX complete;
+ 276:	7e03      	ldrb	r3, [r0, #24]
+ 278:	079b      	lsls	r3, r3, #30
+ 27a:	d5fc      	bpl.n	276 <UART_sercom_simpleWrite+0xa>
+}
+ 27c:	4770      	bx	lr
 	...
 
-00000268 <uart_read_byte>:
+00000280 <uart_read_byte>:
 
 //this will be replaced with UART_sercom_simpleRead function.
 uint8_t uart_read_byte(void)
 {
 	while(!BOOT_SERCOM->USART.INTFLAG.bit.RXC);
- 268:	4a03      	ldr	r2, [pc, #12]	; (278 <uart_read_byte+0x10>)
- 26a:	7e13      	ldrb	r3, [r2, #24]
- 26c:	075b      	lsls	r3, r3, #29
- 26e:	d5fc      	bpl.n	26a <uart_read_byte+0x2>
+ 280:	4b03      	ldr	r3, [pc, #12]	; (290 <uart_read_byte+0x10>)
+ 282:	7e1a      	ldrb	r2, [r3, #24]
+ 284:	0752      	lsls	r2, r2, #29
+ 286:	d5fb      	bpl.n	280 <uart_read_byte>
 	return((uint8_t)(BOOT_SERCOM->USART.DATA.reg & 0x00FF));
- 270:	4b01      	ldr	r3, [pc, #4]	; (278 <uart_read_byte+0x10>)
- 272:	8d18      	ldrh	r0, [r3, #40]	; 0x28
- 274:	b2c0      	uxtb	r0, r0
+ 288:	8d18      	ldrh	r0, [r3, #40]	; 0x28
+ 28a:	b2c0      	uxtb	r0, r0
 }
- 276:	4770      	bx	lr
- 278:	42000c00 	.word	0x42000c00
+ 28c:	4770      	bx	lr
+ 28e:	46c0      	nop			; (mov r8, r8)
+ 290:	42000c00 	.word	0x42000c00
 
-0000027c <nvm_erase_row>:
+00000294 <nvm_erase_row>:
 
 void nvm_erase_row(const uint32_t row_address)
 {
-	/* Check if the module is busy */
-	while(!NVMCTRL->INTFLAG.bit.READY);
- 27c:	4908      	ldr	r1, [pc, #32]	; (2a0 <nvm_erase_row+0x24>)
- 27e:	7d0a      	ldrb	r2, [r1, #20]
- 280:	4b07      	ldr	r3, [pc, #28]	; (2a0 <nvm_erase_row+0x24>)
- 282:	07d2      	lsls	r2, r2, #31
- 284:	d5fb      	bpl.n	27e <nvm_erase_row+0x2>
-	/* Clear error flags */
-	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
- 286:	8b19      	ldrh	r1, [r3, #24]
- 288:	4a06      	ldr	r2, [pc, #24]	; (2a4 <nvm_erase_row+0x28>)
-	/* Set address and command */
-	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address / 2];
- 28a:	0840      	lsrs	r0, r0, #1
-void nvm_erase_row(const uint32_t row_address)
-{
-	/* Check if the module is busy */
-	while(!NVMCTRL->INTFLAG.bit.READY);
-	/* Clear error flags */
-	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
- 28c:	400a      	ands	r2, r1
- 28e:	831a      	strh	r2, [r3, #24]
-	/* Set address and command */
-	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address / 2];
-	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMD_ER | NVMCTRL_CTRLA_CMDEX_KEY;
- 290:	4a05      	ldr	r2, [pc, #20]	; (2a8 <nvm_erase_row+0x2c>)
-	/* Check if the module is busy */
-	while(!NVMCTRL->INTFLAG.bit.READY);
-	/* Clear error flags */
-	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
-	/* Set address and command */
-	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address / 2];
- 292:	0040      	lsls	r0, r0, #1
- 294:	61d8      	str	r0, [r3, #28]
-	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMD_ER | NVMCTRL_CTRLA_CMDEX_KEY;
- 296:	801a      	strh	r2, [r3, #0]
-	while(!NVMCTRL->INTFLAG.bit.READY);
- 298:	7d1a      	ldrb	r2, [r3, #20]
- 29a:	07d2      	lsls	r2, r2, #31
- 29c:	d5fc      	bpl.n	298 <nvm_erase_row+0x1c>
-}
- 29e:	4770      	bx	lr
- 2a0:	41004000 	.word	0x41004000
- 2a4:	fffffee0 	.word	0xfffffee0
- 2a8:	ffffa502 	.word	0xffffa502
+	/* Check if the address to erase is not aligned to the start of a row */
+	if(row_address > ((uint32_t)_nvm_dev.page_size * _nvm_dev.number_of_pages))
+ 294:	4a0d      	ldr	r2, [pc, #52]	; (2cc <nvm_erase_row+0x38>)
+ 296:	8813      	ldrh	r3, [r2, #0]
+ 298:	8852      	ldrh	r2, [r2, #2]
+ 29a:	435a      	muls	r2, r3
+ 29c:	4290      	cmp	r0, r2
+ 29e:	d813      	bhi.n	2c8 <nvm_erase_row+0x34>
+	{
+		return 0;
+	}
 
-000002ac <nvm_write_buffer>:
+	/* Get a pointer to the module hardware instance */
+	if(row_address & ((_nvm_dev.page_size * NVMCTRL_ROW_PAGES)-1))
+ 2a0:	009b      	lsls	r3, r3, #2
+ 2a2:	3b01      	subs	r3, #1
+ 2a4:	4218      	tst	r0, r3
+ 2a6:	d10f      	bne.n	2c8 <nvm_erase_row+0x34>
+		return 0;
+	}
+	
+	
+	/* Check if the module is busy */
+	while(!NVMCTRL->INTFLAG.bit.READY);
+ 2a8:	4b09      	ldr	r3, [pc, #36]	; (2d0 <nvm_erase_row+0x3c>)
+ 2aa:	7d1a      	ldrb	r2, [r3, #20]
+ 2ac:	07d2      	lsls	r2, r2, #31
+ 2ae:	d5fb      	bpl.n	2a8 <nvm_erase_row+0x14>
+	
+	/* Clear error flags */
+	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
+ 2b0:	8b19      	ldrh	r1, [r3, #24]
+ 2b2:	4a08      	ldr	r2, [pc, #32]	; (2d4 <nvm_erase_row+0x40>)
+	
+	/* Set address and command */
+	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address /4 ];
+ 2b4:	0880      	lsrs	r0, r0, #2
+	
+	/* Check if the module is busy */
+	while(!NVMCTRL->INTFLAG.bit.READY);
+	
+	/* Clear error flags */
+	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
+ 2b6:	400a      	ands	r2, r1
+ 2b8:	831a      	strh	r2, [r3, #24]
+	
+	/* Set address and command */
+	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address /4 ];
+	
+	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMD_ER | NVMCTRL_CTRLA_CMDEX_KEY;
+ 2ba:	4a07      	ldr	r2, [pc, #28]	; (2d8 <nvm_erase_row+0x44>)
+	
+	/* Clear error flags */
+	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
+	
+	/* Set address and command */
+	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address /4 ];
+ 2bc:	0040      	lsls	r0, r0, #1
+ 2be:	61d8      	str	r0, [r3, #28]
+	
+	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMD_ER | NVMCTRL_CTRLA_CMDEX_KEY;
+ 2c0:	801a      	strh	r2, [r3, #0]
+	
+	while(!NVMCTRL->INTFLAG.bit.READY);
+ 2c2:	7d1a      	ldrb	r2, [r3, #20]
+ 2c4:	07d2      	lsls	r2, r2, #31
+ 2c6:	d5fc      	bpl.n	2c2 <nvm_erase_row+0x2e>
+	
+	return 1;
+}
+ 2c8:	4770      	bx	lr
+ 2ca:	46c0      	nop			; (mov r8, r8)
+ 2cc:	2000003c 	.word	0x2000003c
+ 2d0:	41004000 	.word	0x41004000
+ 2d4:	fffffee0 	.word	0xfffffee0
+ 2d8:	ffffa502 	.word	0xffffa502
+
+000002dc <nvm_write_buffer>:
 
 void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer, uint16_t length)
 {
- 2ac:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 2dc:	b5f7      	push	{r0, r1, r2, r4, r5, r6, r7, lr}
+	/* Check if the destination address is valid */
+	if (destination_address >
+	((uint32_t)_nvm_dev.page_size * _nvm_dev.number_of_pages)) {
+ 2de:	4c1d      	ldr	r4, [pc, #116]	; (354 <nvm_write_buffer+0x78>)
+ 2e0:	8865      	ldrh	r5, [r4, #2]
+ 2e2:	8823      	ldrh	r3, [r4, #0]
+ 2e4:	9401      	str	r4, [sp, #4]
+ 2e6:	435d      	muls	r5, r3
+}
+
+void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer, uint16_t length)
+{
+	/* Check if the destination address is valid */
+	if (destination_address >
+ 2e8:	42a8      	cmp	r0, r5
+ 2ea:	d832      	bhi.n	352 <nvm_write_buffer+0x76>
+	((uint32_t)_nvm_dev.page_size * _nvm_dev.number_of_pages)) {
+		return 0;
+	}
+	
+	/* Check if the write address not aligned to the start of a page */
+	if (destination_address & (_nvm_dev.page_size - 1)) {
+ 2ec:	1e5d      	subs	r5, r3, #1
+ 2ee:	4205      	tst	r5, r0
+ 2f0:	d12f      	bne.n	352 <nvm_write_buffer+0x76>
+		return 0;
+	}
+	
+	/* Check if the write length is longer than a NVM page */
+	if (length > _nvm_dev.page_size) {
+ 2f2:	429a      	cmp	r2, r3
+ 2f4:	d82d      	bhi.n	352 <nvm_write_buffer+0x76>
+		return 0;
+	}
 
 	/* Check if the module is busy */
 	while(!NVMCTRL->INTFLAG.bit.READY);
- 2ae:	4c14      	ldr	r4, [pc, #80]	; (300 <nvm_write_buffer+0x54>)
- 2b0:	7d23      	ldrb	r3, [r4, #20]
- 2b2:	4e13      	ldr	r6, [pc, #76]	; (300 <nvm_write_buffer+0x54>)
- 2b4:	07db      	lsls	r3, r3, #31
- 2b6:	d5fb      	bpl.n	2b0 <nvm_write_buffer+0x4>
+ 2f6:	4b18      	ldr	r3, [pc, #96]	; (358 <nvm_write_buffer+0x7c>)
+ 2f8:	7d1d      	ldrb	r5, [r3, #20]
+ 2fa:	07ec      	lsls	r4, r5, #31
+ 2fc:	d5fb      	bpl.n	2f6 <nvm_write_buffer+0x1a>
 
 	/* Erase the page buffer before buffering new data */
 	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMD_PBC | NVMCTRL_CTRLA_CMDEX_KEY;
- 2b8:	4b12      	ldr	r3, [pc, #72]	; (304 <nvm_write_buffer+0x58>)
- 2ba:	8033      	strh	r3, [r6, #0]
+ 2fe:	4d17      	ldr	r5, [pc, #92]	; (35c <nvm_write_buffer+0x80>)
+ 300:	801d      	strh	r5, [r3, #0]
 
 	/* Check if the module is busy */
 	while(!NVMCTRL->INTFLAG.bit.READY);
- 2bc:	7d33      	ldrb	r3, [r6, #20]
- 2be:	4c10      	ldr	r4, [pc, #64]	; (300 <nvm_write_buffer+0x54>)
- 2c0:	07db      	lsls	r3, r3, #31
- 2c2:	d5fb      	bpl.n	2bc <nvm_write_buffer+0x10>
+ 302:	7d1d      	ldrb	r5, [r3, #20]
+ 304:	4e14      	ldr	r6, [pc, #80]	; (358 <nvm_write_buffer+0x7c>)
+ 306:	07ec      	lsls	r4, r5, #31
+ 308:	d5fb      	bpl.n	302 <nvm_write_buffer+0x26>
 
 	/* Clear error flags */
 	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
- 2c4:	8b25      	ldrh	r5, [r4, #24]
- 2c6:	4b10      	ldr	r3, [pc, #64]	; (308 <nvm_write_buffer+0x5c>)
- 2c8:	0840      	lsrs	r0, r0, #1
- 2ca:	402b      	ands	r3, r5
- 2cc:	8323      	strh	r3, [r4, #24]
+ 30a:	8b37      	ldrh	r7, [r6, #24]
+ 30c:	4d14      	ldr	r5, [pc, #80]	; (360 <nvm_write_buffer+0x84>)
 
 	uint32_t nvm_address = destination_address / 2;
+ 30e:	0840      	lsrs	r0, r0, #1
+
+	/* Check if the module is busy */
+	while(!NVMCTRL->INTFLAG.bit.READY);
+
+	/* Clear error flags */
+	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
+ 310:	403d      	ands	r5, r7
+ 312:	8335      	strh	r5, [r6, #24]
+
+	uint32_t nvm_address = destination_address / 2;
+ 314:	2500      	movs	r5, #0
+ 316:	0040      	lsls	r0, r0, #1
 
 	/* NVM _must_ be accessed as a series of 16-bit words, perform manual copy
 	 * to ensure alignment */
 	for (uint16_t k = 0; k < length; k += 2) 
- 2ce:	2300      	movs	r3, #0
- 2d0:	0040      	lsls	r0, r0, #1
+ 318:	b2ae      	uxth	r6, r5
+ 31a:	4296      	cmp	r6, r2
+ 31c:	d20e      	bcs.n	33c <nvm_write_buffer+0x60>
+	{
 		uint16_t data;
+		
 		/* Copy first byte of the 16-bit chunk to the temporary buffer */
 		data = buffer[k];
+ 31e:	b2ae      	uxth	r6, r5
+		
 		/* If we are not at the end of a write request with an odd byte count,
 		 * store the next byte of data as well */
 		if (k < (length - 1)) {
- 2d2:	1e57      	subs	r7, r2, #1
-
-	uint32_t nvm_address = destination_address / 2;
-
-	/* NVM _must_ be accessed as a series of 16-bit words, perform manual copy
-	 * to ensure alignment */
+ 320:	1e54      	subs	r4, r2, #1
 	for (uint16_t k = 0; k < length; k += 2) 
- 2d4:	b29c      	uxth	r4, r3
- 2d6:	4294      	cmp	r4, r2
- 2d8:	d20d      	bcs.n	2f6 <nvm_write_buffer+0x4a>
 	{
 		uint16_t data;
+		
 		/* Copy first byte of the 16-bit chunk to the temporary buffer */
 		data = buffer[k];
- 2da:	b29c      	uxth	r4, r3
- 2dc:	5d0d      	ldrb	r5, [r1, r4]
+ 322:	5d8f      	ldrb	r7, [r1, r6]
+		
 		/* If we are not at the end of a write request with an odd byte count,
 		 * store the next byte of data as well */
 		if (k < (length - 1)) {
- 2de:	42bc      	cmp	r4, r7
- 2e0:	db01      	blt.n	2e6 <nvm_write_buffer+0x3a>
-	 * to ensure alignment */
+ 324:	42a6      	cmp	r6, r4
+ 326:	db01      	blt.n	32c <nvm_write_buffer+0x50>
 	for (uint16_t k = 0; k < length; k += 2) 
 	{
 		uint16_t data;
+		
 		/* Copy first byte of the 16-bit chunk to the temporary buffer */
 		data = buffer[k];
- 2e2:	b2ac      	uxth	r4, r5
- 2e4:	e003      	b.n	2ee <nvm_write_buffer+0x42>
+ 328:	b2be      	uxth	r6, r7
+ 32a:	e003      	b.n	334 <nvm_write_buffer+0x58>
+		
 		/* If we are not at the end of a write request with an odd byte count,
 		 * store the next byte of data as well */
 		if (k < (length - 1)) {
 			data |= (buffer[k + 1] << 8);
- 2e6:	190c      	adds	r4, r1, r4
- 2e8:	7864      	ldrb	r4, [r4, #1]
- 2ea:	0224      	lsls	r4, r4, #8
- 2ec:	432c      	orrs	r4, r5
- 2ee:	181d      	adds	r5, r3, r0
+ 32c:	198e      	adds	r6, r1, r6
+ 32e:	7876      	ldrb	r6, [r6, #1]
+ 330:	0236      	lsls	r6, r6, #8
+ 332:	433e      	orrs	r6, r7
+ 334:	182f      	adds	r7, r5, r0
 		}
 		/* Store next 16-bit chunk to the NVM memory space */
 		NVM_MEMORY[nvm_address++] = data;
- 2f0:	802c      	strh	r4, [r5, #0]
- 2f2:	3302      	adds	r3, #2
- 2f4:	e7ee      	b.n	2d4 <nvm_write_buffer+0x28>
+ 336:	803e      	strh	r6, [r7, #0]
+ 338:	3502      	adds	r5, #2
+ 33a:	e7ed      	b.n	318 <nvm_write_buffer+0x3c>
 	}
+	
+	/* If automatic page write mode is enable, then perform a manual NVM
+	 * write when the length of data to be programmed is less than page size
+	 */
+	if ((_nvm_dev.manual_page_write == 0) && (length < NVMCTRL_PAGE_SIZE)) {
+ 33c:	9901      	ldr	r1, [sp, #4]
+ 33e:	7909      	ldrb	r1, [r1, #4]
+ 340:	2900      	cmp	r1, #0
+ 342:	d103      	bne.n	34c <nvm_write_buffer+0x70>
+ 344:	2a3f      	cmp	r2, #63	; 0x3f
+ 346:	d801      	bhi.n	34c <nvm_write_buffer+0x70>
+		NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_WP;
+ 348:	4a06      	ldr	r2, [pc, #24]	; (364 <nvm_write_buffer+0x88>)
+ 34a:	801a      	strh	r2, [r3, #0]
+	}
+	
 	while(!NVMCTRL->INTFLAG.bit.READY);
- 2f6:	7d33      	ldrb	r3, [r6, #20]
- 2f8:	07db      	lsls	r3, r3, #31
- 2fa:	d5fc      	bpl.n	2f6 <nvm_write_buffer+0x4a>
+ 34c:	7d1a      	ldrb	r2, [r3, #20]
+ 34e:	07d2      	lsls	r2, r2, #31
+ 350:	d5fc      	bpl.n	34c <nvm_write_buffer+0x70>
 }
- 2fc:	bdf0      	pop	{r4, r5, r6, r7, pc}
- 2fe:	46c0      	nop			; (mov r8, r8)
- 300:	41004000 	.word	0x41004000
- 304:	ffffa544 	.word	0xffffa544
- 308:	fffffee0 	.word	0xfffffee0
+ 352:	bdf7      	pop	{r0, r1, r2, r4, r5, r6, r7, pc}
+ 354:	2000003c 	.word	0x2000003c
+ 358:	41004000 	.word	0x41004000
+ 35c:	ffffa544 	.word	0xffffa544
+ 360:	fffffee0 	.word	0xfffffee0
+ 364:	ffffa504 	.word	0xffffa504
 
-0000030c <info>:
+00000368 <info>:
 		}
     }
 }
 
 void info()
 {
- 30c:	b510      	push	{r4, lr}
- 30e:	2400      	movs	r4, #0
+ 368:	b510      	push	{r4, lr}
+ 36a:	2400      	movs	r4, #0
 	uint8_t i;
 	
 	for(i = 0;i<=29;i++)
 	{
 		UART_sercom_simpleWrite(SERCOM1,aVER[i]);	
- 310:	4b04      	ldr	r3, [pc, #16]	; (324 <info+0x18>)
- 312:	4805      	ldr	r0, [pc, #20]	; (328 <info+0x1c>)
- 314:	5ce1      	ldrb	r1, [r4, r3]
- 316:	4b05      	ldr	r3, [pc, #20]	; (32c <info+0x20>)
- 318:	3401      	adds	r4, #1
- 31a:	4798      	blx	r3
+ 36c:	4b04      	ldr	r3, [pc, #16]	; (380 <info+0x18>)
+ 36e:	4805      	ldr	r0, [pc, #20]	; (384 <info+0x1c>)
+ 370:	5ce1      	ldrb	r1, [r4, r3]
+ 372:	4b05      	ldr	r3, [pc, #20]	; (388 <info+0x20>)
+ 374:	3401      	adds	r4, #1
+ 376:	4798      	blx	r3
 
 void info()
 {
 	uint8_t i;
 	
 	for(i = 0;i<=29;i++)
- 31c:	2c1e      	cmp	r4, #30
- 31e:	d1f7      	bne.n	310 <info+0x4>
+ 378:	2c1e      	cmp	r4, #30
+ 37a:	d1f7      	bne.n	36c <info+0x4>
 	{
 		UART_sercom_simpleWrite(SERCOM1,aVER[i]);	
 	}
 }
- 320:	bd10      	pop	{r4, pc}
- 322:	46c0      	nop			; (mov r8, r8)
- 324:	20000000 	.word	0x20000000
- 328:	42000c00 	.word	0x42000c00
- 32c:	00000251 	.word	0x00000251
+ 37c:	bd10      	pop	{r4, pc}
+ 37e:	46c0      	nop			; (mov r8, r8)
+ 380:	20000000 	.word	0x20000000
+ 384:	42000c00 	.word	0x42000c00
+ 388:	0000026d 	.word	0x0000026d
 
-00000330 <main>:
-	}
+0000038c <main>:
+int main(void)
+{ 
+	/* Check if boot pin is held low - Jump to application if boot pin is high */
+	//PORT->Group[BOOT_PORT].OUTSET.reg = (1u << BOOT_PIN); //<- works without this definition.
+
+	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
+ 38c:	2106      	movs	r1, #6
+	
 	while(!NVMCTRL->INTFLAG.bit.READY);
 }
 
 int main(void)
 { 
- 330:	b5f7      	push	{r0, r1, r2, r4, r5, r6, r7, lr}
+ 38e:	b5f0      	push	{r4, r5, r6, r7, lr}
 	/* Check if boot pin is held low - Jump to application if boot pin is high */
 	//PORT->Group[BOOT_PORT].OUTSET.reg = (1u << BOOT_PIN); //<- works without this definition.
 
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
- 332:	2206      	movs	r2, #6
- 334:	4b44      	ldr	r3, [pc, #272]	; (448 <STACK_SIZE+0x48>)
- 336:	701a      	strb	r2, [r3, #0]
+ 390:	4a53      	ldr	r2, [pc, #332]	; (4e0 <STACK_SIZE+0xe0>)
+ 392:	4b54      	ldr	r3, [pc, #336]	; (4e4 <STACK_SIZE+0xe4>)
+ 394:	7011      	strb	r1, [r2, #0]
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
- 338:	4b44      	ldr	r3, [pc, #272]	; (44c <STACK_SIZE+0x4c>)
- 33a:	6a1b      	ldr	r3, [r3, #32]
- 33c:	041b      	lsls	r3, r3, #16
- 33e:	d50b      	bpl.n	358 <main+0x28>
+ 396:	6a1a      	ldr	r2, [r3, #32]
+	
+	while(!NVMCTRL->INTFLAG.bit.READY);
+}
+
+int main(void)
+{ 
+ 398:	b085      	sub	sp, #20
+ 39a:	af00      	add	r7, sp, #0
+	/* Check if boot pin is held low - Jump to application if boot pin is high */
+	//PORT->Group[BOOT_PORT].OUTSET.reg = (1u << BOOT_PIN); //<- works without this definition.
+
+	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
+	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
+ 39c:	0412      	lsls	r2, r2, #16
+ 39e:	d50c      	bpl.n	3ba <main+0x2e>
 	{
-		app_start_address = /**(uint32_t *)*/(APP_START + 4);
+		app_start_address = *(uint32_t *)(APP_START + 4);
 		/* Rebase the Stack Pointer */
 		__set_MSP(*(uint32_t *) APP_START + 4);
- 340:	21c0      	movs	r1, #192	; 0xc0
+ 3a0:	20c0      	movs	r0, #192	; 0xc0
 	//PORT->Group[BOOT_PORT].OUTSET.reg = (1u << BOOT_PIN); //<- works without this definition.
 
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
 	{
-		app_start_address = /**(uint32_t *)*/(APP_START + 4);
- 342:	4b43      	ldr	r3, [pc, #268]	; (450 <STACK_SIZE+0x50>)
- 344:	4a43      	ldr	r2, [pc, #268]	; (454 <STACK_SIZE+0x54>)
+		app_start_address = *(uint32_t *)(APP_START + 4);
+ 3a2:	4a51      	ldr	r2, [pc, #324]	; (4e8 <STACK_SIZE+0xe8>)
 		/* Rebase the Stack Pointer */
 		__set_MSP(*(uint32_t *) APP_START + 4);
- 346:	00c9      	lsls	r1, r1, #3
+ 3a4:	00c0      	lsls	r0, r0, #3
 	//PORT->Group[BOOT_PORT].OUTSET.reg = (1u << BOOT_PIN); //<- works without this definition.
 
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
 	{
-		app_start_address = /**(uint32_t *)*/(APP_START + 4);
- 348:	601a      	str	r2, [r3, #0]
+		app_start_address = *(uint32_t *)(APP_START + 4);
+ 3a6:	6811      	ldr	r1, [r2, #0]
+ 3a8:	4a50      	ldr	r2, [pc, #320]	; (4ec <STACK_SIZE+0xec>)
+ 3aa:	6011      	str	r1, [r2, #0]
+		/* Rebase the Stack Pointer */
+		__set_MSP(*(uint32_t *) APP_START + 4);
+ 3ac:	6802      	ldr	r2, [r0, #0]
+ 3ae:	3204      	adds	r2, #4
 
     \param [in]    topOfMainStack  Main Stack Pointer value to set
  */
 __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_MSP(uint32_t topOfMainStack)
 {
   __ASM volatile ("MSR msp, %0\n" : : "r" (topOfMainStack) : "sp");
- 34a:	680b      	ldr	r3, [r1, #0]
- 34c:	3304      	adds	r3, #4
- 34e:	f383 8808 	msr	MSP, r3
-		/* Rebase the Stack Pointer */
-		__set_MSP(*(uint32_t *) APP_START + 4);
+ 3b0:	f382 8808 	msr	MSP, r2
 
 		/* Rebase the vector table base address */
 		SCB->VTOR = ((uint32_t) APP_START & SCB_VTOR_TBLOFF_Msk);
- 352:	4b41      	ldr	r3, [pc, #260]	; (458 <STACK_SIZE+0x58>)
- 354:	6099      	str	r1, [r3, #8]
+ 3b4:	4a4e      	ldr	r2, [pc, #312]	; (4f0 <STACK_SIZE+0xf0>)
+ 3b6:	6090      	str	r0, [r2, #8]
 
 		/* Jump to application Reset Handler in the application */
 		asm("bx %0"::"r"(app_start_address));
- 356:	4710      	bx	r2
+ 3b8:	4708      	bx	r1
 	}
+	REG_PORT_DIR0 |= (1 << 14);
+ 3ba:	2180      	movs	r1, #128	; 0x80
+ 3bc:	681a      	ldr	r2, [r3, #0]
+ 3be:	01c9      	lsls	r1, r1, #7
+ 3c0:	430a      	orrs	r2, r1
+ 3c2:	601a      	str	r2, [r3, #0]
+	REG_PORT_OUT0 |= (1<<14);
+ 3c4:	4a4b      	ldr	r2, [pc, #300]	; (4f4 <STACK_SIZE+0xf4>)
+ 3c6:	6813      	ldr	r3, [r2, #0]
+ 3c8:	430b      	orrs	r3, r1
+ 3ca:	6013      	str	r3, [r2, #0]
 	
 	/* Make CPU to run at 8MHz by clearing prescalar bits */ 
     SYSCTRL->OSC8M.bit.PRESC = 0;
- 358:	4a40      	ldr	r2, [pc, #256]	; (45c <STACK_SIZE+0x5c>)
- 35a:	4b41      	ldr	r3, [pc, #260]	; (460 <STACK_SIZE+0x60>)
- 35c:	6a11      	ldr	r1, [r2, #32]
- 35e:	400b      	ands	r3, r1
+ 3cc:	4a4a      	ldr	r2, [pc, #296]	; (4f8 <STACK_SIZE+0xf8>)
+ 3ce:	4b4b      	ldr	r3, [pc, #300]	; (4fc <STACK_SIZE+0xfc>)
+ 3d0:	6a11      	ldr	r1, [r2, #32]
+ 3d2:	400b      	ands	r3, r1
 	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
- 360:	2180      	movs	r1, #128	; 0x80
-		/* Jump to application Reset Handler in the application */
-		asm("bx %0"::"r"(app_start_address));
+ 3d4:	2180      	movs	r1, #128	; 0x80
 	}
+	REG_PORT_DIR0 |= (1 << 14);
+	REG_PORT_OUT0 |= (1<<14);
 	
 	/* Make CPU to run at 8MHz by clearing prescalar bits */ 
     SYSCTRL->OSC8M.bit.PRESC = 0;
- 362:	6213      	str	r3, [r2, #32]
+ 3d6:	6213      	str	r3, [r2, #32]
 	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
- 364:	4a3f      	ldr	r2, [pc, #252]	; (464 <STACK_SIZE+0x64>)
- 366:	02c9      	lsls	r1, r1, #11
- 368:	6853      	ldr	r3, [r2, #4]
- 36a:	430b      	orrs	r3, r1
- 36c:	6053      	str	r3, [r2, #4]
+ 3d8:	4a49      	ldr	r2, [pc, #292]	; (500 <STACK_SIZE+0x100>)
+ 3da:	02c9      	lsls	r1, r1, #11
+ 3dc:	6853      	ldr	r3, [r2, #4]
+ 3de:	430b      	orrs	r3, r1
+ 3e0:	6053      	str	r3, [r2, #4]
 	
 	/* Config Usart */
+	nvm_set_config();
+ 3e2:	4b48      	ldr	r3, [pc, #288]	; (504 <STACK_SIZE+0x104>)
+ 3e4:	4798      	blx	r3
+	
+	/* Flash page size is 64 bytes */
+	#define PAGE_SIZE	_nvm_dev.page_size	//used to read and write to flash.
+	uint8_t page_buffer[PAGE_SIZE];
+ 3e6:	466a      	mov	r2, sp
+ 3e8:	4b47      	ldr	r3, [pc, #284]	; (508 <STACK_SIZE+0x108>)
+ 3ea:	881b      	ldrh	r3, [r3, #0]
+ 3ec:	60fb      	str	r3, [r7, #12]
+ 3ee:	3307      	adds	r3, #7
+ 3f0:	08db      	lsrs	r3, r3, #3
+ 3f2:	00db      	lsls	r3, r3, #3
+ 3f4:	1ad3      	subs	r3, r2, r3
+ 3f6:	469d      	mov	sp, r3
+ 3f8:	60bb      	str	r3, [r7, #8]
+	
 	UART_sercom_init();
- 36e:	4b3e      	ldr	r3, [pc, #248]	; (468 <STACK_SIZE+0x68>)
- 370:	4798      	blx	r3
+ 3fa:	4b44      	ldr	r3, [pc, #272]	; (50c <STACK_SIZE+0x10c>)
+ 3fc:	4798      	blx	r3
 	info();
- 372:	4b3e      	ldr	r3, [pc, #248]	; (46c <STACK_SIZE+0x6c>)
- 374:	4798      	blx	r3
+ 3fe:	4b44      	ldr	r3, [pc, #272]	; (510 <STACK_SIZE+0x110>)
+ 400:	4798      	blx	r3
     while (1) 
     {
         data_8 = uart_read_byte();
- 376:	4f3e      	ldr	r7, [pc, #248]	; (470 <STACK_SIZE+0x70>)
- 378:	47b8      	blx	r7
- 37a:	4b3e      	ldr	r3, [pc, #248]	; (474 <STACK_SIZE+0x74>)
- 37c:	7018      	strb	r0, [r3, #0]
+ 402:	4e44      	ldr	r6, [pc, #272]	; (514 <STACK_SIZE+0x114>)
+ 404:	47b0      	blx	r6
+ 406:	4b44      	ldr	r3, [pc, #272]	; (518 <STACK_SIZE+0x118>)
+ 408:	7018      	strb	r0, [r3, #0]
 		if (data_8 == '#')
- 37e:	2823      	cmp	r0, #35	; 0x23
- 380:	d105      	bne.n	38e <main+0x5e>
+ 40a:	2823      	cmp	r0, #35	; 0x23
+ 40c:	d105      	bne.n	41a <STACK_SIZE+0x1a>
 		{
 			uart_write_byte('s');
- 382:	3050      	adds	r0, #80	; 0x50
- 384:	4c3c      	ldr	r4, [pc, #240]	; (478 <STACK_SIZE+0x78>)
- 386:	47a0      	blx	r4
+ 40e:	3050      	adds	r0, #80	; 0x50
+ 410:	4c42      	ldr	r4, [pc, #264]	; (51c <STACK_SIZE+0x11c>)
+ 412:	47a0      	blx	r4
 			uart_write_byte((uint8_t)APP_SIZE);
- 388:	200d      	movs	r0, #13
- 38a:	47a0      	blx	r4
- 38c:	e7f3      	b.n	376 <main+0x46>
+ 414:	200d      	movs	r0, #13
+ 416:	47a0      	blx	r4
+ 418:	e7f3      	b.n	402 <STACK_SIZE+0x2>
 		}
 		else if (data_8 == 'e')
- 38e:	2865      	cmp	r0, #101	; 0x65
- 390:	d116      	bne.n	3c0 <main+0x90>
+ 41a:	2865      	cmp	r0, #101	; 0x65
+ 41c:	d116      	bne.n	44c <STACK_SIZE+0x4c>
 		{
 			/*this has been fixed, it no longer fails to 
 			a dummy handler*/
 			for(i = APP_START; i < FLASH_SIZE; i = i + 256)
- 392:	23c0      	movs	r3, #192	; 0xc0
- 394:	4c39      	ldr	r4, [pc, #228]	; (47c <STACK_SIZE+0x7c>)
- 396:	00db      	lsls	r3, r3, #3
- 398:	6023      	str	r3, [r4, #0]
- 39a:	6820      	ldr	r0, [r4, #0]
- 39c:	4b38      	ldr	r3, [pc, #224]	; (480 <STACK_SIZE+0x80>)
- 39e:	4298      	cmp	r0, r3
- 3a0:	d805      	bhi.n	3ae <main+0x7e>
+ 41e:	23c0      	movs	r3, #192	; 0xc0
+ 420:	4c3f      	ldr	r4, [pc, #252]	; (520 <STACK_SIZE+0x120>)
+ 422:	00db      	lsls	r3, r3, #3
+ 424:	6023      	str	r3, [r4, #0]
+ 426:	6820      	ldr	r0, [r4, #0]
+ 428:	4b3e      	ldr	r3, [pc, #248]	; (524 <STACK_SIZE+0x124>)
+ 42a:	4298      	cmp	r0, r3
+ 42c:	d805      	bhi.n	43a <STACK_SIZE+0x3a>
 			{
 				nvm_erase_row(i);
- 3a2:	4b38      	ldr	r3, [pc, #224]	; (484 <STACK_SIZE+0x84>)
- 3a4:	4798      	blx	r3
+ 42e:	4b3e      	ldr	r3, [pc, #248]	; (528 <STACK_SIZE+0x128>)
+ 430:	4798      	blx	r3
 		}
 		else if (data_8 == 'e')
 		{
 			/*this has been fixed, it no longer fails to 
 			a dummy handler*/
 			for(i = APP_START; i < FLASH_SIZE; i = i + 256)
- 3a6:	6823      	ldr	r3, [r4, #0]
- 3a8:	3301      	adds	r3, #1
- 3aa:	33ff      	adds	r3, #255	; 0xff
- 3ac:	e7f4      	b.n	398 <main+0x68>
+ 432:	6823      	ldr	r3, [r4, #0]
+ 434:	3301      	adds	r3, #1
+ 436:	33ff      	adds	r3, #255	; 0xff
+ 438:	e7f4      	b.n	424 <STACK_SIZE+0x24>
 			{
 				nvm_erase_row(i);
 			}
 			dest_addr = APP_START;
- 3ae:	22c0      	movs	r2, #192	; 0xc0
- 3b0:	4b35      	ldr	r3, [pc, #212]	; (488 <STACK_SIZE+0x88>)
- 3b2:	00d2      	lsls	r2, r2, #3
- 3b4:	601a      	str	r2, [r3, #0]
+ 43a:	23c0      	movs	r3, #192	; 0xc0
+ 43c:	4a3b      	ldr	r2, [pc, #236]	; (52c <STACK_SIZE+0x12c>)
+ 43e:	00db      	lsls	r3, r3, #3
+ 440:	6013      	str	r3, [r2, #0]
 			flash_ptr = APP_START;
- 3b6:	4b35      	ldr	r3, [pc, #212]	; (48c <STACK_SIZE+0x8c>)
+ 442:	4a3b      	ldr	r2, [pc, #236]	; (530 <STACK_SIZE+0x130>)
 			uart_write_byte('s');
- 3b8:	2073      	movs	r0, #115	; 0x73
+ 444:	2073      	movs	r0, #115	; 0x73
 			for(i = APP_START; i < FLASH_SIZE; i = i + 256)
 			{
 				nvm_erase_row(i);
 			}
 			dest_addr = APP_START;
 			flash_ptr = APP_START;
- 3ba:	601a      	str	r2, [r3, #0]
+ 446:	6013      	str	r3, [r2, #0]
 			uart_write_byte('s');
- 3bc:	4b2e      	ldr	r3, [pc, #184]	; (478 <STACK_SIZE+0x78>)
- 3be:	e01d      	b.n	3fc <main+0xcc>
+ 448:	4b34      	ldr	r3, [pc, #208]	; (51c <STACK_SIZE+0x11c>)
+ 44a:	e01f      	b.n	48c <STACK_SIZE+0x8c>
 		}
 		else if (data_8 == 'p')
- 3c0:	2870      	cmp	r0, #112	; 0x70
- 3c2:	d11d      	bne.n	400 <STACK_SIZE>
+ 44c:	2870      	cmp	r0, #112	; 0x70
+ 44e:	d11f      	bne.n	490 <STACK_SIZE+0x90>
 		{
 			uart_write_byte('s');
- 3c4:	4d2c      	ldr	r5, [pc, #176]	; (478 <STACK_SIZE+0x78>)
- 3c6:	3003      	adds	r0, #3
- 3c8:	47a8      	blx	r5
-			for (i = 0; i < PAGE_SIZE; i++)
- 3ca:	2300      	movs	r3, #0
- 3cc:	4c2b      	ldr	r4, [pc, #172]	; (47c <STACK_SIZE+0x7c>)
- 3ce:	9501      	str	r5, [sp, #4]
- 3d0:	6023      	str	r3, [r4, #0]
- 3d2:	6826      	ldr	r6, [r4, #0]
- 3d4:	4d2e      	ldr	r5, [pc, #184]	; (490 <STACK_SIZE+0x90>)
- 3d6:	2e3f      	cmp	r6, #63	; 0x3f
- 3d8:	d805      	bhi.n	3e6 <main+0xb6>
+ 450:	4d32      	ldr	r5, [pc, #200]	; (51c <STACK_SIZE+0x11c>)
+ 452:	3003      	adds	r0, #3
+ 454:	47a8      	blx	r5
+			for (i = 0; i < _nvm_dev.page_size; i++)
+ 456:	2300      	movs	r3, #0
+ 458:	4c31      	ldr	r4, [pc, #196]	; (520 <STACK_SIZE+0x120>)
+ 45a:	607d      	str	r5, [r7, #4]
+ 45c:	6023      	str	r3, [r4, #0]
+ 45e:	6825      	ldr	r5, [r4, #0]
+ 460:	68fb      	ldr	r3, [r7, #12]
+ 462:	429d      	cmp	r5, r3
+ 464:	d206      	bcs.n	474 <STACK_SIZE+0x74>
 			{
 				page_buffer[i] = uart_read_byte();
- 3da:	47b8      	blx	r7
+ 466:	47b0      	blx	r6
+ 468:	68bb      	ldr	r3, [r7, #8]
+ 46a:	5558      	strb	r0, [r3, r5]
 			uart_write_byte('s');
 		}
 		else if (data_8 == 'p')
 		{
 			uart_write_byte('s');
-			for (i = 0; i < PAGE_SIZE; i++)
- 3dc:	6823      	ldr	r3, [r4, #0]
-			{
-				page_buffer[i] = uart_read_byte();
- 3de:	55a8      	strb	r0, [r5, r6]
-			uart_write_byte('s');
-		}
-		else if (data_8 == 'p')
-		{
-			uart_write_byte('s');
-			for (i = 0; i < PAGE_SIZE; i++)
- 3e0:	3301      	adds	r3, #1
- 3e2:	6023      	str	r3, [r4, #0]
- 3e4:	e7f5      	b.n	3d2 <main+0xa2>
+			for (i = 0; i < _nvm_dev.page_size; i++)
+ 46c:	6823      	ldr	r3, [r4, #0]
+ 46e:	3301      	adds	r3, #1
+ 470:	6023      	str	r3, [r4, #0]
+ 472:	e7f4      	b.n	45e <STACK_SIZE+0x5e>
 			{
 				page_buffer[i] = uart_read_byte();
 			}
-			nvm_write_buffer(dest_addr, page_buffer, PAGE_SIZE);
- 3e6:	4c28      	ldr	r4, [pc, #160]	; (488 <STACK_SIZE+0x88>)
- 3e8:	4b2a      	ldr	r3, [pc, #168]	; (494 <STACK_SIZE+0x94>)
- 3ea:	6820      	ldr	r0, [r4, #0]
- 3ec:	2240      	movs	r2, #64	; 0x40
- 3ee:	0029      	movs	r1, r5
- 3f0:	4798      	blx	r3
-			dest_addr += PAGE_SIZE;
+			nvm_write_buffer(dest_addr, page_buffer, _nvm_dev.page_size);
+ 474:	4c2d      	ldr	r4, [pc, #180]	; (52c <STACK_SIZE+0x12c>)
+ 476:	1c1a      	adds	r2, r3, #0
+ 478:	6820      	ldr	r0, [r4, #0]
+ 47a:	4b2e      	ldr	r3, [pc, #184]	; (534 <STACK_SIZE+0x134>)
+ 47c:	68b9      	ldr	r1, [r7, #8]
+ 47e:	4798      	blx	r3
+			dest_addr += _nvm_dev.page_size;
 			uart_write_byte('s');
- 3f2:	2073      	movs	r0, #115	; 0x73
-			for (i = 0; i < PAGE_SIZE; i++)
+ 480:	2073      	movs	r0, #115	; 0x73
+			for (i = 0; i < _nvm_dev.page_size; i++)
 			{
 				page_buffer[i] = uart_read_byte();
 			}
-			nvm_write_buffer(dest_addr, page_buffer, PAGE_SIZE);
-			dest_addr += PAGE_SIZE;
- 3f4:	6823      	ldr	r3, [r4, #0]
- 3f6:	3340      	adds	r3, #64	; 0x40
- 3f8:	6023      	str	r3, [r4, #0]
+			nvm_write_buffer(dest_addr, page_buffer, _nvm_dev.page_size);
+			dest_addr += _nvm_dev.page_size;
+ 482:	6822      	ldr	r2, [r4, #0]
+ 484:	68fb      	ldr	r3, [r7, #12]
+ 486:	189b      	adds	r3, r3, r2
+ 488:	6023      	str	r3, [r4, #0]
 			uart_write_byte('s');
- 3fa:	9b01      	ldr	r3, [sp, #4]
- 3fc:	4798      	blx	r3
- 3fe:	e7ba      	b.n	376 <main+0x46>
+ 48a:	687b      	ldr	r3, [r7, #4]
+ 48c:	4798      	blx	r3
+ 48e:	e7b8      	b.n	402 <STACK_SIZE+0x2>
 		}
 		else if (data_8 == 'v')
- 400:	2876      	cmp	r0, #118	; 0x76
- 402:	d1b8      	bne.n	376 <main+0x46>
+ 490:	2876      	cmp	r0, #118	; 0x76
+ 492:	d1b6      	bne.n	402 <STACK_SIZE+0x2>
 		{
 			/* now we get stuck here... varifing pages fails on the first page.
 			don't know why.*/
 			uart_write_byte('s');
- 404:	4b1c      	ldr	r3, [pc, #112]	; (478 <STACK_SIZE+0x78>)
- 406:	3803      	subs	r0, #3
- 408:	4798      	blx	r3
-			for (i = 0; i < (PAGE_SIZE); i++)
- 40a:	2300      	movs	r3, #0
- 40c:	4c1b      	ldr	r4, [pc, #108]	; (47c <STACK_SIZE+0x7c>)
- 40e:	6023      	str	r3, [r4, #0]
- 410:	6823      	ldr	r3, [r4, #0]
- 412:	2b3f      	cmp	r3, #63	; 0x3f
- 414:	d8af      	bhi.n	376 <main+0x46>
+ 494:	4b21      	ldr	r3, [pc, #132]	; (51c <STACK_SIZE+0x11c>)
+ 496:	3803      	subs	r0, #3
+ 498:	4798      	blx	r3
+			for (i = 0; i < (_nvm_dev.page_size); i++)
+ 49a:	2300      	movs	r3, #0
+ 49c:	4c20      	ldr	r4, [pc, #128]	; (520 <STACK_SIZE+0x120>)
+ 49e:	6023      	str	r3, [r4, #0]
+ 4a0:	6823      	ldr	r3, [r4, #0]
+ 4a2:	68fa      	ldr	r2, [r7, #12]
+ 4a4:	4293      	cmp	r3, r2
+ 4a6:	d2ac      	bcs.n	402 <STACK_SIZE+0x2>
 			{
 				app_start_address = *flash_ptr;
- 416:	4d1d      	ldr	r5, [pc, #116]	; (48c <STACK_SIZE+0x8c>)
- 418:	4f0d      	ldr	r7, [pc, #52]	; (450 <STACK_SIZE+0x50>)
- 41a:	682b      	ldr	r3, [r5, #0]
+ 4a8:	4d21      	ldr	r5, [pc, #132]	; (530 <STACK_SIZE+0x130>)
+ 4aa:	4e10      	ldr	r6, [pc, #64]	; (4ec <STACK_SIZE+0xec>)
+ 4ac:	682b      	ldr	r3, [r5, #0]
 				//uart_write_byte((uint8_t)app_start_address);
 				UART_sercom_simpleWrite(SERCOM1,(uint8_t)(app_start_address >> 8));
- 41c:	4e1e      	ldr	r6, [pc, #120]	; (498 <STACK_SIZE+0x98>)
+ 4ae:	4822      	ldr	r0, [pc, #136]	; (538 <STACK_SIZE+0x138>)
 			/* now we get stuck here... varifing pages fails on the first page.
 			don't know why.*/
 			uart_write_byte('s');
-			for (i = 0; i < (PAGE_SIZE); i++)
+			for (i = 0; i < (_nvm_dev.page_size); i++)
 			{
 				app_start_address = *flash_ptr;
- 41e:	6819      	ldr	r1, [r3, #0]
+ 4b0:	6819      	ldr	r1, [r3, #0]
 				//uart_write_byte((uint8_t)app_start_address);
 				UART_sercom_simpleWrite(SERCOM1,(uint8_t)(app_start_address >> 8));
- 420:	481e      	ldr	r0, [pc, #120]	; (49c <STACK_SIZE+0x9c>)
+ 4b2:	4b22      	ldr	r3, [pc, #136]	; (53c <STACK_SIZE+0x13c>)
 			/* now we get stuck here... varifing pages fails on the first page.
 			don't know why.*/
 			uart_write_byte('s');
-			for (i = 0; i < (PAGE_SIZE); i++)
+			for (i = 0; i < (_nvm_dev.page_size); i++)
 			{
 				app_start_address = *flash_ptr;
- 422:	6039      	str	r1, [r7, #0]
+ 4b4:	6031      	str	r1, [r6, #0]
 				//uart_write_byte((uint8_t)app_start_address);
 				UART_sercom_simpleWrite(SERCOM1,(uint8_t)(app_start_address >> 8));
- 424:	0a09      	lsrs	r1, r1, #8
- 426:	b2c9      	uxtb	r1, r1
- 428:	47b0      	blx	r6
+ 4b6:	0a09      	lsrs	r1, r1, #8
+ 4b8:	b2c9      	uxtb	r1, r1
+ 4ba:	4798      	blx	r3
 				//uart_write_byte((uint8_t)(app_start_address >> 8));
 				UART_sercom_simpleWrite(SERCOM1,(uint8_t)(app_start_address >> 16));
- 42a:	683b      	ldr	r3, [r7, #0]
- 42c:	481b      	ldr	r0, [pc, #108]	; (49c <STACK_SIZE+0x9c>)
- 42e:	0c19      	lsrs	r1, r3, #16
- 430:	b2c9      	uxtb	r1, r1
- 432:	47b0      	blx	r6
+ 4bc:	6833      	ldr	r3, [r6, #0]
+ 4be:	481e      	ldr	r0, [pc, #120]	; (538 <STACK_SIZE+0x138>)
+ 4c0:	0c19      	lsrs	r1, r3, #16
+ 4c2:	b2c9      	uxtb	r1, r1
+ 4c4:	4b1d      	ldr	r3, [pc, #116]	; (53c <STACK_SIZE+0x13c>)
+ 4c6:	4798      	blx	r3
 				//uart_write_byte((uint8_t)(app_start_address >> 16));
 				UART_sercom_simpleWrite(SERCOM1,(uint8_t)(app_start_address >> 24));
- 434:	6839      	ldr	r1, [r7, #0]
- 436:	4819      	ldr	r0, [pc, #100]	; (49c <STACK_SIZE+0x9c>)
- 438:	0e09      	lsrs	r1, r1, #24
- 43a:	47b0      	blx	r6
+ 4c8:	6831      	ldr	r1, [r6, #0]
+ 4ca:	4b1c      	ldr	r3, [pc, #112]	; (53c <STACK_SIZE+0x13c>)
+ 4cc:	0e09      	lsrs	r1, r1, #24
+ 4ce:	481a      	ldr	r0, [pc, #104]	; (538 <STACK_SIZE+0x138>)
+ 4d0:	4798      	blx	r3
 				//uart_write_byte((uint8_t)(app_start_address >> 24));
 				flash_ptr++;
- 43c:	682b      	ldr	r3, [r5, #0]
- 43e:	3304      	adds	r3, #4
- 440:	602b      	str	r3, [r5, #0]
+ 4d2:	682b      	ldr	r3, [r5, #0]
+ 4d4:	3304      	adds	r3, #4
+ 4d6:	602b      	str	r3, [r5, #0]
 		else if (data_8 == 'v')
 		{
 			/* now we get stuck here... varifing pages fails on the first page.
 			don't know why.*/
 			uart_write_byte('s');
-			for (i = 0; i < (PAGE_SIZE); i++)
- 442:	6823      	ldr	r3, [r4, #0]
- 444:	3301      	adds	r3, #1
- 446:	e7e2      	b.n	40e <STACK_SIZE+0xe>
- 448:	4100444f 	.word	0x4100444f
- 44c:	41004400 	.word	0x41004400
- 450:	20000088 	.word	0x20000088
- 454:	00000604 	.word	0x00000604
- 458:	e000ed00 	.word	0xe000ed00
- 45c:	40000800 	.word	0x40000800
- 460:	fffffcff 	.word	0xfffffcff
- 464:	41004000 	.word	0x41004000
- 468:	00000199 	.word	0x00000199
- 46c:	0000030d 	.word	0x0000030d
- 470:	00000269 	.word	0x00000269
- 474:	2000001d 	.word	0x2000001d
- 478:	0000023d 	.word	0x0000023d
- 47c:	20000040 	.word	0x20000040
- 480:	00003fff 	.word	0x00003fff
- 484:	0000027d 	.word	0x0000027d
- 488:	2000003c 	.word	0x2000003c
- 48c:	20000044 	.word	0x20000044
- 490:	20000048 	.word	0x20000048
- 494:	000002ad 	.word	0x000002ad
- 498:	00000251 	.word	0x00000251
- 49c:	42000c00 	.word	0x42000c00
+			for (i = 0; i < (_nvm_dev.page_size); i++)
+ 4d8:	6823      	ldr	r3, [r4, #0]
+ 4da:	3301      	adds	r3, #1
+ 4dc:	e7df      	b.n	49e <STACK_SIZE+0x9e>
+ 4de:	46c0      	nop			; (mov r8, r8)
+ 4e0:	4100444f 	.word	0x4100444f
+ 4e4:	41004400 	.word	0x41004400
+ 4e8:	00000604 	.word	0x00000604
+ 4ec:	20000050 	.word	0x20000050
+ 4f0:	e000ed00 	.word	0xe000ed00
+ 4f4:	41004410 	.word	0x41004410
+ 4f8:	40000800 	.word	0x40000800
+ 4fc:	fffffcff 	.word	0xfffffcff
+ 500:	41004000 	.word	0x41004000
+ 504:	00000195 	.word	0x00000195
+ 508:	2000003c 	.word	0x2000003c
+ 50c:	000001b9 	.word	0x000001b9
+ 510:	00000369 	.word	0x00000369
+ 514:	00000281 	.word	0x00000281
+ 518:	2000001d 	.word	0x2000001d
+ 51c:	00000259 	.word	0x00000259
+ 520:	20000048 	.word	0x20000048
+ 524:	00003fff 	.word	0x00003fff
+ 528:	00000295 	.word	0x00000295
+ 52c:	20000044 	.word	0x20000044
+ 530:	2000004c 	.word	0x2000004c
+ 534:	000002dd 	.word	0x000002dd
+ 538:	42000c00 	.word	0x42000c00
+ 53c:	0000026d 	.word	0x0000026d
 
-000004a0 <__libc_init_array>:
- 4a0:	4b0e      	ldr	r3, [pc, #56]	; (4dc <__libc_init_array+0x3c>)
- 4a2:	b570      	push	{r4, r5, r6, lr}
- 4a4:	2500      	movs	r5, #0
- 4a6:	001e      	movs	r6, r3
- 4a8:	4c0d      	ldr	r4, [pc, #52]	; (4e0 <__libc_init_array+0x40>)
- 4aa:	1ae4      	subs	r4, r4, r3
- 4ac:	10a4      	asrs	r4, r4, #2
- 4ae:	42a5      	cmp	r5, r4
- 4b0:	d004      	beq.n	4bc <__libc_init_array+0x1c>
- 4b2:	00ab      	lsls	r3, r5, #2
- 4b4:	58f3      	ldr	r3, [r6, r3]
- 4b6:	4798      	blx	r3
- 4b8:	3501      	adds	r5, #1
- 4ba:	e7f8      	b.n	4ae <__libc_init_array+0xe>
- 4bc:	f000 f816 	bl	4ec <_init>
- 4c0:	4b08      	ldr	r3, [pc, #32]	; (4e4 <__libc_init_array+0x44>)
- 4c2:	2500      	movs	r5, #0
- 4c4:	001e      	movs	r6, r3
- 4c6:	4c08      	ldr	r4, [pc, #32]	; (4e8 <__libc_init_array+0x48>)
- 4c8:	1ae4      	subs	r4, r4, r3
- 4ca:	10a4      	asrs	r4, r4, #2
- 4cc:	42a5      	cmp	r5, r4
- 4ce:	d004      	beq.n	4da <__libc_init_array+0x3a>
- 4d0:	00ab      	lsls	r3, r5, #2
- 4d2:	58f3      	ldr	r3, [r6, r3]
- 4d4:	4798      	blx	r3
- 4d6:	3501      	adds	r5, #1
- 4d8:	e7f8      	b.n	4cc <__libc_init_array+0x2c>
- 4da:	bd70      	pop	{r4, r5, r6, pc}
- 4dc:	000004f8 	.word	0x000004f8
- 4e0:	000004f8 	.word	0x000004f8
- 4e4:	000004f8 	.word	0x000004f8
- 4e8:	000004fc 	.word	0x000004fc
+00000540 <__libc_init_array>:
+ 540:	4b0e      	ldr	r3, [pc, #56]	; (57c <__libc_init_array+0x3c>)
+ 542:	b570      	push	{r4, r5, r6, lr}
+ 544:	2500      	movs	r5, #0
+ 546:	1c1e      	adds	r6, r3, #0
+ 548:	4c0d      	ldr	r4, [pc, #52]	; (580 <__libc_init_array+0x40>)
+ 54a:	1ae4      	subs	r4, r4, r3
+ 54c:	10a4      	asrs	r4, r4, #2
+ 54e:	42a5      	cmp	r5, r4
+ 550:	d004      	beq.n	55c <__libc_init_array+0x1c>
+ 552:	00ab      	lsls	r3, r5, #2
+ 554:	58f3      	ldr	r3, [r6, r3]
+ 556:	4798      	blx	r3
+ 558:	3501      	adds	r5, #1
+ 55a:	e7f8      	b.n	54e <__libc_init_array+0xe>
+ 55c:	f000 f816 	bl	58c <_init>
+ 560:	4b08      	ldr	r3, [pc, #32]	; (584 <__libc_init_array+0x44>)
+ 562:	2500      	movs	r5, #0
+ 564:	1c1e      	adds	r6, r3, #0
+ 566:	4c08      	ldr	r4, [pc, #32]	; (588 <__libc_init_array+0x48>)
+ 568:	1ae4      	subs	r4, r4, r3
+ 56a:	10a4      	asrs	r4, r4, #2
+ 56c:	42a5      	cmp	r5, r4
+ 56e:	d004      	beq.n	57a <__libc_init_array+0x3a>
+ 570:	00ab      	lsls	r3, r5, #2
+ 572:	58f3      	ldr	r3, [r6, r3]
+ 574:	4798      	blx	r3
+ 576:	3501      	adds	r5, #1
+ 578:	e7f8      	b.n	56c <__libc_init_array+0x2c>
+ 57a:	bd70      	pop	{r4, r5, r6, pc}
+ 57c:	00000598 	.word	0x00000598
+ 580:	00000598 	.word	0x00000598
+ 584:	00000598 	.word	0x00000598
+ 588:	0000059c 	.word	0x0000059c
 
-000004ec <_init>:
- 4ec:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 4ee:	46c0      	nop			; (mov r8, r8)
- 4f0:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 4f2:	bc08      	pop	{r3}
- 4f4:	469e      	mov	lr, r3
- 4f6:	4770      	bx	lr
+0000058c <_init>:
+ 58c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 58e:	46c0      	nop			; (mov r8, r8)
+ 590:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 592:	bc08      	pop	{r3}
+ 594:	469e      	mov	lr, r3
+ 596:	4770      	bx	lr
 
-000004f8 <__init_array_start>:
- 4f8:	000000b5 	.word	0x000000b5
+00000598 <__init_array_start>:
+ 598:	000000b5 	.word	0x000000b5
 
-000004fc <_fini>:
- 4fc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 4fe:	46c0      	nop			; (mov r8, r8)
- 500:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 502:	bc08      	pop	{r3}
- 504:	469e      	mov	lr, r3
- 506:	4770      	bx	lr
+0000059c <_fini>:
+ 59c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 59e:	46c0      	nop			; (mov r8, r8)
+ 5a0:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 5a2:	bc08      	pop	{r3}
+ 5a4:	469e      	mov	lr, r3
+ 5a6:	4770      	bx	lr
 
-00000508 <__fini_array_start>:
- 508:	0000008d 	.word	0x0000008d
+000005a8 <__fini_array_start>:
+ 5a8:	0000008d 	.word	0x0000008d
