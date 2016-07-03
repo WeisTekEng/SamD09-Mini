@@ -239,8 +239,10 @@ void nvm_erase_row(const uint32_t row_address)
 	return 1;
 }
 
+
 void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer, uint16_t length)
 {
+	
 	/* Check if the destination address is valid */
 	if (destination_address >
 	((uint32_t)_nvm_dev.page_size * _nvm_dev.number_of_pages)) {
@@ -259,6 +261,9 @@ void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer,
 
 	/* Check if the module is busy */
 	while(!NVMCTRL->INTFLAG.bit.READY);
+	
+	//set auto page writes
+	NVMCTRL->CTRLB.bit.MANW = 0;
 
 	/* Erase the page buffer before buffering new data */
 	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMD_PBC | NVMCTRL_CTRLA_CMDEX_KEY;
@@ -287,6 +292,8 @@ void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer,
 		}
 		/* Store next 16-bit chunk to the NVM memory space */
 		NVM_MEMORY[nvm_address++] = data;
+		NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_WP;
+
 	}
 	
 	/* If automatic page write mode is enable, then perform a manual NVM
@@ -340,7 +347,7 @@ int main(void)
 		{
 			uart_write_byte('s');
 			uart_write_byte((uint8_t)APP_SIZE);
-			uart_write_byte('\n');
+			//uart_write_byte('\n');
 		}
 		else if (data_8 == 'e')
 		{
@@ -353,39 +360,42 @@ int main(void)
 			dest_addr = APP_START;
 			flash_ptr = APP_START;
 			uart_write_byte('s');
-			uart_write_byte('\n');
+			//uart_write_byte('\n');
 		}
 		else if (data_8 == 'p')
 		{
+			
 			uart_write_byte('s');
-			uart_write_byte('\n');
+			//uart_write_byte('\n');
 			for (i = 0; i < _nvm_dev.page_size; i++)
 			{
 				page_buffer[i] = uart_read_byte();
 			}
 			nvm_write_buffer(dest_addr, page_buffer, _nvm_dev.page_size);
 			dest_addr += _nvm_dev.page_size;
-			uart_write_byte('\n');
+			//uart_write_byte('\n');
 			uart_write_byte('s');
-			uart_write_byte('\n');
+			//uart_write_byte('\n');
+
 		}
 		else if (data_8 == 'v')
 		{
 			/* now we get stuck here... varifing pages fails on the first page.
 			don't know why.*/
-			uart_write_byte('\n');
+			//uart_write_byte('\n');
 			uart_write_byte('s');
-			uart_write_byte('\n');
+			//uart_write_byte('\n');
 			for (i = 0; i < (_nvm_dev.page_size); i++)
 			{
-				app_start_address = *flash_ptr;
+				flash_ptr = APP_START;
+				//app_start_address = *flash_ptr;
 				//uart_write_byte((uint8_t)app_start_address);
-				UART_sercom_simpleWrite(SERCOM1,(uint8_t)(app_start_address >> 8));
-				//uart_write_byte((uint8_t)(app_start_address >> 8));
-				UART_sercom_simpleWrite(SERCOM1,(uint8_t)(app_start_address >> 16));
-				//uart_write_byte((uint8_t)(app_start_address >> 16));
-				UART_sercom_simpleWrite(SERCOM1,(uint8_t)(app_start_address >> 24));
-				//uart_write_byte((uint8_t)(app_start_address >> 24));
+				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 8));
+				uart_write_byte((uint8_t)(*flash_ptr >> 8));
+				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 16));
+				uart_write_byte((uint8_t)(*flash_ptr >> 16));
+				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 24));
+				uart_write_byte((uint8_t)(*flash_ptr >> 24));
 				flash_ptr++;
 			}
 		}
