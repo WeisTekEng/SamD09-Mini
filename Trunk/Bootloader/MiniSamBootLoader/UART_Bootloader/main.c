@@ -117,8 +117,11 @@ uint32_t file_size, i, dest_addr, app_start_address;
 uint32_t *flash_ptr;
 
 //Version information.
-uint8_t aVER[29] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
-					' ','b','o','o','t','l','o','a','d','e','r',' ','V','0','.','1'};
+uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
+					'\n','b','o','o','t','l','o','a','d','e','r',' ','V','0','.','1','\n',
+					'D','e','v',' ','B','o','a','r','d',' ','r','e','g','i','s','t','e','r',
+					'e','d',' ','t','o',' ','J','e','r','e','m','y',' ','G','\n',
+					'B','o','a','r','d',' ','I','D',' ','0','x','0','0','1','\n'};
 
 
 /*pin pad setup for SERCOM1 and USART*/
@@ -329,7 +332,7 @@ int main(void)
 	uint8_t page_buffer[PAGE_SIZE];
 	
 	UART_sercom_init();
-	info();
+	//info();
     while (1) 
     {
         data_8 = uart_read_byte();
@@ -337,6 +340,7 @@ int main(void)
 		{
 			uart_write_byte('s');
 			uart_write_byte((uint8_t)APP_SIZE);
+			uart_write_byte('\n');
 		}
 		else if (data_8 == 'e')
 		{
@@ -349,23 +353,29 @@ int main(void)
 			dest_addr = APP_START;
 			flash_ptr = APP_START;
 			uart_write_byte('s');
+			uart_write_byte('\n');
 		}
 		else if (data_8 == 'p')
 		{
 			uart_write_byte('s');
+			uart_write_byte('\n');
 			for (i = 0; i < _nvm_dev.page_size; i++)
 			{
 				page_buffer[i] = uart_read_byte();
 			}
 			nvm_write_buffer(dest_addr, page_buffer, _nvm_dev.page_size);
 			dest_addr += _nvm_dev.page_size;
+			uart_write_byte('\n');
 			uart_write_byte('s');
+			uart_write_byte('\n');
 		}
 		else if (data_8 == 'v')
 		{
 			/* now we get stuck here... varifing pages fails on the first page.
 			don't know why.*/
+			uart_write_byte('\n');
 			uart_write_byte('s');
+			uart_write_byte('\n');
 			for (i = 0; i < (_nvm_dev.page_size); i++)
 			{
 				app_start_address = *flash_ptr;
@@ -379,6 +389,10 @@ int main(void)
 				flash_ptr++;
 			}
 		}
+		else if (data_8 == 'i')
+		{
+			info();
+		}
     }
 }
 
@@ -386,7 +400,7 @@ void info()
 {
 	uint8_t i;
 	
-	for(i = 0;i<=29;i++)
+	for(i = 0;i<=78-1;i++)
 	{
 		UART_sercom_simpleWrite(SERCOM1,aVER[i]);	
 	}
