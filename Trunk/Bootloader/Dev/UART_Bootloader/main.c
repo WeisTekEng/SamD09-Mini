@@ -221,6 +221,7 @@ uint8_t uart_read_byte(void)
 
 void nvm_erase_row(const uint32_t row_address, uint32_t PAGE_SIZE)
 {
+#if 0
 	/* Check if the address to erase is not aligned to the start of a row */
 	if(row_address > ((uint32_t)_nvm_dev.page_size * _nvm_dev.number_of_pages))
 	{
@@ -232,7 +233,7 @@ void nvm_erase_row(const uint32_t row_address, uint32_t PAGE_SIZE)
 	{
 		return 0;
 	}
-	
+#endif
 	
 	/* Check if the module is busy */
 	while(!NVMCTRL->INTFLAG.bit.READY);
@@ -253,6 +254,7 @@ void nvm_erase_row(const uint32_t row_address, uint32_t PAGE_SIZE)
 
 void nvm_write_buffer(uint32_t destination_address, const uint8_t *buffer, uint16_t length)
 {
+#if 0
 	
 	/* Check if the destination address is valid */
 	if (destination_address >
@@ -269,6 +271,7 @@ void nvm_write_buffer(uint32_t destination_address, const uint8_t *buffer, uint1
 	if (length > _nvm_dev.page_size) {
 		return 0;
 	}
+#endif
 
 	/* Check if the module is busy */
 	while(!NVMCTRL->INTFLAG.bit.READY);
@@ -331,10 +334,6 @@ int main(void)
 		/* Rebase the vector table base address */
 		SCB->VTOR = ((uint32_t) APP_START & SCB_VTOR_TBLOFF_Msk);
 
-		/* Make CPU to run at 8MHz by clearing prescalar bits */ 
-		//SYSCTRL->OSC8M.bit.PRESC = 0;
-		//NVMCTRL->CTRLB.bit.CACHEDIS = 0;
-
 		/* Jump to application Reset Handler in the application */
 		asm("bx %0"::"r"(app_start_address));
 	}
@@ -392,6 +391,7 @@ int main(void)
 			REG_PORT_OUT0 &= ~(1<<14); //blinks light
 
 		}
+#if 0
 		else if (data_8 == 'v')
 		{
 			uart_write_byte('s');
@@ -403,6 +403,7 @@ int main(void)
 				set_ptr();
 			}
 		}
+#endif
 		else if (data_8 == 'z')
 		{
 			set_ptr();
