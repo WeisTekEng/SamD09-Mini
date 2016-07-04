@@ -102,8 +102,8 @@ for x in range(0, nb_blocks):
 		out += input_file.read(1)
 		length = ser.write(out)
 		
-		time.sleep(0.01)
-	print (str(out)+"\n")
+		#time.sleep(0.005)
+	#print ((out)+"\n")
 
 	#print (".")
 	while ser.inWaiting == 0:
@@ -150,6 +150,10 @@ print ("\n")
 input_file = open(args.inputfile, 'rb')
 print ("Verifying flash...")
 
+#tell the boot loader to setup pointers.
+ser.write('z')
+time.sleep(0.005)
+
 # Verify all pages except last one
 for x in xrange(0, nb_blocks):
 	print ("Verifying page %d" % x)
@@ -166,10 +170,10 @@ for x in xrange(0, nb_blocks):
 			pass
 		read = ''
 		read += ser.read(1)
-		print (str(read)+"\n")
+		print ((read)+"\n")
 		out = ''
 		out += input_file.read(1)
-		print (str(out)+"\n")
+		#print ((out)+"\n")
 		if read != out:
 			print("\nVerification Failed at address %d!", ((x*64)+y))
 			sys.exit()

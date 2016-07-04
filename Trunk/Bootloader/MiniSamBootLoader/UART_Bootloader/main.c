@@ -1,13 +1,15 @@
 /*
  * main.c
- *Project:		miniSam USART bootloader.
- *Author:		Weistek Engineering (jeremy G.)
- *website:		www.weistekengineering.com
- *date:			06-29-2016f
- *Summery:		Modified version of the Samd10 bootloader.
- *				If PA15 bootpin is held low, micro will enter USART bootloader mode.
- *				if PA15 is high, micro runs user program if there is one at new start
- *				memory. Look at APP_START for start location of user flash.
+ *Project:			miniSam USART bootloader.
+ *Author:			Weistek Engineering (jeremy G.)
+ *website:			www.weistekengineering.com
+ *date:				06-29-2016
+ *Summery:			Modified version of the Samd10 bootloader.
+ *					If PA15 bootpin is held low, micro will enter USART bootloader mode.
+ *					if PA15 is high, micro runs user program if there is one at new start
+ *					memory. Look at APP_START for start location of user flash.
+ *
+ *Modified:			07/04/2016
  *
  *Important pins : 	UART pins [PA25 PAD3 -> TXd, PA24 PAD2 -> RXd]
  *					Boot En Pin PA15: enabled boot on reset when DTR pin LOW. Change to PA27?
@@ -16,17 +18,20 @@
  *
  *Update:			fixed write_nvm function, would fall to dummy handler.
  *
- *Todo:				need to fix Verify flash function, flash contents don't match.
- *					or they seem not to.
+ *Todo:				clean up code, reduce bootloader size. fix a few things (noted in head).
+ *					clean up and finish the python front end for loading new programs.
+ *
+ *Update:			7/04/2016, Thanks to Philip of Oshchip I was able to get this bootloader working.
+ *					Bootloader now starts the new app at 0x800, any program built will need there starting
+ *					address changed from 0x000 to 0x800. Use the included samd09d14a_flash.ld file for this.
+ *					the modification is already present in that file.
+ 
  */ 
 
 
 #include "sam.h"
-//#include "nvmctrl.h"
-//#include <system.h>
 
 #define bool	_Bool
-
 #define PORTA 0 //Samd09 only has one port Port0
 
 /**
@@ -90,6 +95,8 @@ volatile enum status_code nvm_get_config()
 
 #define div_ceil(a,b)(((a)+(b)-1)/(b))			//extracted function from samd_math.h <- something like that.
 
+uint8_t ptr_set = 0;
+
 /* SERCOM USART GCLK Frequency */
 #define SERCOM_GCLK		8000000UL		//processor speed.
 #define BAUD_VAL	(65536.0*(1.0-((float)(16.0*(float)BOOT_SERCOM_BAUD)/(float)SERCOM_GCLK))) //calculate baud rate from SERCOM_GCLK
@@ -107,7 +114,7 @@ volatile enum status_code nvm_get_config()
 
 /* Memory pointer for flash memory */
 #define NVM_MEMORY			((volatile uint16_t *)FLASH_ADDR)
-#define NVM_USER_MEMORY		((volatile uint16_t *)NVMCTRL_USER)
+//#define NVM_USER_MEMORY		((volatile uint16_t *)NVMCTRL_USER)
 
 uint8_t data_8 = 1;
 uint32_t file_size, i, dest_addr;
@@ -115,8 +122,8 @@ uint32_t volatile app_start_address;
 uint32_t *flash_ptr;
 
 //Version information.
-uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
-					'\n','b','o','o','t','l','o','a','d','e','r',' ','V','0','.','1','\n',
+uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','3',
+					'\n','b','o','o','t','l','o','a','d','e','r',' ','V','1','.','0','\n',
 					'D','e','v',' ','B','o','a','r','d',' ','r','e','g','i','s','t','e','r',
 					'e','d',' ','t','o',' ','J','e','r','e','m','y',' ','G','\n',
 					'B','o','a','r','d',' ','I','D',' ','0','x','0','0','1','\n'};
@@ -149,7 +156,6 @@ static inline void pin_set_peripheral_function(uint32_t pinmux)
 /*init USART module on SERCOM1*/
 void UART_sercom_init()
 {
-	
 	//Pmux eve = n/1, odd = (n-1)/2
 	pin_set_peripheral_function(PINMUX_PA25C_SERCOM1_PAD3); // SAMD09 TX
 	pin_set_peripheral_function(PINMUX_PA24C_SERCOM1_PAD2); // SAMD09 RX
@@ -165,15 +171,15 @@ void UART_sercom_init()
 	
 	SERCOM1->USART.CTRLB.reg = SERCOM_USART_CTRLB_RXEN | SERCOM_USART_CTRLB_TXEN | SERCOM_USART_CTRLB_CHSIZE(0);
 	
-	SERCOM1->USART.BAUD.reg = BAUD_VAL;//65535.0f * (1.0f - (float)(16*(float)(9600)/(USART_BAUD_MODIFIER_SLOW))); //This gets the miniSam exactly at 9800 baud.
-	/* for 115200 baud compiler does not like this.*/
-	//SERCOM1->USART.BAUD.reg = 65535.0f * (1.0f - (float)(16*(float)(USART_BAUD_MODIFIER_FAST)/(8000000)));
+	/*configure baud rate at 115200*/
+	SERCOM1->USART.BAUD.reg = BAUD_VAL;
 	
 	SERCOM1->USART.CTRLA.reg |= SERCOM_USART_CTRLA_ENABLE;
 	
 }
 
-/* interrupt handler for Sercom1 USART */
+#if 1
+/* interrupt handler for Sercom1 USART used with simplewrite.*/
 void SERCOM1_Handler()  // SERCOM1 ISR
 {
 	uint8_t buffer;
@@ -182,6 +188,7 @@ void SERCOM1_Handler()  // SERCOM1 ISR
 	SERCOM1->USART.DATA.reg = buffer;               // just sent that byte aback
 	while(!(SERCOM1->USART.INTFLAG.reg & 2)); // wait until TX complete;
 }	
+#endif
 
 //this will be replaced with UART_sercom_simpleWrite function.
 void uart_write_byte(uint8_t data)
@@ -191,12 +198,14 @@ void uart_write_byte(uint8_t data)
 	
 }
 
+#if 1
 void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
 {
 	while(!(sercom_module->USART.INTFLAG.reg & 1)); //wait UART module ready to receive data
 	sercom_module->USART.DATA.reg = data;
 	while(!(sercom_module->USART.INTFLAG.reg & 2)); //wait until TX complete;
 }
+#endif
 
 //this will be replaced with UART_sercom_simpleRead function.
 uint8_t uart_read_byte(void)
@@ -227,21 +236,12 @@ void nvm_erase_row(const uint32_t row_address, uint32_t PAGE_SIZE)
 	/* Clear error flags */
 	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
 	
-
-	/* Set address and command *//*
-	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address /2 ];
-	
-	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMD_ER | NVMCTRL_CTRLA_CMDEX_KEY;
-	
-	while(!NVMCTRL->INTFLAG.bit.READY);
-	*/
-	
 	while(!(NVMCTRL->INTFLAG.bit.READY));
-		
+	
+	/* Set address and command */	
 	NVMCTRL->ADDR.reg = (row_address / 2);
 	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_ER;
 	while(!(NVMCTRL->INTFLAG.bit.READY));
-	//row_address += _nvm_dev.page_size * 4; //skipping a row.
 	
 	return 1;
 }
@@ -315,18 +315,12 @@ void nvm_write_buffer(uint32_t destination_address, const uint8_t *buffer, uint1
 
 int main(void)
 { 
-	/* Check if boot pin is held low - Jump to application if boot pin is high */
-	//PORT->Group[BOOT_PORT].OUTSET.reg = (1u << BOOT_PIN); //<- works without this definition.
-	volatile uint32_t sp;
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
 	{
-		//__disable_irg();
-		
+		/*Get the entry point for our new app*/
 		app_start_address = *(uint32_t *)(APP_START + 4);
 		
-		//get the current stack pointer location.
-		sp = __get_MSP();
 		/* Rebase the Stack Pointer */
 		__set_MSP(*(uint32_t *) APP_START + 4);
 
@@ -334,12 +328,13 @@ int main(void)
 		SCB->VTOR = ((uint32_t) APP_START & SCB_VTOR_TBLOFF_Msk);
 
 		/* Make CPU to run at 8MHz by clearing prescalar bits */ 
-		SYSCTRL->OSC8M.bit.PRESC = 0;
-		NVMCTRL->CTRLB.bit.CACHEDIS = 0;
+		//SYSCTRL->OSC8M.bit.PRESC = 0;
+		//NVMCTRL->CTRLB.bit.CACHEDIS = 0;
 
 		/* Jump to application Reset Handler in the application */
 		asm("bx %0"::"r"(app_start_address));
 	}
+	/*set PA14 LED to output and turn on, now we know we are in bootloader mode.*/
 	REG_PORT_DIR0 |= (1 << 14);
 	REG_PORT_OUT0 |= (1<<14);
 	
@@ -347,15 +342,16 @@ int main(void)
     SYSCTRL->OSC8M.bit.PRESC = 0;
 	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
 	
-	/* Config Usart */
+	/*get NVM configureation*/
 	nvm_get_config();
+	/* Config Usart */
+	UART_sercom_init();
 	
 	/* Flash page size is 64 bytes */
 	#define PAGE_SIZE	_nvm_dev.page_size	//used to read and write to flash.
 	uint8_t page_buffer[PAGE_SIZE];
 	
-	UART_sercom_init();
-	//info();
+
     while (1) 
     {
         data_8 = uart_read_byte();
@@ -363,12 +359,10 @@ int main(void)
 		{
 			uart_write_byte('s');
 			uart_write_byte((uint8_t)APP_SIZE);
-			//uart_write_byte('\n');
 		}
 		else if (data_8 == 'e')
 		{
-			/*this has been fixed, it no longer fails to 
-			a dummy handler*/
+			/*erase NVM from 0x800 (starting point) to top of NVM*/
 			//erase from 0x800 to the top of nvm.
 			for(i = APP_START; i < FLASH_SIZE; i = i + 256)
 			{
@@ -377,52 +371,56 @@ int main(void)
 			dest_addr = APP_START;
 			flash_ptr = APP_START;
 			uart_write_byte('s');
-			//uart_write_byte('\n');
 		}
 		else if (data_8 == 'p')
 		{
 			
 			uart_write_byte('s');
-			//uart_write_byte('\n');
+
 			for (i = 0; i < _nvm_dev.page_size; i++)
 			{
 				page_buffer[i] = uart_read_byte();
 			}
 			nvm_write_buffer(dest_addr, page_buffer, _nvm_dev.page_size);
 			dest_addr += _nvm_dev.page_size;
-			//uart_write_byte('\n');
+
 			uart_write_byte('s');
 			REG_PORT_OUT0 &= ~(1<<14); //blinks light
-			//uart_write_byte('\n');
 
 		}
 		else if (data_8 == 'v')
 		{
-			/* now we get stuck here... varifing pages fails on the first page.
-			don't know why.*/
-			//uart_write_byte('\n');
 			uart_write_byte('s');
-			//uart_write_byte('\n');
 			for (i = 0; i < (_nvm_dev.page_size); i++)
-			{
-				flash_ptr = APP_START;
-				//app_start_address = *flash_ptr;
-				//uart_write_byte((uint8_t)app_start_address);
-				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 8));
-				uart_write_byte((uint8_t)(*flash_ptr >> 8));
-				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 16));
-				uart_write_byte((uint8_t)(*flash_ptr >> 16));
-				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 24));
-				uart_write_byte((uint8_t)(*flash_ptr >> 24));
-				flash_ptr++;
+			{	
+				uart_write_byte((uint8_t)(app_start_address >> 8));
+				uart_write_byte((uint8_t)(app_start_address >> 16));
+				uart_write_byte((uint8_t)(app_start_address >> 24));
+				set_ptr();
 			}
 		}
-		//set values, for flash pointer.
+		else if (data_8 == 'z')
+		{
+			set_ptr();
+		}
 		else if (data_8 == 'i')
 		{
 			info();
 		}
     }
+}
+
+void set_ptr()
+{
+	if(data_8 == 'z'){
+		//set values, for flash pointer.
+		flash_ptr = APP_START;
+		app_start_address = *flash_ptr;
+	}
+	else{
+		flash_ptr++;
+	}
+	
 }
 
 void info()
