@@ -8,6 +8,7 @@
  *					If PA15 bootpin is held low, micro will enter USART bootloader mode.
  *					if PA15 is high, micro runs user program if there is one at new start
  *					memory. Look at APP_START for start location of user flash.
+ *
  *License:	                GNU GENERAL PUBLIC LICENSE Version 3 or newer. The header of this file may not change.
  *				unless new features are added then the update section may be updated. The License file in 
  *				the root of this repo Trunk/LICENSE should have been provided to you. If it was not you may 
@@ -18,7 +19,8 @@
  *Important pins : 	UART pins [PA25 PAD3 -> TXd, PA24 PAD2 -> RXd]
  *					Boot En Pin PA15: enabled boot on reset when DTR pin LOW. Change to PA27?
  *					USART reset pin -> RTS -> RST PIN#. Used to reset the micro when
- *					Serial is plugged in, pulse RTS LOW. Almost arduino esqe.
+ *					Serial is plugged in, pulse RTS LOW. Almost arduino esqe. currently RTS rst is
+ *					not enabled. (still toying with the idea.)
  *
  *Update:			fixed write_nvm function, would fall to dummy handler.
  *
