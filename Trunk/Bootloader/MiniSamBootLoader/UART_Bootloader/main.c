@@ -22,7 +22,7 @@
 
 
 #include "sam.h"
-#include "nvmctrl.h"
+//#include "nvmctrl.h"
 //#include <system.h>
 
 #define bool	_Bool
@@ -66,8 +66,7 @@ volatile enum status_code{
 	STATUS_FAIL						= 0x01,
 };
 
-
-volatile enum status_code nvm_set_config()
+volatile enum status_code nvm_get_config()
 {
 	
 	/*get a pointer to the module hardware instance.*/
@@ -106,14 +105,13 @@ volatile enum status_code nvm_set_config()
 /* Change as per APP_START */
 #define APP_SIZE	13	//This is how much flash memory is left for the application.
 
-
-
 /* Memory pointer for flash memory */
 #define NVM_MEMORY			((volatile uint16_t *)FLASH_ADDR)
 #define NVM_USER_MEMORY		((volatile uint16_t *)NVMCTRL_USER)
 
 uint8_t data_8 = 1;
-uint32_t file_size, i, dest_addr, app_start_address;
+uint32_t file_size, i, dest_addr;
+uint32_t volatile app_start_address;
 uint32_t *flash_ptr;
 
 //Version information.
@@ -122,7 +120,6 @@ uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','2',
 					'D','e','v',' ','B','o','a','r','d',' ','r','e','g','i','s','t','e','r',
 					'e','d',' ','t','o',' ','J','e','r','e','m','y',' ','G','\n',
 					'B','o','a','r','d',' ','I','D',' ','0','x','0','0','1','\n'};
-
 
 /*pin pad setup for SERCOM1 and USART*/
 static inline void pin_set_peripheral_function(uint32_t pinmux)
@@ -208,7 +205,8 @@ uint8_t uart_read_byte(void)
 	return((uint8_t)(BOOT_SERCOM->USART.DATA.reg & 0x00FF));
 }
 
-void nvm_erase_row(const uint32_t row_address)
+
+void nvm_erase_row(const uint32_t row_address, uint32_t PAGE_SIZE)
 {
 	/* Check if the address to erase is not aligned to the start of a row */
 	if(row_address > ((uint32_t)_nvm_dev.page_size * _nvm_dev.number_of_pages))
@@ -229,18 +227,27 @@ void nvm_erase_row(const uint32_t row_address)
 	/* Clear error flags */
 	NVMCTRL->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
 	
-	/* Set address and command */
-	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address /4 ];
+
+	/* Set address and command *//*
+	NVMCTRL->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address /2 ];
 	
 	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMD_ER | NVMCTRL_CTRLA_CMDEX_KEY;
 	
 	while(!NVMCTRL->INTFLAG.bit.READY);
+	*/
+	
+	while(!(NVMCTRL->INTFLAG.bit.READY));
+		
+	NVMCTRL->ADDR.reg = (row_address / 2);
+	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_ER;
+	while(!(NVMCTRL->INTFLAG.bit.READY));
+	//row_address += _nvm_dev.page_size * 4; //skipping a row.
 	
 	return 1;
 }
 
 
-void nvm_write_buffer(const uint32_t destination_address, const uint8_t *buffer, uint16_t length)
+void nvm_write_buffer(uint32_t destination_address, const uint8_t *buffer, uint16_t length)
 {
 	
 	/* Check if the destination address is valid */
@@ -310,11 +317,16 @@ int main(void)
 { 
 	/* Check if boot pin is held low - Jump to application if boot pin is high */
 	//PORT->Group[BOOT_PORT].OUTSET.reg = (1u << BOOT_PIN); //<- works without this definition.
-
+	volatile uint32_t sp;
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
 	{
-		app_start_address = (uint32_t)APP_START;//*(uint32_t *)(APP_START);// + 4);
+		//__disable_irg();
+		
+		app_start_address = *(uint32_t *)(APP_START + 4);
+		
+		//get the current stack pointer location.
+		sp = __get_MSP();
 		/* Rebase the Stack Pointer */
 		__set_MSP(*(uint32_t *) APP_START + 4);
 
@@ -323,11 +335,10 @@ int main(void)
 
 		/* Make CPU to run at 8MHz by clearing prescalar bits */ 
 		SYSCTRL->OSC8M.bit.PRESC = 0;
-		NVMCTRL->CTRLB.bit.CACHEDIS = 1;
+		NVMCTRL->CTRLB.bit.CACHEDIS = 0;
 
 		/* Jump to application Reset Handler in the application */
-		asm("bx %0"::"r"(app_start_address + 50));
-		//Reset_Handler_internal(app_start_address);
+		asm("bx %0"::"r"(app_start_address));
 	}
 	REG_PORT_DIR0 |= (1 << 14);
 	REG_PORT_OUT0 |= (1<<14);
@@ -337,7 +348,7 @@ int main(void)
 	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
 	
 	/* Config Usart */
-	nvm_set_config();
+	nvm_get_config();
 	
 	/* Flash page size is 64 bytes */
 	#define PAGE_SIZE	_nvm_dev.page_size	//used to read and write to flash.
@@ -358,10 +369,10 @@ int main(void)
 		{
 			/*this has been fixed, it no longer fails to 
 			a dummy handler*/
+			//erase from 0x800 to the top of nvm.
 			for(i = APP_START; i < FLASH_SIZE; i = i + 256)
 			{
-				nvm_erase_row(i);
-				REG_PORT_OUT0 &= ~(1<<14);
+				nvm_erase_row(i,PAGE_SIZE);
 			}
 			dest_addr = APP_START;
 			flash_ptr = APP_START;
@@ -381,6 +392,7 @@ int main(void)
 			dest_addr += _nvm_dev.page_size;
 			//uart_write_byte('\n');
 			uart_write_byte('s');
+			REG_PORT_OUT0 &= ~(1<<14); //blinks light
 			//uart_write_byte('\n');
 
 		}
@@ -397,14 +409,15 @@ int main(void)
 				//app_start_address = *flash_ptr;
 				//uart_write_byte((uint8_t)app_start_address);
 				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 8));
-				uart_write_byte((uint8_t)(*flash_ptr));
-				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 16));
 				uart_write_byte((uint8_t)(*flash_ptr >> 8));
-				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 24));
+				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 16));
 				uart_write_byte((uint8_t)(*flash_ptr >> 16));
+				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 24));
+				uart_write_byte((uint8_t)(*flash_ptr >> 24));
 				flash_ptr++;
 			}
 		}
+		//set values, for flash pointer.
 		else if (data_8 == 'i')
 		{
 			info();
@@ -425,6 +438,12 @@ void info()
 ////////////////////////////////////////////
 /* NOTES old functions kept for reference.*/
 ////////////////////////////////////////////
+
+
+//Address-based interworking uses the lowest bit of the address to determine the instruction 
+//set at the target. If the lowest bit is 1, the branch will switch to Thumb state. If the lowest 
+//bit is 0, the branch will switch to ARM state. Note that the lowest bit is never actually used as 
+//part of the address as all instructions are either 4-byte aligned (as in ARM) or 2-byte aligned (as in Thumb).
 
 //kept as a good reminder for what pads are attached to what pins.
 /*

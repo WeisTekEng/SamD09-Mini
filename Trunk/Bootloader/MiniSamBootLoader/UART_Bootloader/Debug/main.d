@@ -49,8 +49,7 @@ main.d main.o: .././main.c \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/instance/tc1.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/instance/tc2.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/instance/wdt.h \
- D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio/samd09d14a.h \
- .././nvmctrl.h
+ D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio/samd09d14a.h
 
 D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/sam.h:
 
@@ -153,5 +152,3 @@ D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/ins
 D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/instance/wdt.h:
 
 D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio/samd09d14a.h:
-
-.././nvmctrl.h:

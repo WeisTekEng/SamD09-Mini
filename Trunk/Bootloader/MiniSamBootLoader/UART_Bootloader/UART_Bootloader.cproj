@@ -285,10 +285,19 @@
     <Folder Include="Device_Startup\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="blinkTestWorking.hex">
+      <SubType>compile</SubType>
+    </None>
     <None Include="Device_Startup\samd09d14a_flash.ld">
       <SubType>compile</SubType>
     </None>
     <None Include="Device_Startup\samd09d14a_sram.ld">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="SamD09-Dev_BlinkTest.bin">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="UART_Bootloader.bin">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>

@@ -49,7 +49,11 @@ SEARCH_DIR(.)
 /* Memory Spaces Definitions */
 MEMORY
 {
-  rom      (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00004000
+/*change origin for rom to 0x800, test blinky*/
+/*length will change fromm 4k to 3800*/
+  /*rom      (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00004000*/
+  rom      (rx)  : ORIGIN = 0x00000800, LENGTH = 0x00003800
+
   ram      (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00001000
 }
 
