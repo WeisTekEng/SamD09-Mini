@@ -102,7 +102,7 @@ for x in range(0, nb_blocks):
 		out += input_file.read(1)
 		length = ser.write(out)
 		
-		#time.sleep(0.005)
+		time.sleep(0.00099)
 	#print ((out)+"\n")
 
 	#print (".")
@@ -151,7 +151,10 @@ input_file = open(args.inputfile, 'rb')
 print ("Verifying flash...")
 
 #tell the boot loader to setup pointers.
-ser.write('z')
+ser.write('m')
+time.sleep(0.005)
+#just for good measure
+ser.write('m')
 time.sleep(0.005)
 
 # Verify all pages except last one
@@ -162,7 +165,10 @@ for x in xrange(0, nb_blocks):
 		pass
 	read = ''
 	read += ser.read(1)
+	#time.sleep(0.005)
+	print (read)
 	if read != 's':
+                print (read)
 		print ("No response from device \n")
 		sys.exit()
 	for y in xrange(0, block_len):
@@ -170,13 +176,15 @@ for x in xrange(0, nb_blocks):
 			pass
 		read = ''
 		read += ser.read(1)
-		print ((read)+"\n")
+		#print ((read)+"\n")
 		out = ''
 		out += input_file.read(1)
+		#time.sleep(0.005)
 		#print ((out)+"\n")
 		if read != out:
 			print("\nVerification Failed at address %d!", ((x*64)+y))
 			sys.exit()
+        time.sleep(0.0005)
 #	print (".")
 
 # Verify last page

@@ -29,6 +29,11 @@
  *					Bootloader now starts the new app at 0x800, any program built will need there starting
  *					address changed from 0x000 to 0x800. Use the included samd09d14a_flash.ld file for this.
  *					the modification is already present in that file.
+ *
+ *update:			07/04/2016 Made some progress with the varification loop. it now addresses the proper nvm space.
+ *					I think its putting garbage on the uart line in the last bit. the python script says the device is 
+ *					not responding, it is its just not sending an s like the python script wants insdead its sending the 
+ *					same omega symbol..
  
  */ 
 
@@ -211,6 +216,19 @@ void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
 }
 #endif
 
+#if 1
+
+uint8_t UART_sercom_simpleRead(Sercom *const sercom_module)
+{
+	uint8_t data;
+	
+	while(!(sercom_module->USART.INTFLAG.reg & 1));
+	data = sercom_module->USART.DATA.reg;
+	
+	return data; 
+}
+#endif
+
 //this will be replaced with UART_sercom_simpleRead function.
 uint8_t uart_read_byte(void)
 {
@@ -358,6 +376,7 @@ int main(void)
     while (1) 
     {
         data_8 = uart_read_byte();
+		//data_8 = UART_sercom_simpleRead(SERCOM1);
 		if (data_8 == '#')
 		{
 			uart_write_byte('s');
@@ -383,30 +402,32 @@ int main(void)
 			for (i = 0; i < _nvm_dev.page_size; i++)
 			{
 				page_buffer[i] = uart_read_byte();
+				//page_buffer[i] = UART_sercom_simpleRead(SERCOM1);
 			}
 			nvm_write_buffer(dest_addr, page_buffer, _nvm_dev.page_size);
 			dest_addr += _nvm_dev.page_size;
 
 			uart_write_byte('s');
-			REG_PORT_OUT0 &= ~(1<<14); //blinks light
+			REG_PORT_OUTTGL0 = (1 << 14); //blinks light
 
 		}
-#if 0
 		else if (data_8 == 'v')
 		{
 			uart_write_byte('s');
 			for (i = 0; i < (_nvm_dev.page_size); i++)
 			{	
+				uart_write_byte((uint8_t)(app_start_address >> 0));
 				uart_write_byte((uint8_t)(app_start_address >> 8));
 				uart_write_byte((uint8_t)(app_start_address >> 16));
 				uart_write_byte((uint8_t)(app_start_address >> 24));
-				set_ptr();
+				//set_flash_ptr();
+				flash_ptr++;
+				app_start_address = *flash_ptr;
 			}
 		}
-#endif
-		else if (data_8 == 'z')
+		else if (data_8 == 'm')
 		{
-			set_ptr();
+			set_flash_ptr();
 		}
 		else if (data_8 == 'i')
 		{
@@ -415,15 +436,16 @@ int main(void)
     }
 }
 
-void set_ptr()
+void set_flash_ptr()
 {
-	if(data_8 == 'z'){
+	if(data_8 == 'm'){
 		//set values, for flash pointer.
-		flash_ptr = APP_START;
+		flash_ptr = APP_START;//-4;
 		app_start_address = *flash_ptr;
 	}
 	else{
 		flash_ptr++;
+		app_start_address = *flash_ptr;
 	}
 	
 }
