@@ -314,15 +314,20 @@ int main(void)
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
 	{
-		app_start_address = *(uint32_t *)(APP_START + 4);
+		app_start_address = (uint32_t)APP_START;//*(uint32_t *)(APP_START);// + 4);
 		/* Rebase the Stack Pointer */
 		__set_MSP(*(uint32_t *) APP_START + 4);
 
 		/* Rebase the vector table base address */
 		SCB->VTOR = ((uint32_t) APP_START & SCB_VTOR_TBLOFF_Msk);
 
+		/* Make CPU to run at 8MHz by clearing prescalar bits */ 
+		SYSCTRL->OSC8M.bit.PRESC = 0;
+		NVMCTRL->CTRLB.bit.CACHEDIS = 1;
+
 		/* Jump to application Reset Handler in the application */
-		asm("bx %0"::"r"(app_start_address));
+		asm("bx %0"::"r"(app_start_address + 50));
+		//Reset_Handler_internal(app_start_address);
 	}
 	REG_PORT_DIR0 |= (1 << 14);
 	REG_PORT_OUT0 |= (1<<14);
@@ -356,6 +361,7 @@ int main(void)
 			for(i = APP_START; i < FLASH_SIZE; i = i + 256)
 			{
 				nvm_erase_row(i);
+				REG_PORT_OUT0 &= ~(1<<14);
 			}
 			dest_addr = APP_START;
 			flash_ptr = APP_START;
@@ -391,11 +397,11 @@ int main(void)
 				//app_start_address = *flash_ptr;
 				//uart_write_byte((uint8_t)app_start_address);
 				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 8));
-				uart_write_byte((uint8_t)(*flash_ptr >> 8));
+				uart_write_byte((uint8_t)(*flash_ptr));
 				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 16));
-				uart_write_byte((uint8_t)(*flash_ptr >> 16));
+				uart_write_byte((uint8_t)(*flash_ptr >> 8));
 				//UART_sercom_simpleWrite(SERCOM1,(uint8_t)(flash_ptr >> 24));
-				uart_write_byte((uint8_t)(*flash_ptr >> 24));
+				uart_write_byte((uint8_t)(*flash_ptr >> 16));
 				flash_ptr++;
 			}
 		}

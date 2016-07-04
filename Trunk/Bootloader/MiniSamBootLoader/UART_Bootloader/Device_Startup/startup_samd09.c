@@ -202,11 +202,59 @@ void Reset_Handler(void)
         while (1);
 }
 
+void Reset_Handler_internal(uint32_t app_start_address)
+{
+        uint32_t *pSrc, *pDest;
+		pSrc = app_start_address;
+
+        /* Initialize the relocate segment */
+        pSrc = &_etext;
+        pDest = &_srelocate;
+
+        if (pSrc != pDest) {
+                for (; pDest < &_erelocate;) {
+                        *pDest++ = *pSrc++;
+                }
+        }
+
+        /* Clear the zero segment */
+        for (pDest = &_szero; pDest < &_ezero;) {
+                *pDest++ = 0;
+        }
+
+        /* Set the vector table base address */
+        pSrc = (uint32_t *) & _sfixed;
+        SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
+
+        /* Change default QOS values to have the best performance and correct USB behaviour */
+        SBMATRIX->SFR[SBMATRIX_SLAVE_HMCRAMC0].reg = 2;
+#if defined(ID_USB)
+        USB->DEVICE.QOSCTRL.bit.CQOS = 2;
+        USB->DEVICE.QOSCTRL.bit.DQOS = 2;
+#endif
+        DMAC->QOSCTRL.bit.DQOS = 2;
+        DMAC->QOSCTRL.bit.FQOS = 2;
+        DMAC->QOSCTRL.bit.WRBQOS = 2;
+
+        /* Overwriting the default value of the NVMCTRL.CTRLB.MANW bit (errata reference 13134) */
+        NVMCTRL->CTRLB.bit.MANW = 1;
+
+        /* Initialize the C library */
+        __libc_init_array();
+
+        /* Branch to main function */
+        main();
+
+        /* Infinite loop */
+        while (1);
+}
+
 /**
  * \brief Default interrupt handler for unused IRQs.
  */
 void Dummy_Handler(void)
 {
         while (1) {
+			asm("bx %0"::"r"(0x00));
         }
 }
