@@ -396,6 +396,9 @@ int main(void)
 		}
 		else if (data_8 == 'v')
 		{
+			/*this function does not currently work. will be fixed soon
+			you can still program the device and the code will still run
+			this is just a sanity check functino.*/
 			uart_write_byte('s');
 			for (i = 0; i < (_nvm_dev.page_size); i++)
 			{	
