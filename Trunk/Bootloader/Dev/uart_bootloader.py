@@ -41,7 +41,10 @@ if read != 's':
 	print ("No response from device \n")
 	sys.exit()
 
-
+print("Setting up pointers.");
+#tell the boot loader to setup pointers.
+ser.write('m')
+time.sleep(0.005)
 
 # Read the application flash size
 while ser.inWaiting == 0:
@@ -103,9 +106,7 @@ for x in range(0, nb_blocks):
 		length = ser.write(out)
 		
 		time.sleep(0.00099)
-	#print ((out)+"\n")
 
-	#print (".")
 	while ser.inWaiting == 0:
 		pass
 	read = ''
@@ -127,11 +128,9 @@ if read != 's':
 	
 for x in xrange(0, rem_data):
 	length = ser.write(input_file.read(1))
-	#time.sleep(0.001)
-
+	
 for x in xrange(0, (page_size - rem_data)):
 	length = ser.write(chr(0xFF))
-	#time.sleep(0.001)
      
 while ser.inWaiting == 0:
 	pass
@@ -145,17 +144,9 @@ if read != 's':
 input_file.close()
 print ("\n")
 
-
 # Open input file for verifying flash
 input_file = open(args.inputfile, 'rb')
 print ("Verifying flash...")
-
-#tell the boot loader to setup pointers.
-ser.write('m')
-time.sleep(0.005)
-#just for good measure
-ser.write('m')
-time.sleep(0.005)
 
 # Verify all pages except last one
 for x in xrange(0, nb_blocks):
@@ -165,10 +156,7 @@ for x in xrange(0, nb_blocks):
 		pass
 	read = ''
 	read += ser.read(1)
-	#time.sleep(0.005)
-	print (read)
 	if read != 's':
-                print (read)
 		print ("No response from device \n")
 		sys.exit()
 	for y in xrange(0, block_len):
@@ -176,16 +164,12 @@ for x in xrange(0, nb_blocks):
 			pass
 		read = ''
 		read += ser.read(1)
-		#print ((read)+"\n")
 		out = ''
 		out += input_file.read(1)
-		#time.sleep(0.005)
-		#print ((out)+"\n")
 		if read != out:
 			print("\nVerification Failed at address %d!", ((x*64)+y))
 			sys.exit()
         time.sleep(0.0005)
-#	print (".")
 
 # Verify last page
 print ("Verifying page %d" % nb_blocks)
@@ -216,7 +200,10 @@ for x in xrange(0, (page_size - rem_data)):
 	read += ser.read(1)
 
 print ("\nVerification complete!")
+
+#release Bootloader mode pin.
 ser.setDTR(False)
+
 # Close file
 input_file.close()
 sys.exit()

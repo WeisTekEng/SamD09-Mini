@@ -34,7 +34,10 @@
  *					I think its putting garbage on the uart line in the last bit. the python script says the device is 
  *					not responding, it is its just not sending an s like the python script wants insdead its sending the 
  *					same omega symbol..
- 
+ *
+ *update:			07/05/2016 fixed the varification issue, made the for loop smaller as well. learned a lot about pointers.
+ *					as of now this is the final version of the boot loader V1.2, until I find a need to upgrade it
+ *					to work with another IDE such as the arduino IDE. <- may be sometime soon. 
  */ 
 
 
@@ -128,11 +131,13 @@ uint8_t ptr_set = 0;
 uint8_t data_8 = 1;
 uint32_t file_size, i, dest_addr;
 uint32_t volatile app_start_address;
+uint8_t volatile data_from_flash;
 uint32_t *flash_ptr;
+uint8_t *flash_byte_ptr;
 
 //Version information.
 uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','3',
-					'\n','b','o','o','t','l','o','a','d','e','r',' ','V','1','.','0','\n',
+					'\n','b','o','o','t','l','o','a','d','e','r',' ','V','1','.','2','\n',
 					'D','e','v',' ','B','o','a','r','d',' ','r','e','g','i','s','t','e','r',
 					'e','d',' ','t','o',' ','J','e','r','e','m','y',' ','G','\n',
 					'B','o','a','r','d',' ','I','D',' ','0','x','0','0','1','\n'};
@@ -141,7 +146,7 @@ uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','3',
 static inline void pin_set_peripheral_function(uint32_t pinmux)
 {
     /* the variable pinmux consist of two components:
-        31:16 is a pad, wich includes:
+        31:16 is a pad, witch includes:
             31:21 : port information 0->PORTA, 1->PORTB
             20:16 : pin 0-31
         15:00 pin multiplex information
@@ -187,7 +192,7 @@ void UART_sercom_init()
 	
 }
 
-#if 1
+#if 0
 /* interrupt handler for Sercom1 USART used with simplewrite.*/
 void SERCOM1_Handler()  // SERCOM1 ISR
 {
@@ -207,7 +212,7 @@ void uart_write_byte(uint8_t data)
 	
 }
 
-#if 1
+#if 0
 void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
 {
 	while(!(sercom_module->USART.INTFLAG.reg & 1)); //wait UART module ready to receive data
@@ -216,7 +221,7 @@ void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
 }
 #endif
 
-#if 1
+#if 0
 
 uint8_t UART_sercom_simpleRead(Sercom *const sercom_module)
 {
@@ -372,7 +377,6 @@ int main(void)
 	#define PAGE_SIZE	_nvm_dev.page_size	//used to read and write to flash.
 	uint8_t page_buffer[PAGE_SIZE];
 	
-
     while (1) 
     {
         data_8 = uart_read_byte();
@@ -390,8 +394,6 @@ int main(void)
 			{
 				nvm_erase_row(i,PAGE_SIZE);
 			}
-			dest_addr = APP_START;
-			flash_ptr = APP_START;
 			uart_write_byte('s');
 		}
 		else if (data_8 == 'p')
@@ -416,18 +418,14 @@ int main(void)
 			uart_write_byte('s');
 			for (i = 0; i < (_nvm_dev.page_size); i++)
 			{	
-				uart_write_byte((uint8_t)(app_start_address >> 0));
-				uart_write_byte((uint8_t)(app_start_address >> 8));
-				uart_write_byte((uint8_t)(app_start_address >> 16));
-				uart_write_byte((uint8_t)(app_start_address >> 24));
-				//set_flash_ptr();
-				flash_ptr++;
-				app_start_address = *flash_ptr;
+				//++ after pointer post increments by 1
+				uart_write_byte(* flash_byte_ptr++);
+				
 			}
 		}
 		else if (data_8 == 'm')
 		{
-			set_flash_ptr();
+			setup_ptrs();
 		}
 		else if (data_8 == 'i')
 		{
@@ -436,18 +434,13 @@ int main(void)
     }
 }
 
-void set_flash_ptr()
+void setup_ptrs()
 {
-	if(data_8 == 'm'){
-		//set values, for flash pointer.
-		flash_ptr = APP_START;//-4;
+		//set values, for flash pointers.
+		dest_addr = APP_START;
+		flash_ptr = APP_START;
 		app_start_address = *flash_ptr;
-	}
-	else{
-		flash_ptr++;
-		app_start_address = *flash_ptr;
-	}
-	
+		flash_byte_ptr = APP_START;
 }
 
 void info()
@@ -456,7 +449,7 @@ void info()
 	
 	for(i = 0;i<=78-1;i++)
 	{
-		UART_sercom_simpleWrite(SERCOM1,aVER[i]);	
+		uart_write_byte(aVER[i]);
 	}
 }
 
@@ -472,6 +465,23 @@ void info()
 
 //kept as a good reminder for what pads are attached to what pins.
 /*
+
+BIT SHIFTING.
+				// value >> #
+				// shift by n bits.
+				// change app_start_address to read data_from_flash
+				// 0xdeadbeef -> 0x000000ef -> 0xef
+				// shift by 8 gives 0x00deadbe -> after mask(recast to 8 bits(uint8_t)) -> 0xbe.
+				// shift by 16 gives 0x0000dead -> after mask(recast to 8 bits(uint8_t)) -> 0xad.
+				// shift by 24 gives 0x000000de -> after mask(recast to 8 bits(uint8_t)) -> 0xde.
+				
+				//uart_write_byte((uint8_t)(app_start_address >> 0));
+				//uart_write_byte((uint8_t)(app_start_address >> 8)); //shift to the right by 8 bits = 1 byte.
+				//uart_write_byte((uint8_t)(app_start_address >> 16));
+				//uart_write_byte((uint8_t)(app_start_address >> 24));
+				//flash_ptr++;
+				//app_start_address = *flash_ptr;
+
 enum uart_pad_settings {
 	UART_RX_PAD0_TX_PAD2 = SERCOM_USART_CTRLA_RXPO(0) | SERCOM_USART_CTRLA_TXPO(1),
 	UART_RX_PAD1_TX_PAD2 = SERCOM_USART_CTRLA_RXPO(1) | SERCOM_USART_CTRLA_TXPO(1),
