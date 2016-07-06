@@ -9,6 +9,8 @@ Trunk/Bootloader/R1_0_current
 This directory has everything needed to load a ATSAMD09 with the bootloader. 
 
 #Bootloader readme: how to use it.
+(still have to figure out the markdown stuff here... its not working.)
+
 Setting up atmel studio 7
 
 Start by creating a new project.
