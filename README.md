@@ -22,9 +22,9 @@ Select the chip present on the board, if you use @al1's board you would select A
 Once atmel studio has completed setting up your project. Right click on your project in the right panel and select properties. You should see this window. If you do not you right clicked on the wrong item. usually the 2rd entry down.
 
 Now we need to tell the linker that we want the program to start at address 0x800. This will make the program compatible with the miniSam bootloader. Find ARM/GNU linker and select Miscellaneous. Copy the code given below into the field Linker Flags.
-'''
- -Wl,--section-start=.text=0x800
-'''
+
+-- -Wl,--section-start=.text=0x800
+
 Then click ok. Now you can select your main.c in the right panel and start coding.
 
 a simple blink app.
