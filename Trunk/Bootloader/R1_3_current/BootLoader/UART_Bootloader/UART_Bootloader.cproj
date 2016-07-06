@@ -277,9 +277,6 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="nvmctrl.h">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Device_Startup\" />
@@ -292,12 +289,6 @@
       <SubType>compile</SubType>
     </None>
     <None Include="Device_Startup\samd09d14a_sram.ld">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="SamD09-Dev_BlinkTest.bin">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="UART_Bootloader.bin">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>
