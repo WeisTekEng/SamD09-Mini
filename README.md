@@ -8,53 +8,28 @@ Trunk/Bootloader/R1_0_current
 
 This directory has everything needed to load a ATSAMD09 with the bootloader. 
 
-#Bootloader readme.
-ill update with a more detailed how to shortly. 07/04/2016
-
-The modified samd09d14_flash.ld file is used when compiling new apps (code,software) for the micro. This ld file gives the program an offset of 0x800 in NVM. This is needed as the current bootloader resids at location 0x00. This may change at a later date.
-
-#Test programs.
-todo.
-
-#Major updates.
-
-#readme revisions list
-
-So I have managed to finish the bootloader, this includes the verification step in the python script.
-
-Since I have been presented with some better information I will document the process of using the bootloader in more detail here.
-
-Currently the bootloader version is 1.3 and can be found on github through the link on the left side of the page.
-
+#Bootloader readme: how to use it.
 Setting up atmel studio 7
 
 Start by creating a new project.
 
-
-
 Name your project and select GCC C Executable Project.
-
-
 
 Select the proper chip family, in our case SamD09.
 
-
-
 Select the chip present on the board, if you use @al1's board you would select ATSAMD09C13A. (hope its ok i used your board as an example.)
-
-
 
 Once atmel studio has completed setting up your project. Right click on your project in the right panel and select properties. You should see this window. If you do not you right clicked on the wrong item. usually the 2rd entry down.
 
 Now we need to tell the linker that we want the program to start at address 0x800. This will make the program compatible with the miniSam bootloader. Find ARM/GNU linker and select Miscellaneous. Copy the code given below into the field Linker Flags.
-
+'''
  -Wl,--section-start=.text=0x800
+'''
 Then click ok. Now you can select your main.c in the right panel and start coding.
-
 
 a simple blink app.
 
-<code>
+'''
 #include "sam.h"
 
 void init_TC1(void)
@@ -87,33 +62,30 @@ int main(void)
     {
     }
 }
-</code>
+'''
 
 This code should blink the on board led at 1hz. Here's how to upload it to the miniSam bootloader.
 Uploading.
 
 Currently the miniSam bootloader uses a python front end, I did not code this entire front end. This front end came with the suggested non working bootloader on a forum post and I updated it and modified it. So i can not take credit for this one. I will take credit for the modifications though :)
 
-open a command line and navigate to the bootloader directory like so.
-
-
+open a command line and navigate to the bootloader directory.
 
 The python script you will be using is called upload.py instead of what is currently in the picture. The options are -c com# -b baudrate -i yourfilename.bin
 
 If you have entered all of that properly you will presented with a quick question.
 
-
-
 This question will ensure the miniSam bootloader is loaded and active. type y to proceed. Its fast but you will see a lot of programming page # and verifying page #
-
-
 
 That's it your done!. Hopefully this is not to painful :), now you have no reason not to pick up a Arm micro (SamD variant at this point) and have some fun.
 
-(Demo video will be here later. once its done uploading.)
-
-
-
 I will be making some mini libraries I think, maybe. I'll see whats already out there.
 
-until next time stay happy, stay healthy, and keep hackin.
+#Test programs.
+todo.
+
+#Major updates.
+
+#readme revisions list
+07/06/2016: updated github readme with instructions for setting up atmel studio 7 and using the bootloader to run user code.
+
