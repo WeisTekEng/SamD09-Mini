@@ -32,14 +32,16 @@
  *					address changed from 0x000 to 0x800. Use the included samd09d14a_flash.ld file for this.
  *					the modification is already present in that file.
  *
- *update:			07/04/2016 Made some progress with the varification loop. it now addresses the proper nvm space.
+ *update:			07/04/2016 Made some progress with the verification loop. it now addresses the proper nvm space.
  *					I think its putting garbage on the uart line in the last bit. the python script says the device is 
- *					not responding, it is its just not sending an s like the python script wants insdead its sending the 
+ *					not responding, it is its just not sending an s like the python script wants instead its sending the 
  *					same omega symbol..
  *
- *update:			07/05/2016 fixed the varification issue, made the for loop smaller as well. learned a lot about pointers.
+ *update:			07/05/2016 fixed the verification issue, made the for loop smaller as well. learned a lot about pointers.
  *					as of now this is the final version of the boot loader V1.2, until I find a need to upgrade it
  *					to work with another IDE such as the arduino IDE. <- may be sometime soon. 
+ *
+ *update:			07/06/2016 cleaned up code, added special talk for new front end.
  */ 
 
 
@@ -48,59 +50,6 @@
 #define bool	_Bool
 #define PORTA 0 //Samd09 only has one port Port0
 
-/**
- * \internal Internal device instance struct
- *
- * This struct contains information about the NVM module which is
- * often used by the different functions. The information is loaded
- * into the struct in the nvm_init() function.
- */
-struct _nvm_module {
-	/** Number of bytes contained per page. */
-	uint16_t page_size;
-	/** Total number of pages in the NVM memory. */
-	uint16_t number_of_pages;
-	/** If \c false, a page write command will be issued automatically when the
-	 *  page buffer is full. */
-	bool manual_page_write;
-};
-
-/**
- * \internal Instance of the internal device struct
- */
-static struct _nvm_module _nvm_dev;
-/**
- * \brief NVM controller configuration structure.
- *
- * Configuration structure for the NVM controller within the device.
- */
-struct nvm_config {
-
-	bool manual_page_write;
-
-};
-
-volatile enum status_code{
-	STATUS_OK                       = 0x00,
-	STATUS_FAIL						= 0x01,
-};
-
-volatile enum status_code nvm_get_config()
-{
-	
-	/*get a pointer to the module hardware instance.*/
-	Nvmctrl *const nvm_module = NVMCTRL;
-	
-	/* Initialize the internal device struct */
-	_nvm_dev.page_size         = (8 << nvm_module->PARAM.bit.PSZ);
-	_nvm_dev.number_of_pages   = nvm_module->PARAM.bit.NVMP;
-
-	/* If the security bit is set, the auxiliary space cannot be written */
-	if (nvm_module->STATUS.reg & NVMCTRL_STATUS_SB) {
-		return STATUS_FAIL;
-	}
-};
-
 /* Change the following if different SERCOM and boot pins are used */
 #define BOOT_SERCOM			SERCOM1		//miniSam uses Sercom1 for USART
 #define BOOT_SERCOM_BAUD	115200
@@ -108,8 +57,6 @@ volatile enum status_code nvm_get_config()
 #define BOOT_PIN			15 //14		//PA15 for bootloader en, toggled by the python script. or DTR from serial coms.
 
 #define div_ceil(a,b)(((a)+(b)-1)/(b))			//extracted function from samd_math.h <- something like that.
-
-uint8_t ptr_set = 0;
 
 /* SERCOM USART GCLK Frequency */
 #define SERCOM_GCLK		8000000UL		//processor speed.
@@ -128,7 +75,10 @@ uint8_t ptr_set = 0;
 
 /* Memory pointer for flash memory */
 #define NVM_MEMORY			((volatile uint16_t *)FLASH_ADDR)
-//#define NVM_USER_MEMORY		((volatile uint16_t *)NVMCTRL_USER)
+
+/** If \c false, a page write command will be issued automatically when the
+*  page buffer is full. */
+bool manual_page_write;
 
 uint8_t data_8 = 1;
 uint32_t file_size, i, dest_addr;
@@ -137,9 +87,7 @@ uint8_t volatile data_from_flash;
 uint32_t *flash_ptr;
 uint8_t *flash_byte_ptr;
 
-char nl = '*';
 uint8_t specialTalk = 0;
-
 
 //Version information.
 uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','3',
@@ -147,6 +95,15 @@ uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','3',
 					'D','e','v',' ','B','o','a','r','d',' ','r','e','g','i','s','t','e','r',
 					'e','d',' ','t','o',' ','J','e','r','e','m','y',' ','G','\n',
 					'B','o','a','r','d',' ','I','D',' ','0','x','0','0','1','\n'};
+
+void setup_ptrs()
+{
+	//set values, for flash pointers.
+	dest_addr = APP_START;
+	flash_ptr = APP_START;
+	app_start_address = *flash_ptr;
+	flash_byte_ptr = APP_START;
+}
 
 /*pin pad setup for SERCOM1 and USART*/
 static inline void pin_set_peripheral_function(uint32_t pinmux)
@@ -198,18 +155,6 @@ void UART_sercom_init()
 	
 }
 
-#if 0
-/* interrupt handler for Sercom1 USART used with simplewrite.*/
-void SERCOM1_Handler()  // SERCOM1 ISR
-{
-	uint8_t buffer;
-	buffer  = SERCOM1->USART.DATA.reg;
-	while(!(SERCOM1->USART.INTFLAG.reg & 1)); // wait UART module ready to receive data
-	SERCOM1->USART.DATA.reg = buffer;               // just sent that byte aback
-	while(!(SERCOM1->USART.INTFLAG.reg & 2)); // wait until TX complete;
-}	
-#endif
-
 //this will be replaced with UART_sercom_simpleWrite function.
 void uart_write_byte(uint8_t data)
 {
@@ -230,27 +175,20 @@ void uart_write_byte(uint8_t data)
 	
 }
 
-#if 0
-void UART_sercom_simpleWrite(Sercom *const sercom_module, uint8_t data)
+void sendConfirm()
 {
-	while(!(sercom_module->USART.INTFLAG.reg & 1)); //wait UART module ready to receive data
-	sercom_module->USART.DATA.reg = data;
-	while(!(sercom_module->USART.INTFLAG.reg & 2)); //wait until TX complete;
+	uart_write_byte('s');
 }
-#endif
 
-#if 0
-
-uint8_t UART_sercom_simpleRead(Sercom *const sercom_module)
+void info()
 {
-	uint8_t data;
+	uint8_t i;
 	
-	while(!(sercom_module->USART.INTFLAG.reg & 1));
-	data = sercom_module->USART.DATA.reg;
-	
-	return data; 
+	for(i = 0;i<=78-1;i++)
+	{
+		uart_write_byte(aVER[i]);
+	}
 }
-#endif
 
 //this will be replaced with UART_sercom_simpleRead function.
 uint8_t uart_read_byte(void)
@@ -258,7 +196,6 @@ uint8_t uart_read_byte(void)
 	while(!BOOT_SERCOM->USART.INTFLAG.bit.RXC);
 	return((uint8_t)(BOOT_SERCOM->USART.DATA.reg & 0x00FF));
 }
-
 
 void nvm_erase_row(const uint32_t row_address, uint32_t PAGE_SIZE)
 {
@@ -289,9 +226,7 @@ void nvm_erase_row(const uint32_t row_address, uint32_t PAGE_SIZE)
 	NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_ER;
 	while(!(NVMCTRL->INTFLAG.bit.READY));
 	
-	return 1;
 }
-
 
 void nvm_write_buffer(uint32_t destination_address, const uint8_t *buffer, uint16_t length)
 {
@@ -354,7 +289,7 @@ void nvm_write_buffer(uint32_t destination_address, const uint8_t *buffer, uint1
 	/* If automatic page write mode is enable, then perform a manual NVM
 	 * write when the length of data to be programmed is less than page size
 	 */
-	if ((_nvm_dev.manual_page_write == 0) && (length < NVMCTRL_PAGE_SIZE)) {
+	if ((manual_page_write == 0) && (length < NVMCTRL_PAGE_SIZE)) {
 		NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_WP;
 	}
 	
@@ -378,31 +313,37 @@ int main(void)
 		/* Jump to application Reset Handler in the application */
 		asm("bx %0"::"r"(app_start_address));
 	}
+	/* Flash page size is 64 bytes */
+	uint16_t PAGE_SIZE = (8 << NVMCTRL->PARAM.bit.PSZ);	//used to read and write to flash.
+	uint8_t page_buffer[PAGE_SIZE];
+	
 	/*set PA14 LED to output and turn on, now we know we are in bootloader mode.*/
-	REG_PORT_DIR0 |= (1 << 14);
-	REG_PORT_OUT0 |= (1<<14);
+	REG_PORT_DIR0 |= (1 << 14); //boot en led set as output.
+	REG_PORT_OUT0 |= (1 << 14); //Turn boot en led on.
 	
 	/* Make CPU to run at 8MHz by clearing prescalar bits */ 
     SYSCTRL->OSC8M.bit.PRESC = 0;
 	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
-	
-	/*get NVM configureation*/
-	nvm_get_config();
+
 	/* Config Usart */
 	UART_sercom_init();
-	
-	/* Flash page size is 64 bytes */
-	#define PAGE_SIZE	_nvm_dev.page_size	//used to read and write to flash.
-	uint8_t page_buffer[PAGE_SIZE];
-	
+
     while (1) 
     {
         data_8 = uart_read_byte();
-		//data_8 = UART_sercom_simpleRead(SERCOM1);
+
 		if (data_8 == '#')
 		{
-			uart_write_byte('s');
+			if(!specialTalk)
+			{
+				sendConfirm();
+			}
+			else
+			{
+				uart_write_byte('!');
+			}
 			uart_write_byte((uint8_t)APP_SIZE);
+			
 		}
 		else if (data_8 == 'e')
 		{
@@ -412,34 +353,54 @@ int main(void)
 			{
 				nvm_erase_row(i,PAGE_SIZE);
 			}
-			uart_write_byte('s');
+			if(!specialTalk)
+			{
+				sendConfirm();			
+			}
+			else
+			{
+				uart_write_byte('`');
+			}
+			
 		}
 		else if (data_8 == 'p')
 		{
-			
-			uart_write_byte('s');
+			if(!specialTalk)
+			{
+				sendConfirm();
+			}
 
-			for (i = 0; i < _nvm_dev.page_size; i++)
+			for (i = 0; i < PAGE_SIZE; i++)
 			{
 				page_buffer[i] = uart_read_byte();
-				//page_buffer[i] = UART_sercom_simpleRead(SERCOM1);
 			}
-			nvm_write_buffer(dest_addr, page_buffer, _nvm_dev.page_size);
-			dest_addr += _nvm_dev.page_size;
-
-			uart_write_byte('s');
+			nvm_write_buffer(dest_addr, page_buffer, PAGE_SIZE);
+			dest_addr += PAGE_SIZE;
+			
+			if(!specialTalk)
+			{
+				sendConfirm();
+			}
+			else
+			{
+				uart_write_byte('%');
+			}
 			REG_PORT_OUTTGL0 = (1 << 14); //blinks light
 
 		}
 		else if (data_8 == 'v')
 		{
-			uart_write_byte('s');
-			for (i = 0; i < (_nvm_dev.page_size); i++)
+			if(!specialTalk)
+			{
+				sendConfirm();
+			}
+			for (i = 0; i < (PAGE_SIZE); i++)
 			{	
 				//++ after pointer post increments by 1
 				uart_write_byte(* flash_byte_ptr++);
 				
 			}
+			REG_PORT_OUTTGL0 = (1 << 14); //blinks light
 		}
 		else if (data_8 == 'm')
 		{
@@ -453,34 +414,16 @@ int main(void)
 		{
 			//special talk.
 			specialTalk = 1;
-			
 		}
     }
 }
 
-void setup_ptrs()
-{
-		//set values, for flash pointers.
-		dest_addr = APP_START;
-		flash_ptr = APP_START;
-		app_start_address = *flash_ptr;
-		flash_byte_ptr = APP_START;
-}
 
-void info()
-{
-	uint8_t i;
-	
-	for(i = 0;i<=78-1;i++)
-	{
-		uart_write_byte(aVER[i]);
-	}
-}
 
 ////////////////////////////////////////////
 /* NOTES old functions kept for reference.*/
 ////////////////////////////////////////////
-
+/*
 
 //Address-based interworking uses the lowest bit of the address to determine the instruction 
 //set at the target. If the lowest bit is 1, the branch will switch to Thumb state. If the lowest 
@@ -488,7 +431,7 @@ void info()
 //part of the address as all instructions are either 4-byte aligned (as in ARM) or 2-byte aligned (as in Thumb).
 
 //kept as a good reminder for what pads are attached to what pins.
-/*
+
 
 BIT SHIFTING.
 				// value >> #
@@ -514,13 +457,13 @@ enum uart_pad_settings {
 	UART_RX_PAD1_TX_PAD0 = SERCOM_USART_CTRLA_RXPO(1),
 	UART_RX_PAD3_TX_PAD2 = SERCOM_USART_CTRLA_RXPO(3) | SERCOM_USART_CTRLA_TXPO(1),
 };
-*/
 
-/*
+
+
 void uart_init(uint16_t baud_val, enum uart_pad_settings pad_conf)
 {
-	/* Enable & configure alternate function D for pins PA10 & PA11 */
-	/* Change following 3 lines if different SERCOM/SERCOM pins are used *//*
+	Enable & configure alternate function D for pins PA10 & PA11
+	Change following 3 lines if different SERCOM/SERCOM pins are used
 	PORT->Group[0].WRCONFIG.reg = 0x53010C00;
 	PM->APBCMASK.reg |= (1u << 4);
 	GCLK->CLKCTRL.reg = 0x4010;

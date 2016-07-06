@@ -16,6 +16,7 @@ parser.add_argument('-i','--inputfile', help='Input file name (.bin file)',requi
 args = parser.parse_args()
 
 page_size = 64;
+response = "n";
 
 # Opening COM port
 ser = serial.Serial(
@@ -29,7 +30,11 @@ print ("Port %s opened" % ser.port)
 
 # Check whether any boot device is available
 # we need to pull DTR low.
+
 ser.setDTR(True)
+while(response == "n"):
+        response = raw_input("Please press the reset button.. Is the tst led active?:")
+        
 #sleep(.001)
 #ser.setDTR(False)
 length = ser.write('#')
@@ -105,7 +110,7 @@ for x in range(0, nb_blocks):
 		out += input_file.read(1)
 		length = ser.write(out)
 		
-		time.sleep(0.00099)
+		time.sleep(0.0009)
 
 	while ser.inWaiting == 0:
 		pass
@@ -169,7 +174,7 @@ for x in xrange(0, nb_blocks):
 		if read != out:
 			print("\nVerification Failed at address %d!", ((x*64)+y))
 			sys.exit()
-        time.sleep(0.0005)
+        time.sleep(0.0009)
 
 # Verify last page
 print ("Verifying page %d" % nb_blocks)
@@ -203,6 +208,7 @@ print ("\nVerification complete!")
 
 #release Bootloader mode pin.
 ser.setDTR(False)
+print ("please press the reset button to run your code.")
 
 # Close file
 input_file.close()
