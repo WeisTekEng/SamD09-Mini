@@ -1,17 +1,30 @@
 /*
- * main.c
+ *Project Name:			main.c
  *Project:			miniSam USART bootloader.
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				06-29-2016
- *Summery:			Modified version of the Samd10 bootloader.
+ *Summery:			SamD Usart Bootloader, Compatable with most SAMD devices.
+ *
  *					If PA15 bootpin is held low, micro will enter USART bootloader mode.
  *					if PA15 is high, micro runs user program if there is one at new start
  *					memory. Look at APP_START for start location of user flash.
- *License:	                GNU GENERAL PUBLIC LICENSE Version 3 or newer. The header of this file may not change.
- *				unless new features are added then the update section may be updated. The License file in 
- *				the root of this repo Trunk/LICENSE should have been provided to you. If it was not you may 
- *				find a copy of the GNU Open source license at https://www.gnu.org/licenses/gpl.html
+ *
+ *License:	                	Copyright 2016 Jeremy Goss, Weistek Engineering
+ *  					This program is free software; you can redistribute it and/or modify
+ *  					it under the terms of the GNU General Public License as published by
+ *  					the Free Software Foundation; either version 2 of the License, or
+ *  					(at your option) any later version.
+ *  
+ *  					This program is distributed in the hope that it will be useful,
+ *  					but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  					GNU General Public License for more details.
+ *  
+ *  					You should have received a copy of the GNU General Public License
+ *  					along with this program; if not, write to the Free Software
+ *  					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ *  					MA 02110-1301, USA.
  *
  *Modified:			07/04/2016
  *
@@ -38,6 +51,8 @@
  *update:			07/05/2016 fixed the varification issue, made the for loop smaller as well. learned a lot about pointers.
  *					as of now this is the final version of the boot loader V1.2, until I find a need to upgrade it
  *					to work with another IDE such as the arduino IDE. <- may be sometime soon. 
+ *
+ *Update:			07/05/2016 Updated header license.
  */ 
 
 

@@ -8,10 +8,12 @@
  *					If PA15 bootpin is held low, micro will enter USART bootloader mode.
  *					if PA15 is high, micro runs user program if there is one at new start
  *					memory. Look at APP_START for start location of user flash.
- *License:	                GNU GENERAL PUBLIC LICENSE Version 3 or newer. The header of this file may not change.
- *				unless new features are added then the update section may be updated. The License file in 
- *				the root of this repo Trunk/LICENSE should have been provided to you. If it was not you may 
- *				find a copy of the GNU Open source license at https://www.gnu.org/licenses/gpl.html
+ *
+ *License:	        GNU GENERAL PUBLIC LICENSE Version 3 or newer. The header of this file may not change.
+ *
+ *					unless new features are added then the update section may be updated. The License file in 
+ *					the root of this repo Trunk/LICENSE should have been provided to you. If it was not you may 
+ *					find a copy of the GNU Open source license at https://www.gnu.org/licenses/gpl.html
  *
  *Modified:			07/04/2016
  *
@@ -135,6 +137,10 @@ uint8_t volatile data_from_flash;
 uint32_t *flash_ptr;
 uint8_t *flash_byte_ptr;
 
+char nl = '*';
+uint8_t specialTalk = 0;
+
+
 //Version information.
 uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','3',
 					'\n','b','o','o','t','l','o','a','d','e','r',' ','V','1','.','2','\n',
@@ -208,7 +214,19 @@ void SERCOM1_Handler()  // SERCOM1 ISR
 void uart_write_byte(uint8_t data)
 {
 	while(!BOOT_SERCOM->USART.INTFLAG.bit.DRE);
-	BOOT_SERCOM->USART.DATA.reg = (uint16_t)data;
+	if(!specialTalk)
+	{
+		BOOT_SERCOM->USART.DATA.reg = (uint16_t)data;
+	}
+	else 
+	{
+		if(data == '\n')
+		{
+			data = ('*');
+		}
+			
+		BOOT_SERCOM->USART.DATA.reg = (uint16_t)data;
+	}
 	
 }
 
@@ -430,6 +448,12 @@ int main(void)
 		else if (data_8 == 'i')
 		{
 			info();
+		}
+		else if(data_8 == '~')
+		{
+			//special talk.
+			specialTalk = 1;
+			
 		}
     }
 }
