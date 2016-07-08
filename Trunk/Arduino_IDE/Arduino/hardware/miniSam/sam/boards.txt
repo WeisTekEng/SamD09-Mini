@@ -1,0 +1,33 @@
+# Copyright (c) 2014-2015 Arduino LLC.  All right reserved.
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+# miniSam_Zero (USART)
+# ---------------------------------------
+miniSam_Zero.name=miniSam-Zero Zero (miniSam Bootloader)
+
+miniSam_Zero.build.mcu=cortex-m0plus
+miniSam_Zero.build.f_cpu=8000000L
+miniSam_Zero.build.board=SAMD09
+miniSam_Zero.build.core=Arduino
+miniSam_Zero.build.variant=miniSam-Zero
+
+miniSam_Zero.upload.tool=uploader.py
+miniSam_Zero.upload.protocol=custom
+miniSam_Zero.upload.maximum_size=13312
+miniSam_Zero.build.ldscript=linker_scripts/gcc/flash_with_bootloader.ld
+
+#miniSam_Zero.bootloader.tool=uploader.py
+miniSam_Zero.bootloader.file=miniSam/miniSam_UART_BootloaderR1_3_Current.bin

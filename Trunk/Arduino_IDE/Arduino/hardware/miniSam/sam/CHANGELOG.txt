@@ -1,0 +1,4 @@
+miniSam Core 1.6.0  2016.07.07
+
+* Started development on arduino compatibility.
+
