@@ -4,7 +4,7 @@ Test software and Serial Uart Bootloader for Atmels Samd09 Arm Cortex M0+ contro
 
 #Folder structure.
 Current stable build of the bootloader is located in
-Trunk/Bootloader/R1_3_current/Binarys/
+Trunk/Bootloader/R1_4_current/Binary/
 
 This directory has everything needed to load a ATSAMD09 with the bootloader. 
 
@@ -87,7 +87,7 @@ That's it your done!. Hopefully this is not to painful :), now you have no reaso
 I will be making some mini libraries I think, maybe. I'll see whats already out there.
 
 #Test programs.
-Blink.bin -> Trunk/Bootloader/R1_3_current/Tests/Blink.bin
+Blink.bin -> Trunk/Bootloader/R1_4_current/TestApp/Blink.bin
 
 #Major updates.
 07/11/2016: seperated functions and defines into seperate header and c files. Makes code easier to read.
