@@ -1,4 +1,4 @@
-main.d main.o: .././main.c .././includes.h \
+nvmctrl.d nvmctrl.o: .././nvmctrl.c .././includes.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/sam.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/samd09d14a.h \
  d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.9.3\include\stdint.h \
