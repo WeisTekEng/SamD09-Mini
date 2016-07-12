@@ -1,10 +1,10 @@
-# miniSam-Zero R1.3 USART bootloader and test software.
+# miniSam-Zero R1.3 Serial bootloader R1.4, and test software.
 
 Test software and Serial Uart Bootloader for Atmels Samd09 Arm Cortex M0+ controllers. The documentation for this project can be found on hackaday.io -> https://hackaday.io/project/12438-minisam-zero. More information available soon at my blog, www.weistekengineering.com
 
 #Folder structure.
 Current stable build of the bootloader is located in
-Trunk/Bootloader/R1_0_current
+Trunk/Bootloader/R1_4_current
 
 This directory has everything needed to load a ATSAMD09 with the bootloader. 
 
@@ -24,13 +24,16 @@ Select the chip present on the board, if you use @al1's board you would select A
 Once atmel studio has completed setting up your project. Right click on your project in the right panel and select properties. You should see this window. If you do not you right clicked on the wrong item. usually the 2rd entry down.
 
 Now we need to tell the linker that we want the program to start at address 0x800. This will make the program compatible with the miniSam bootloader. Find ARM/GNU linker and select Miscellaneous. Copy the code given below into the field Linker Flags.
+```
 
  -Wl,--section-start=.text=0x800
 
+```
 Then click ok. Now you can select your main.c in the right panel and start coding.
 
 a simple blink app.
 
+```c++
 
 #include "sam.h"
 
@@ -65,6 +68,7 @@ int main(void)
     }
 }
 
+```
 
 This code should blink the on board led at 1hz. Here's how to upload it to the miniSam bootloader.
 Uploading.
