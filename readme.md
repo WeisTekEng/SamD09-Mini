@@ -4,34 +4,34 @@ Test software and Serial Uart Bootloader for Atmels Samd09 Arm Cortex M0+ contro
 
 #Folder structure.
 Current stable build of the bootloader is located in
-Trunk/Bootloader/R1_4_current
+Trunk/Bootloader/R1_4_current/Binarys/
 
 This directory has everything needed to load a ATSAMD09 with the bootloader. 
 
 #Bootloader readme: how to use it.
 (still have to figure out the markdown stuff here... its not working.)
 
-Setting up atmel studio 7
+1. Setting up atmel studio 7
 
-Start by creating a new project.
+2. Start by creating a new project.
 
-Name your project and select GCC C Executable Project.
+3. Name your project and select GCC C Executable Project.
 
-Select the proper chip family, in our case SamD09.
+4. Select the proper chip family, in our case SamD09.
 
-Select the chip present on the board, if you use @al1's board you would select ATSAMD09C13A. (hope its ok i used your board as an example.)
+5. Select the chip present on the board, if you use @al1's board you would select ATSAMD09C13A. (hope its ok i used your board as an 	   example.)
 
-Once atmel studio has completed setting up your project. Right click on your project in the right panel and select properties. You should see this window. If you do not you right clicked on the wrong item. usually the 2rd entry down.
+6. Once atmel studio has completed setting up your project. Right click on your project in the right panel and select properties. You    should see this window. If you do not you right clicked on the wrong item. usually the 2rd entry down.
 
-Now we need to tell the linker that we want the program to start at address 0x800. This will make the program compatible with the miniSam bootloader. Find ARM/GNU linker and select Miscellaneous. Copy the code given below into the field Linker Flags.
+7. Now we need to tell the linker that we want the program to start at address 0x800. This will make the program compatible with the     miniSam bootloader. Find ARM/GNU linker and select Miscellaneous. Copy the code given below into the field Linker Flags.
 ```
 
  -Wl,--section-start=.text=0x800
 
 ```
-Then click ok. Now you can select your main.c in the right panel and start coding.
+8. Then click ok. Now you can select your main.c in the right panel and start coding.
 
-a simple blink app.
+9. Simple blink app.
 
 ```c++
 
@@ -75,7 +75,7 @@ Uploading.
 
 Currently the miniSam bootloader uses a python front end, I did not code this entire front end. This front end came with the suggested non working bootloader on a forum post and I updated it and modified it. So i can not take credit for this one. I will take credit for the modifications though :)
 
-open a command line and navigate to the bootloader directory.
+10. open a command line and navigate to the bootloader directory.
 
 The python script you will be using is called upload.py instead of what is currently in the picture. The options are -c com# -b baudrate -i yourfilename.bin
 
@@ -88,10 +88,13 @@ That's it your done!. Hopefully this is not to painful :), now you have no reaso
 I will be making some mini libraries I think, maybe. I'll see whats already out there.
 
 #Test programs.
-todo.
+Blink.bin -> Trunk/Bootloader/R1_4_current/Tests/Blink.bin
 
 #Major updates.
+07/11/2016: seperated functions and defines into seperate header and c files. Makes code easier to read.
+	    added board identification to the python script as well as the bootloader.
 
 #readme revisions list
+07/12/2016: fixed code blocks. use ``` not ''' for code blocks.
 07/06/2016: updated github readme with instructions for setting up atmel studio 7 and using the bootloader to run user code.
 
