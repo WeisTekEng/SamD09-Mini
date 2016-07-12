@@ -42,6 +42,12 @@
  *					to work with another IDE such as the arduino IDE. <- may be sometime soon. 
  *
  *update:			07/06/2016 cleaned up code, added special talk for new front end.
+ *
+ *update:			07/11/2016 Borrowed some code from the black magic project for identifying the current arm processor.
+ *					will use bits of the code to only identify the DEVSEL bit from the DID register to determine the functionality
+ *					allowed by the current board. currently there are only two boards using this bootloader Al1's and mine. Therefore it
+ *					is sufficient to read the DEVSEL register and on the fly configure the bootloader in program memory. This makes versioning
+ *					a bit easier.
  */ 
 
 
@@ -49,6 +55,7 @@
 
 #define bool	_Bool
 #define PORTA 0 //Samd09 only has one port Port0
+#define _DID DSU->DID.reg
 
 /* Change the following if different SERCOM and boot pins are used */
 #define BOOT_SERCOM			SERCOM1		//miniSam uses Sercom1 for USART
@@ -68,13 +75,16 @@
 /*http://www.binaryhexconverter.com/hex-to-decimal-converter*/
 #define APP_START	0x00000800 //This gives 1536 bytes of bootloader space.
 
+/* Memory pointer for flash memory */
+#define NVM_MEMORY			((volatile uint16_t *)FLASH_ADDR)
+
+#define miniSam_Zero	0x10040100
+#define Al1				0x00000000	//need a dev board.
+
 /* Target application size can be 15kB */
 /* APP_SIZE is the application section size in kB */
 /* Change as per APP_START */
 #define APP_SIZE	13	//This is how much flash memory is left for the application.
-
-/* Memory pointer for flash memory */
-#define NVM_MEMORY			((volatile uint16_t *)FLASH_ADDR)
 
 /** If \c false, a page write command will be issued automatically when the
 *  page buffer is full. */
@@ -86,6 +96,7 @@ uint32_t volatile app_start_address;
 uint8_t volatile data_from_flash;
 uint32_t *flash_ptr;
 uint8_t *flash_byte_ptr;
+uint32_t devID;
 
 uint8_t specialTalk = 0;
 
@@ -95,6 +106,13 @@ uint8_t aVER[78] = {'m','i','n','i','S','a','m','d',' ','R','1','.','3',
 					'D','e','v',' ','B','o','a','r','d',' ','r','e','g','i','s','t','e','r',
 					'e','d',' ','t','o',' ','J','e','r','e','m','y',' ','G','\n',
 					'B','o','a','r','d',' ','I','D',' ','0','x','0','0','1','\n'};
+
+uint32_t get_device_id(uint32_t did)
+{
+	uint32_t dev_id;
+	dev_id = DSU->DID.reg;
+	return dev_id;
+}
 
 void setup_ptrs()
 {
@@ -298,6 +316,8 @@ void nvm_write_buffer(uint32_t destination_address, const uint8_t *buffer, uint1
 
 int main(void)
 { 
+	devID = get_device_id(_DID);
+	
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
 	if ((PORT->Group[BOOT_PORT].IN.reg & (1u << BOOT_PIN)))
 	{
@@ -414,6 +434,17 @@ int main(void)
 		{
 			//special talk.
 			specialTalk = 1;
+		}
+		else if(data_8 == '^')
+		{
+			uint8_t next = 8;
+			//Testing device ID over UART.
+			for(i = 0;i < 4;i++)
+			{
+				//uart_write_byte(devsel++);
+				uart_write_byte(devID >> next);
+				next+=8;
+			}
 		}
     }
 }
