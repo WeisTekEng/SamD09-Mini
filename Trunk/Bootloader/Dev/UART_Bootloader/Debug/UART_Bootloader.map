@@ -266,17 +266,6 @@ Discarded input sections
  .group         0x00000000        0x8 main.o
  .group         0x00000000        0x8 main.o
  .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
- .group         0x00000000        0x8 main.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -385,17 +374,6 @@ Discarded input sections
  .group         0x00000000        0x8 nvmctrl.o
  .group         0x00000000        0x8 nvmctrl.o
  .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
- .group         0x00000000        0x8 nvmctrl.o
  .text          0x00000000        0x0 nvmctrl.o
  .data          0x00000000        0x0 nvmctrl.o
  .bss           0x00000000        0x0 nvmctrl.o
@@ -451,29 +429,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x273 nvmctrl.o
  .debug_macro   0x00000000      0xa8f nvmctrl.o
  .debug_macro   0x00000000       0x5f nvmctrl.o
- .debug_macro   0x00000000       0xac nvmctrl.o
- .debug_macro   0x00000000       0x52 nvmctrl.o
- .debug_macro   0x00000000       0x35 nvmctrl.o
- .debug_macro   0x00000000       0x9c nvmctrl.o
- .debug_macro   0x00000000      0x16d nvmctrl.o
- .debug_macro   0x00000000       0x52 nvmctrl.o
- .debug_macro   0x00000000       0x16 nvmctrl.o
- .debug_macro   0x00000000       0x43 nvmctrl.o
- .debug_macro   0x00000000      0x187 nvmctrl.o
- .debug_macro   0x00000000      0x330 nvmctrl.o
- .debug_macro   0x00000000       0x10 nvmctrl.o
- .debug_macro   0x00000000       0x35 nvmctrl.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
- .group         0x00000000        0x8 usart.o
+ .debug_macro   0x00000000       0x6a nvmctrl.o
  .group         0x00000000        0x8 usart.o
  .group         0x00000000        0x8 usart.o
  .group         0x00000000        0x8 usart.o
@@ -584,18 +540,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x273 usart.o
  .debug_macro   0x00000000      0xa8f usart.o
  .debug_macro   0x00000000       0x5f usart.o
- .debug_macro   0x00000000       0xac usart.o
- .debug_macro   0x00000000       0x52 usart.o
- .debug_macro   0x00000000       0x35 usart.o
- .debug_macro   0x00000000       0x9c usart.o
- .debug_macro   0x00000000      0x16d usart.o
- .debug_macro   0x00000000       0x52 usart.o
- .debug_macro   0x00000000       0x16 usart.o
- .debug_macro   0x00000000       0x43 usart.o
- .debug_macro   0x00000000      0x187 usart.o
- .debug_macro   0x00000000      0x330 usart.o
- .debug_macro   0x00000000       0x10 usart.o
- .debug_macro   0x00000000       0x35 usart.o
+ .debug_macro   0x00000000       0x6a usart.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc_nano.a(lib_a-exit.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc_nano.a(lib_a-exit.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc_nano.a(lib_a-exit.o)
@@ -873,11 +818,11 @@ OUTPUT(UART_Bootloader.elf elf32-littlearm)
  .comment       0x00000059       0x5a nvmctrl.o
  .comment       0x00000059       0x5a usart.o
 
-.debug_info     0x00000000     0x7ba0
+.debug_info     0x00000000     0x7b92
  .debug_info    0x00000000     0x1a87 Device_Startup/startup_samd09.o
- .debug_info    0x00001a87     0x29d6 main.o
- .debug_info    0x0000445d      0x688 nvmctrl.o
- .debug_info    0x00004ae5     0x30bb usart.o
+ .debug_info    0x00001a87     0x29cf main.o
+ .debug_info    0x00004456      0x681 nvmctrl.o
+ .debug_info    0x00004ad7     0x30bb usart.o
 
 .debug_abbrev   0x00000000      0x808
  .debug_abbrev  0x00000000      0x1f2 Device_Startup/startup_samd09.o
@@ -907,7 +852,7 @@ OUTPUT(UART_Bootloader.elf elf32-littlearm)
  .debug_ranges  0x00000030       0x38 nvmctrl.o
  .debug_ranges  0x00000068       0x38 usart.o
 
-.debug_macro    0x00000000     0xb3cb
+.debug_macro    0x00000000     0xa95a
  .debug_macro   0x00000000      0x23b Device_Startup/startup_samd09.o
  .debug_macro   0x0000023b      0x82c Device_Startup/startup_samd09.o
  .debug_macro   0x00000a67       0x22 Device_Startup/startup_samd09.o
@@ -961,37 +906,26 @@ OUTPUT(UART_Bootloader.elf elf32-littlearm)
  .debug_macro   0x00009469      0x273 Device_Startup/startup_samd09.o
  .debug_macro   0x000096dc      0xa8f Device_Startup/startup_samd09.o
  .debug_macro   0x0000a16b       0x5f Device_Startup/startup_samd09.o
- .debug_macro   0x0000a1ca      0x30a main.o
- .debug_macro   0x0000a4d4       0xac main.o
- .debug_macro   0x0000a580       0x52 main.o
- .debug_macro   0x0000a5d2       0x35 main.o
- .debug_macro   0x0000a607       0x9c main.o
- .debug_macro   0x0000a6a3      0x16d main.o
- .debug_macro   0x0000a810       0x52 main.o
- .debug_macro   0x0000a862       0x16 main.o
- .debug_macro   0x0000a878       0x43 main.o
- .debug_macro   0x0000a8bb      0x187 main.o
- .debug_macro   0x0000aa42      0x330 main.o
- .debug_macro   0x0000ad72       0x10 main.o
- .debug_macro   0x0000ad82       0x35 main.o
- .debug_macro   0x0000adb7      0x30a nvmctrl.o
- .debug_macro   0x0000b0c1      0x30a usart.o
+ .debug_macro   0x0000a1ca      0x262 main.o
+ .debug_macro   0x0000a42c       0x6a main.o
+ .debug_macro   0x0000a496      0x262 nvmctrl.o
+ .debug_macro   0x0000a6f8      0x262 usart.o
 
-.debug_line     0x00000000     0x1b5c
+.debug_line     0x00000000     0x19bb
  .debug_line    0x00000000      0x60c Device_Startup/startup_samd09.o
- .debug_line    0x0000060c      0x742 main.o
- .debug_line    0x00000d4e      0x6f0 nvmctrl.o
- .debug_line    0x0000143e      0x71e usart.o
+ .debug_line    0x0000060c      0x6b7 main.o
+ .debug_line    0x00000cc3      0x665 nvmctrl.o
+ .debug_line    0x00001328      0x693 usart.o
 
-.debug_str      0x00000000    0x4415d
- .debug_str     0x00000000    0x40377 Device_Startup/startup_samd09.o
+.debug_str      0x00000000    0x416e6
+ .debug_str     0x00000000    0x4037c Device_Startup/startup_samd09.o
                               0x40637 (size before relaxing)
- .debug_str     0x00040377     0x347f main.o
-                              0x4338e (size before relaxing)
- .debug_str     0x000437f6       0x66 nvmctrl.o
-                              0x42b3f (size before relaxing)
- .debug_str     0x0004385c      0x901 usart.o
-                              0x4349f (size before relaxing)
+ .debug_str     0x0004037c      0xa03 main.o
+                              0x40897 (size before relaxing)
+ .debug_str     0x00040d7f       0x66 nvmctrl.o
+                              0x40048 (size before relaxing)
+ .debug_str     0x00040de5      0x901 usart.o
+                              0x409a8 (size before relaxing)
 
 .debug_frame    0x00000000      0x180
  .debug_frame   0x00000000       0x3c Device_Startup/startup_samd09.o

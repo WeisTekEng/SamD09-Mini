@@ -4,7 +4,7 @@
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				07-11-2016
- *Summery:			Invcude all.
+ *Summery:			Incude all.
  */ 
 
 
@@ -15,6 +15,5 @@
 #include "defines.h"
 #include "usart.h"
 #include "nvmctrl.h"
-#include "string.h"
 
 #endif /* INCLUDES_H_ */

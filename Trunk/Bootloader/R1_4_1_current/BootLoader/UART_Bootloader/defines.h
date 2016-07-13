@@ -9,8 +9,14 @@
 
 
 #ifndef DEFINES_H_
-#define DEFINES_H_																										/*used for the specialTalk variable, remove this if you want the bootloader smaller.*/
+#define DEFINES_H_																										
 
+#define BL_VER								"R1.4.1"																	/*bootloader version*/
+#define BOARD_VER							"R1.3"																		/*board version*/
+#define BOARD_ID							"0x0001"																	/*used for dev versions of the board.*/
+#define REG_TO								"Jeremy G"																	/*used for dev versions, who the board was assigned to.*/
+
+#if 0
 #define SAMD_DID_DEVSEL_MASK				0x0F
 #define SAMD_DID_DEVSEL_POS					0
 #define SAMD_DID_REVISION_MASK				0x0F
@@ -27,6 +33,7 @@
 #define Two_DID								00000000
 #define Al1									414c3100
 #define AL1_DID								00000000
+#endif
 
 /*function defines*/
 #define bool								_Bool
@@ -36,7 +43,7 @@ bool manual_page_write;																										/* If \c false, a page write co
 /*Micro related defines*/
 #define _DID								DSU->DID.reg																	/*so we can access the DID reg*/
 //#define VERSION																												/*tells the compiler to compile versioning info, comment out if you want more space.*/
-//#define NEW_FRONT_END
+//#define NEW_FRONT_END																											/*used for the specialTalk variable, comment this if you want the bootloader smaller.*/
 
 #ifdef NEW_FRONT_END																										/*extracted function from samd_math.h <- something like that.*/
 bool specialTalk;																											/*used for talking to an experimential front end.*/
@@ -53,12 +60,8 @@ bool specialTalk;																											/*used for talking to an experimenti
 /*http://www.binaryhexconverter.com/hex-to-decimal-converter*/
 #define APP_START							0x800																			/*This gives 1536 bytes of bootloader space.*/
 
-/* Target application size can be 15kB */
-/* APP_SIZE is the application section size in kB */
-#if defined(NEW_FRONT_END)
-	#define APP_SIZE						13
-#elif defined(VERSION)
-	#define APP_SIZE						13
+#if defined(NEW_FRONT_END) && defined(VERSION)																				
+	#define APP_SIZE						13																				/* Target application size can be 14kB APP_SIZE is the application section size in kB */
 #else
 	#define APP_SIZE						14
 #endif
@@ -70,7 +73,7 @@ bool specialTalk;																											/*used for talking to an experimenti
 #define NVM_MEMORY							((volatile uint16_t *)FLASH_ADDR)												/* Memory pointer for flash memory */
 
 /*Board defines*/
-#define miniSam_Zero						0x10040100																		/*this should be different between the SOIC, and QFN part.*/
+//#define miniSam_Zero						0x10040100																		/*this should be different between the SOIC, and QFN part.*/
 //#define Al1									0x00000000																		/*need a dev board.*/
 
 #endif /* DEFINES_H_ */

@@ -53,7 +53,8 @@
  *updated:			07/12/2016 Added send_string function. Versioning information can now be stored as an array of char's like it was 
  *					before but in a more readable format. working on board identification methods that don't bloat the bootloader.
  *					by default versioning is off. uncomment the defines in the defines.h file. Added minor.minor to the bootloader
- *					version number current rev is 1.4.1
+ *					version number current rev is 1.4.1, additional code cleanup, forgot to remove string.h <- not needed. ifdefed out
+ *					stuff used to decode the DID register. <- not used atm.
  */ 
 
 #include "includes.h"
@@ -68,7 +69,7 @@ uint8_t *flash_byte_ptr;
 //Version information.
 /*this takes up allot of space, if your need space commend out the define in defines.h*/
 #ifdef VERSION
-char aVER_Array[] = {"miniSamd R1.3\nBootloader R1.4.1\nDev Board registered to Jeremy G\nBoard ID 0x0001\n"};
+char aVER_Array[] = {"miniSam "BOARD_VER"\nBootloader "BL_VER"\nDev Board registered to "REG_TO"\nBoard ID "BOARD_ID"\n"};
 #endif
 
 void setup_ptrs()
