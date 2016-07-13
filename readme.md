@@ -1,10 +1,10 @@
-# miniSam-Zero R1.3 Serial bootloader R1.4, and test software.
+# miniSam-Zero R1.3 Serial bootloader R1.4.1, and test software.
 
 Test software and Serial Uart Bootloader for Atmels Samd09 Arm Cortex M0+ controllers. The documentation for this project can be found on hackaday.io -> https://hackaday.io/project/12438-minisam-zero. More information available soon at my blog, www.weistekengineering.com
 
 #Folder structure.
 Current stable build of the bootloader is located in
-Trunk/Bootloader/R1_4_current/Binary/
+Trunk/Bootloader/R1_4_current/Binary/small/
 
 This directory has everything needed to load a ATSAMD09 with the bootloader. 
 
@@ -90,6 +90,10 @@ I will be making some mini libraries I think, maybe. I'll see whats already out 
 Blink.bin -> Trunk/Bootloader/R1_4_current/TestApp/Blink.bin
 
 #Major updates.
+07/12/2016: added send_string function, this replaces old info function but has more use to use. removed
+	    old versioning char array and placed with a string formated char array for use with send_string
+	    board identification system added. <- still testing. updated comments. 
+	    
 07/11/2016: seperated functions and defines into seperate header and c files. Makes code easier to read.
 	    added board identification to the python script as well as the bootloader.
 
