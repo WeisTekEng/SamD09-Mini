@@ -90,14 +90,19 @@ I will be making some mini libraries I think, maybe. I'll see whats already out 
 Blink.bin -> Trunk/Bootloader/R1_4_current/TestApp/Blink.bin
 
 #Major updates.
-07/12/2016: added send_string function, this replaces old info function but has more use to use. removed
-	    old versioning char array and placed with a string formated char array for use with send_string
-	    board identification system added. <- still testing. updated comments. 
+07/12/2016: 
+added send_string function, this replaces old info function but has more use to use. removed
+old versioning char array and placed with a string formated char array for use with send_string
+board identification system added. <- still testing. updated comments. 
 	    
-07/11/2016: seperated functions and defines into seperate header and c files. Makes code easier to read.
-	    added board identification to the python script as well as the bootloader.
+07/11/2016: 
+seperated functions and defines into seperate header and c files. Makes code easier to read.
+added board identification to the python script as well as the bootloader.
 
 #readme revisions list
-07/12/2016: fixed code blocks. use ``` not ''' for code blocks.
-07/06/2016: updated github readme with instructions for setting up atmel studio 7 and using the bootloader to run user code.
+07/12/2016: 
+fixed code blocks. use ``` not ''' for code blocks.
+
+07/06/2016:
+updated github readme with instructions for setting up atmel studio 7 and using the bootloader to run user code.
 
