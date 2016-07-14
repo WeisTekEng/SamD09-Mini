@@ -11,6 +11,8 @@
 #ifndef DEFINES_H_
 #define DEFINES_H_																										
 
+#include "includes.h"
+
 #define BL_VER								"R1.4.1"																	/*bootloader version*/
 #define BOARD_VER							"R1.3"																		/*board version*/
 #define BOARD_ID							"0x0001"																	/*used for dev versions of the board.*/
@@ -28,7 +30,7 @@
 #define Zero								5a65726f
 #define Zero_DID							01041000
 #define One									4f6e6500
-#define One_DID								00000000
+#define One_DID								10020100																	/*10D14AM*/
 #define Two									54776f00
 #define Two_DID								00000000
 #define Al1									414c3100
@@ -53,7 +55,16 @@ bool specialTalk;																											/*used for talking to an experimenti
 #define BOOT_SERCOM							SERCOM1																			/*miniSam uses Sercom1 for USART*/
 #define BOOT_SERCOM_BAUD					115200
 #define BOOT_PORT							0
-#define BOOT_PIN							15																				/*PA15 for bootloader en, toggled by the python script. or DTR from serial coms.*/
+
+
+/*quick defines for testing*/
+#define SAMD10
+//#define SAMD09
+#if defined(SAMD10)
+	#define BOOT_PIN							25
+#elif defined(SAMD09)
+	#define BOOT_PIN							15																				/*PA15 for bootloader en, toggled by the python script. or DTR from serial coms.*/
+#endif
 /* Application starts from 1kB memory - Bootloader size is 1kB */
 /* Change the address if higher boot size is needed */
 /*good site for quick conversions.*/
@@ -67,7 +78,12 @@ bool specialTalk;																											/*used for talking to an experimenti
 #endif
 
 /*Stuff that should not change*/
-#define SERCOM_GCLK							8000000UL																		/*base clock speed, the bootloader will run at this speed.*/
+#if defined(SAMD09)
+	#define SERCOM_GCLK							8000000UL																		/*base clock speed, the bootloader will run at this speed.*/
+#elif defined(SAMD10)
+	#define SERCOM_GCLK							1000000UL
+#endif
+
 #define BAUD_VAL							(65536.0*(1.0-((float)(16.0*(float)BOOT_SERCOM_BAUD)/(float)SERCOM_GCLK)))		/* calculate baud rate from SERCOM_GCLK SERCOM USART GCLK Frequency */
 												
 #define NVM_MEMORY							((volatile uint16_t *)FLASH_ADDR)												/* Memory pointer for flash memory */

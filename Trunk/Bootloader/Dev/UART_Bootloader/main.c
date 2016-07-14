@@ -109,7 +109,6 @@ int main(void)
 	/* Config Usart */
 	UART_sercom_init();
 
-	
 	/*set PA14 LED to output and turn on, now we know we are in bootloader mode.*/
 	REG_PORT_DIR0 |= (1 << 14); //boot en led set as output.
 	REG_PORT_OUT0 |= (1 << 14); //Turn boot en led on.

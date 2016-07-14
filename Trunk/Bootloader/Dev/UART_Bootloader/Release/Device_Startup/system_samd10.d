@@ -1,4 +1,5 @@
-main.d main.o: .././main.c .././includes.h \
+Device_Startup/system_samd10.d Device_Startup/system_samd10.o: \
+ ../Device_Startup/system_samd10.c \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/samd10.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/samd10d14am.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\5.3.1\include\stdint.h \
@@ -57,10 +58,7 @@ main.d main.o: .././main.c .././includes.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/instance/tc2.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/instance/tcc0.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/instance/wdt.h \
- C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/pio/samd10d14am.h \
- .././defines.h .././usart.h .././nvmctrl.h
-
-.././includes.h:
+ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/pio/samd10d14am.h
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/samd10.h:
 
@@ -179,9 +177,3 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/instance/wdt.h:
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include/pio/samd10d14am.h:
-
-.././defines.h:
-
-.././usart.h:
-
-.././nvmctrl.h:

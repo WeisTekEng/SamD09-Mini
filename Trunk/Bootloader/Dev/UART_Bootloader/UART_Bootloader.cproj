@@ -5,7 +5,7 @@
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.ARMGCC.C</ToolchainName>
     <ProjectGuid>dce6c7e3-ee26-4d79-826b-08594b9ad897</ProjectGuid>
-    <avrdevice>ATSAMD09D14A</avrdevice>
+    <avrdevice>ATSAMD10D14AM</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
     <Language>C</Language>
@@ -129,9 +129,9 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
-    <avrtoolserialnumber>J41800031987</avrtoolserialnumber>
-    <avrdeviceexpectedsignature>0x10040000</avrdeviceexpectedsignature>
+    <avrtool>com.atmel.avrdbg.tool.medbg</avrtool>
+    <avrtoolserialnumber>ATML2378020200008839</avrtoolserialnumber>
+    <avrdeviceexpectedsignature>0x10020000</avrdeviceexpectedsignature>
     <avrtoolinterface>SWD</avrtoolinterface>
     <com_atmel_avrdbg_tool_edbg>
       <ToolOptions>
@@ -148,7 +148,7 @@
     <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
         <InterfaceProperties>
-          <SwdClock>2000000</SwdClock>
+          <SwdClock>0</SwdClock>
         </InterfaceProperties>
         <InterfaceName>SWD</InterfaceName>
       </ToolOptions>
@@ -156,6 +156,17 @@
       <ToolNumber>J41800031987</ToolNumber>
       <ToolName>Atmel-ICE</ToolName>
     </com_atmel_avrdbg_tool_atmelice>
+    <com_atmel_avrdbg_tool_medbg>
+      <ToolOptions>
+        <InterfaceProperties>
+          <SwdClock>2000000</SwdClock>
+        </InterfaceProperties>
+        <InterfaceName>SWD</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.medbg</ToolType>
+      <ToolNumber>ATML2378020200008839</ToolNumber>
+      <ToolName>mEDBG</ToolName>
+    </com_atmel_avrdbg_tool_medbg>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -173,7 +184,7 @@
   <armgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../src/Config</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD09_DFP\1.0.25\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD10_DFP\1.0.31\include</Value>
       <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
@@ -191,11 +202,11 @@
     </ListValues>
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
-  <armgcc.linker.miscellaneous.LinkerFlags>-Tsamd09d14a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
+  <armgcc.linker.miscellaneous.LinkerFlags>-Tsamd10d14am_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
       <Value>../src/Config</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD09_DFP\1.0.25\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD10_DFP\1.0.31\include</Value>
       <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
@@ -203,7 +214,7 @@
   <armgcc.preprocessingassembler.general.IncludePaths>
     <ListValues>
       <Value>../src/Config</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD09_DFP\1.0.25\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD10_DFP\1.0.31\include</Value>
       <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
@@ -226,7 +237,7 @@
   <armgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../src/Config</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD09_DFP\1.0.25\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD10_DFP\1.0.31\include</Value>
       <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
@@ -248,11 +259,11 @@
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
   <armgcc.linker.memorysettings.ExternalRAM />
-  <armgcc.linker.miscellaneous.LinkerFlags>-Tsamd09d14a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
+  <armgcc.linker.miscellaneous.LinkerFlags>-Tsamd10d14am_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
       <Value>../src/Config</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD09_DFP\1.0.25\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD10_DFP\1.0.31\include</Value>
       <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
@@ -261,7 +272,7 @@
   <armgcc.preprocessingassembler.general.IncludePaths>
     <ListValues>
       <Value>../src/Config</Value>
-      <Value>%24(PackRepoDir)\atmel\SAMD09_DFP\1.0.25\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD10_DFP\1.0.31\include</Value>
       <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
@@ -273,10 +284,10 @@
     <Compile Include="defines.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Device_Startup\startup_samd09.c">
+    <Compile Include="Device_Startup\startup_samd10.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Device_Startup\system_samd09.c">
+    <Compile Include="Device_Startup\system_samd10.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="includes.h">
@@ -308,10 +319,10 @@
     <None Include="Device_Startup\samd09c13a_sram.ld">
       <SubType>compile</SubType>
     </None>
-    <None Include="Device_Startup\samd09d14a_flash.ld">
+    <None Include="Device_Startup\samd10d14am_flash.ld">
       <SubType>compile</SubType>
     </None>
-    <None Include="Device_Startup\samd09d14a_sram.ld">
+    <None Include="Device_Startup\samd10d14am_sram.ld">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>

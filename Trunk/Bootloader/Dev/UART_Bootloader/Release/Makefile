@@ -38,8 +38,8 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../Device_Startup/startup_samd09.c \
-../Device_Startup/system_samd09.c \
+../Device_Startup/startup_samd10.c \
+../Device_Startup/system_samd10.c \
 ../main.c \
 ../nvmctrl.c \
 ../usart.c
@@ -52,29 +52,29 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-Device_Startup/startup_samd09.o \
-Device_Startup/system_samd09.o \
+Device_Startup/startup_samd10.o \
+Device_Startup/system_samd10.o \
 main.o \
 nvmctrl.o \
 usart.o
 
 OBJS_AS_ARGS +=  \
-Device_Startup/startup_samd09.o \
-Device_Startup/system_samd09.o \
+Device_Startup/startup_samd10.o \
+Device_Startup/system_samd10.o \
 main.o \
 nvmctrl.o \
 usart.o
 
 C_DEPS +=  \
-Device_Startup/startup_samd09.d \
-Device_Startup/system_samd09.d \
+Device_Startup/startup_samd10.d \
+Device_Startup/system_samd10.d \
 main.d \
 nvmctrl.d \
 usart.d
 
 C_DEPS_AS_ARGS +=  \
-Device_Startup/startup_samd09.d \
-Device_Startup/system_samd09.d \
+Device_Startup/startup_samd10.d \
+Device_Startup/system_samd10.d \
 main.d \
 nvmctrl.d \
 usart.d
@@ -92,8 +92,8 @@ LIB_DEP+=
 LINKER_SCRIPT_DEP+=  \
 ../Device_Startup/samd09c13a_flash.ld \
 ../Device_Startup/samd09c13a_sram.ld \
-../Device_Startup/samd09d14a_flash.ld \
-../Device_Startup/samd09d14a_sram.ld
+../Device_Startup/samd10d14am_flash.ld \
+../Device_Startup/samd10d14am_sram.ld
 
 
 # AVR32/GNU C Compiler
@@ -111,14 +111,14 @@ LINKER_SCRIPT_DEP+=  \
 Device_Startup/%.o: ../Device_Startup/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 5.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAMD09D14A__ -DNDEBUG  -I"../src/Config" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\cmsis\4.2.0\CMSIS\Include"  -Os -ffunction-sections -mlong-calls -Wall -mcpu=cortex-m0plus -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAMD10D14AM__ -DNDEBUG  -I"../src/Config" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\cmsis\4.2.0\CMSIS\Include"  -Os -ffunction-sections -mlong-calls -Wall -mcpu=cortex-m0plus -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 ./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 5.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAMD09D14A__ -DNDEBUG  -I"../src/Config" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\cmsis\4.2.0\CMSIS\Include"  -Os -ffunction-sections -mlong-calls -Wall -mcpu=cortex-m0plus -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAMD10D14AM__ -DNDEBUG  -I"../src/Config" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAMD10_DFP\1.0.31\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\cmsis\4.2.0\CMSIS\Include"  -Os -ffunction-sections -mlong-calls -Wall -mcpu=cortex-m0plus -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
@@ -147,7 +147,7 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
 	@echo Invoking: ARM/GNU Linker : 5.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -mthumb -Wl,-Map="UART_Bootloader.map" -Wl,--start-group -lm  -Wl,--end-group -L"..\\Device_Startup"  -Wl,--gc-sections -mcpu=cortex-m0plus -Tsamd09d14a_flash.ld  
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -mthumb -Wl,-Map="UART_Bootloader.map" -Wl,--start-group -lm  -Wl,--end-group -L"..\\Device_Startup"  -Wl,--gc-sections -mcpu=cortex-m0plus -Tsamd10d14am_flash.ld  
 	@echo Finished building target: $@
 	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -O binary "UART_Bootloader.elf" "UART_Bootloader.bin"
 	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "UART_Bootloader.elf" "UART_Bootloader.hex"

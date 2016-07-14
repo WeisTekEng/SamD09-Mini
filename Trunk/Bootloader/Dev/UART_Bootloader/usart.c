@@ -87,8 +87,13 @@ void pin_set_peripheral_function(uint32_t pinmux)
 void UART_sercom_init()
 {
 	//Pmux eve = n/1, odd = (n-1)/2
-	pin_set_peripheral_function(PINMUX_PA25C_SERCOM1_PAD3); // SAMD09 TX
-	pin_set_peripheral_function(PINMUX_PA24C_SERCOM1_PAD2); // SAMD09 RX
+	#if defined(SAMD10)
+		pin_set_peripheral_function(PINMUX_PA30C_SERCOM1_PAD0);
+		pin_set_peripheral_function(PINMUX_PA31C_SERCOM1_PAD1);
+	#else
+		pin_set_peripheral_function(PINMUX_PA25C_SERCOM1_PAD3); // SAMD09 TX
+		pin_set_peripheral_function(PINMUX_PA24C_SERCOM1_PAD2); // SAMD09 RX
+	#endif
 	
 	//apbcmak
 	PM->APBCMASK.reg |= PM_APBCMASK_SERCOM1;
