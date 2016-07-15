@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Linker script for running in internal FLASH on the SAMD10D14AM
+ * \brief Linker script for running in internal SRAM on the SAMD09D14A
  *
  * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
@@ -49,7 +49,6 @@ SEARCH_DIR(.)
 /* Memory Spaces Definitions */
 MEMORY
 {
-  rom      (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00004000
   ram      (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00001000
 }
 
@@ -106,14 +105,14 @@ SECTIONS
 
         . = ALIGN(4);
         _efixed = .;            /* End of text section */
-    } > rom
+    } > ram
 
     /* .ARM.exidx is sorted, so has to go in its own output section.  */
     PROVIDE_HIDDEN (__exidx_start = .);
     .ARM.exidx :
     {
       *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-    } > rom
+    } > ram
     PROVIDE_HIDDEN (__exidx_end = .);
 
     . = ALIGN(4);

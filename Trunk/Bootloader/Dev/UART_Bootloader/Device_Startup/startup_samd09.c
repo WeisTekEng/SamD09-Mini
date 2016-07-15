@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief gcc starttup file for SAMD10
+ * \brief gcc starttup file for SAMD09
  *
  * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
@@ -41,7 +41,7 @@
  *
  */
 
-#include "samd10.h"
+#include "samd09.h"
 
 /* Initialize segments */
 extern uint32_t _sfixed;
@@ -87,11 +87,9 @@ void SERCOM1_Handler         ( void ) __attribute__ ((weak, alias("Dummy_Handler
 #ifdef ID_SERCOM2
 void SERCOM2_Handler         ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #endif
-void TCC0_Handler            ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void TC1_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void TC2_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void ADC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void AC_Handler              ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #ifdef ID_DAC
 void DAC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #endif
@@ -141,11 +139,11 @@ const DeviceVectors exception_table = {
 #else
         (void*) (0UL), /* Reserved */
 #endif
-        (void*) TCC0_Handler,           /* 12 Timer Counter Control */
+        (void*) (0UL), /* Reserved */
         (void*) TC1_Handler,            /* 13 Basic Timer Counter 0 */
         (void*) TC2_Handler,            /* 14 Basic Timer Counter 1 */
         (void*) ADC_Handler,            /* 15 Analog Digital Converter */
-        (void*) AC_Handler,             /* 16 Analog Comparators */
+        (void*) (0UL), /* Reserved */
 #ifdef ID_DAC
         (void*) DAC_Handler,            /* 17 Digital Analog Converter */
 #else

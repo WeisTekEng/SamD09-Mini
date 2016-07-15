@@ -1,0 +1,1122 @@
+Archive member included to satisfy reference by file (symbol)
+
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_udivsi3.o)
+                              eeprom.o (__aeabi_uidiv)
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_dvmd_tls.o)
+                              c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_udivsi3.o) (__aeabi_idiv0)
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o)
+                              c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o (exit)
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+                              c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o) (_global_impure_ptr)
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
+                              c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o (__libc_init_array)
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
+                              c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o (memset)
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+                              c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o) (__call_exitprocs)
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
+                              c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o) (atexit)
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
+                              c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o) (__libc_fini_array)
+c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
+                              c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o) (__register_exitproc)
+
+Allocating common symbols
+Common symbol       size              file
+
+i                   0x4               main.o
+
+Discarded input sections
+
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crti.o
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crti.o
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crti.o
+ .data          0x00000000        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+ .text          0x00000000       0x78 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .ARM.extab     0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .ARM.exidx     0x00000000        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .ARM.attributes
+                0x00000000       0x1b c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/startup_samd09.o
+ .text          0x00000000        0x0 Device_Startup/startup_samd09.o
+ .data          0x00000000        0x0 Device_Startup/startup_samd09.o
+ .bss           0x00000000        0x0 Device_Startup/startup_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 Device_Startup/system_samd09.o
+ .text          0x00000000        0x0 Device_Startup/system_samd09.o
+ .bss           0x00000000        0x0 Device_Startup/system_samd09.o
+ .text.SystemCoreClockUpdate
+                0x00000000       0x10 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x826 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x22 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x87 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x44 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0xfd Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x22 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x1df Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x3a Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x3a Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x1f Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x250 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x8bf Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0xc1a Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x5b8 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x7c8 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x4e3 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x3a9 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x197 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x225 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x743 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x5e Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x5d8 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x3b6 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0xc55 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000     0x1092 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0xc19 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x6bf Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x34e Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0xa0 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0xca Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0xb8 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x58 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x222 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x82 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x197 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0xa0 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0xbe Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x1c Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x1c Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x1c Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x82 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x112 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0xdc Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x12f Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x12f Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x11e Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0xe2 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0xe2 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x40 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0x273 Device_Startup/system_samd09.o
+ .debug_macro   0x00000000      0xa8f Device_Startup/system_samd09.o
+ .debug_macro   0x00000000       0x5f Device_Startup/system_samd09.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .group         0x00000000        0x8 eeprom.o
+ .text          0x00000000        0x0 eeprom.o
+ .data          0x00000000        0x0 eeprom.o
+ .bss           0x00000000        0x0 eeprom.o
+ .text.i2c_write_byte
+                0x00000000       0x14 eeprom.o
+ .text.i2c_send_string
+                0x00000000       0x1c eeprom.o
+ .text.i2c_read_byte
+                0x00000000       0x18 eeprom.o
+ .text.isBusIdleWIRE
+                0x00000000       0x18 eeprom.o
+ .text.isBusOwnerWIRE
+                0x00000000       0x18 eeprom.o
+ .text.initClockNVIC
+                0x00000000       0x3c eeprom.o
+ .debug_macro   0x00000000      0x826 eeprom.o
+ .debug_macro   0x00000000       0x22 eeprom.o
+ .debug_macro   0x00000000       0x87 eeprom.o
+ .debug_macro   0x00000000       0x44 eeprom.o
+ .debug_macro   0x00000000       0xfd eeprom.o
+ .debug_macro   0x00000000       0x22 eeprom.o
+ .debug_macro   0x00000000      0x1df eeprom.o
+ .debug_macro   0x00000000       0x3a eeprom.o
+ .debug_macro   0x00000000       0x3a eeprom.o
+ .debug_macro   0x00000000       0x1f eeprom.o
+ .debug_macro   0x00000000      0x250 eeprom.o
+ .debug_macro   0x00000000      0x8bf eeprom.o
+ .debug_macro   0x00000000      0xc1a eeprom.o
+ .debug_macro   0x00000000      0x5b8 eeprom.o
+ .debug_macro   0x00000000      0x7c8 eeprom.o
+ .debug_macro   0x00000000      0x4e3 eeprom.o
+ .debug_macro   0x00000000      0x3a9 eeprom.o
+ .debug_macro   0x00000000      0x197 eeprom.o
+ .debug_macro   0x00000000      0x225 eeprom.o
+ .debug_macro   0x00000000      0x743 eeprom.o
+ .debug_macro   0x00000000       0x5e eeprom.o
+ .debug_macro   0x00000000      0x5d8 eeprom.o
+ .debug_macro   0x00000000      0x3b6 eeprom.o
+ .debug_macro   0x00000000      0xc55 eeprom.o
+ .debug_macro   0x00000000     0x1092 eeprom.o
+ .debug_macro   0x00000000      0xc19 eeprom.o
+ .debug_macro   0x00000000      0x6bf eeprom.o
+ .debug_macro   0x00000000      0x34e eeprom.o
+ .debug_macro   0x00000000       0xa0 eeprom.o
+ .debug_macro   0x00000000       0xca eeprom.o
+ .debug_macro   0x00000000       0xb8 eeprom.o
+ .debug_macro   0x00000000       0x58 eeprom.o
+ .debug_macro   0x00000000      0x222 eeprom.o
+ .debug_macro   0x00000000       0x82 eeprom.o
+ .debug_macro   0x00000000      0x197 eeprom.o
+ .debug_macro   0x00000000       0xa0 eeprom.o
+ .debug_macro   0x00000000       0xbe eeprom.o
+ .debug_macro   0x00000000       0x1c eeprom.o
+ .debug_macro   0x00000000       0x1c eeprom.o
+ .debug_macro   0x00000000       0x1c eeprom.o
+ .debug_macro   0x00000000       0x82 eeprom.o
+ .debug_macro   0x00000000      0x112 eeprom.o
+ .debug_macro   0x00000000       0xdc eeprom.o
+ .debug_macro   0x00000000      0x12f eeprom.o
+ .debug_macro   0x00000000      0x12f eeprom.o
+ .debug_macro   0x00000000      0x11e eeprom.o
+ .debug_macro   0x00000000       0xe2 eeprom.o
+ .debug_macro   0x00000000       0xe2 eeprom.o
+ .debug_macro   0x00000000       0x40 eeprom.o
+ .debug_macro   0x00000000      0x273 eeprom.o
+ .debug_macro   0x00000000      0xa8f eeprom.o
+ .debug_macro   0x00000000       0x5f eeprom.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .group         0x00000000        0x8 globalfunctions.o
+ .text          0x00000000        0x0 globalfunctions.o
+ .data          0x00000000        0x0 globalfunctions.o
+ .bss           0x00000000        0x0 globalfunctions.o
+ .debug_macro   0x00000000      0x826 globalfunctions.o
+ .debug_macro   0x00000000       0x22 globalfunctions.o
+ .debug_macro   0x00000000       0x87 globalfunctions.o
+ .debug_macro   0x00000000       0x44 globalfunctions.o
+ .debug_macro   0x00000000       0xfd globalfunctions.o
+ .debug_macro   0x00000000       0x22 globalfunctions.o
+ .debug_macro   0x00000000      0x1df globalfunctions.o
+ .debug_macro   0x00000000       0x3a globalfunctions.o
+ .debug_macro   0x00000000       0x3a globalfunctions.o
+ .debug_macro   0x00000000       0x1f globalfunctions.o
+ .debug_macro   0x00000000      0x250 globalfunctions.o
+ .debug_macro   0x00000000      0x8bf globalfunctions.o
+ .debug_macro   0x00000000      0xc1a globalfunctions.o
+ .debug_macro   0x00000000      0x5b8 globalfunctions.o
+ .debug_macro   0x00000000      0x7c8 globalfunctions.o
+ .debug_macro   0x00000000      0x4e3 globalfunctions.o
+ .debug_macro   0x00000000      0x3a9 globalfunctions.o
+ .debug_macro   0x00000000      0x197 globalfunctions.o
+ .debug_macro   0x00000000      0x225 globalfunctions.o
+ .debug_macro   0x00000000      0x743 globalfunctions.o
+ .debug_macro   0x00000000       0x5e globalfunctions.o
+ .debug_macro   0x00000000      0x5d8 globalfunctions.o
+ .debug_macro   0x00000000      0x3b6 globalfunctions.o
+ .debug_macro   0x00000000      0xc55 globalfunctions.o
+ .debug_macro   0x00000000     0x1092 globalfunctions.o
+ .debug_macro   0x00000000      0xc19 globalfunctions.o
+ .debug_macro   0x00000000      0x6bf globalfunctions.o
+ .debug_macro   0x00000000      0x34e globalfunctions.o
+ .debug_macro   0x00000000       0xa0 globalfunctions.o
+ .debug_macro   0x00000000       0xca globalfunctions.o
+ .debug_macro   0x00000000       0xb8 globalfunctions.o
+ .debug_macro   0x00000000       0x58 globalfunctions.o
+ .debug_macro   0x00000000      0x222 globalfunctions.o
+ .debug_macro   0x00000000       0x82 globalfunctions.o
+ .debug_macro   0x00000000      0x197 globalfunctions.o
+ .debug_macro   0x00000000       0xa0 globalfunctions.o
+ .debug_macro   0x00000000       0xbe globalfunctions.o
+ .debug_macro   0x00000000       0x1c globalfunctions.o
+ .debug_macro   0x00000000       0x1c globalfunctions.o
+ .debug_macro   0x00000000       0x1c globalfunctions.o
+ .debug_macro   0x00000000       0x82 globalfunctions.o
+ .debug_macro   0x00000000      0x112 globalfunctions.o
+ .debug_macro   0x00000000       0xdc globalfunctions.o
+ .debug_macro   0x00000000      0x12f globalfunctions.o
+ .debug_macro   0x00000000      0x12f globalfunctions.o
+ .debug_macro   0x00000000      0x11e globalfunctions.o
+ .debug_macro   0x00000000       0xe2 globalfunctions.o
+ .debug_macro   0x00000000       0xe2 globalfunctions.o
+ .debug_macro   0x00000000       0x40 globalfunctions.o
+ .debug_macro   0x00000000      0x273 globalfunctions.o
+ .debug_macro   0x00000000      0xa8f globalfunctions.o
+ .debug_macro   0x00000000       0x5f globalfunctions.o
+ .debug_macro   0x00000000       0x70 globalfunctions.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .group         0x00000000        0x8 main.o
+ .text          0x00000000        0x0 main.o
+ .bss           0x00000000        0x0 main.o
+ .debug_macro   0x00000000      0x826 main.o
+ .debug_macro   0x00000000       0x22 main.o
+ .debug_macro   0x00000000       0x87 main.o
+ .debug_macro   0x00000000       0x44 main.o
+ .debug_macro   0x00000000       0xfd main.o
+ .debug_macro   0x00000000       0x22 main.o
+ .debug_macro   0x00000000      0x1df main.o
+ .debug_macro   0x00000000       0x3a main.o
+ .debug_macro   0x00000000       0x3a main.o
+ .debug_macro   0x00000000       0x1f main.o
+ .debug_macro   0x00000000      0x250 main.o
+ .debug_macro   0x00000000      0x8bf main.o
+ .debug_macro   0x00000000      0xc1a main.o
+ .debug_macro   0x00000000      0x5b8 main.o
+ .debug_macro   0x00000000      0x7c8 main.o
+ .debug_macro   0x00000000      0x4e3 main.o
+ .debug_macro   0x00000000      0x3a9 main.o
+ .debug_macro   0x00000000      0x197 main.o
+ .debug_macro   0x00000000      0x225 main.o
+ .debug_macro   0x00000000      0x743 main.o
+ .debug_macro   0x00000000       0x5e main.o
+ .debug_macro   0x00000000      0x5d8 main.o
+ .debug_macro   0x00000000      0x3b6 main.o
+ .debug_macro   0x00000000      0xc55 main.o
+ .debug_macro   0x00000000     0x1092 main.o
+ .debug_macro   0x00000000      0xc19 main.o
+ .debug_macro   0x00000000      0x6bf main.o
+ .debug_macro   0x00000000      0x34e main.o
+ .debug_macro   0x00000000       0xa0 main.o
+ .debug_macro   0x00000000       0xca main.o
+ .debug_macro   0x00000000       0xb8 main.o
+ .debug_macro   0x00000000       0x58 main.o
+ .debug_macro   0x00000000      0x222 main.o
+ .debug_macro   0x00000000       0x82 main.o
+ .debug_macro   0x00000000      0x197 main.o
+ .debug_macro   0x00000000       0xa0 main.o
+ .debug_macro   0x00000000       0xbe main.o
+ .debug_macro   0x00000000       0x1c main.o
+ .debug_macro   0x00000000       0x1c main.o
+ .debug_macro   0x00000000       0x1c main.o
+ .debug_macro   0x00000000       0x82 main.o
+ .debug_macro   0x00000000      0x112 main.o
+ .debug_macro   0x00000000       0xdc main.o
+ .debug_macro   0x00000000      0x12f main.o
+ .debug_macro   0x00000000      0x12f main.o
+ .debug_macro   0x00000000      0x11e main.o
+ .debug_macro   0x00000000       0xe2 main.o
+ .debug_macro   0x00000000       0xe2 main.o
+ .debug_macro   0x00000000       0x40 main.o
+ .debug_macro   0x00000000      0x273 main.o
+ .debug_macro   0x00000000      0xa8f main.o
+ .debug_macro   0x00000000       0x5f main.o
+ .debug_macro   0x00000000       0x70 main.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .group         0x00000000        0x8 usart.o
+ .text          0x00000000        0x0 usart.o
+ .data          0x00000000        0x0 usart.o
+ .bss           0x00000000        0x0 usart.o
+ .text.sendConfirm
+                0x00000000       0x10 usart.o
+ .text.uart_read_byte
+                0x00000000       0x14 usart.o
+ .debug_macro   0x00000000      0x826 usart.o
+ .debug_macro   0x00000000       0x22 usart.o
+ .debug_macro   0x00000000       0x87 usart.o
+ .debug_macro   0x00000000       0x44 usart.o
+ .debug_macro   0x00000000       0xfd usart.o
+ .debug_macro   0x00000000       0x22 usart.o
+ .debug_macro   0x00000000      0x1df usart.o
+ .debug_macro   0x00000000       0x3a usart.o
+ .debug_macro   0x00000000       0x3a usart.o
+ .debug_macro   0x00000000       0x1f usart.o
+ .debug_macro   0x00000000      0x250 usart.o
+ .debug_macro   0x00000000      0x8bf usart.o
+ .debug_macro   0x00000000      0xc1a usart.o
+ .debug_macro   0x00000000      0x5b8 usart.o
+ .debug_macro   0x00000000      0x7c8 usart.o
+ .debug_macro   0x00000000      0x4e3 usart.o
+ .debug_macro   0x00000000      0x3a9 usart.o
+ .debug_macro   0x00000000      0x197 usart.o
+ .debug_macro   0x00000000      0x225 usart.o
+ .debug_macro   0x00000000      0x743 usart.o
+ .debug_macro   0x00000000       0x5e usart.o
+ .debug_macro   0x00000000      0x5d8 usart.o
+ .debug_macro   0x00000000      0x3b6 usart.o
+ .debug_macro   0x00000000      0xc55 usart.o
+ .debug_macro   0x00000000     0x1092 usart.o
+ .debug_macro   0x00000000      0xc19 usart.o
+ .debug_macro   0x00000000      0x6bf usart.o
+ .debug_macro   0x00000000      0x34e usart.o
+ .debug_macro   0x00000000       0xa0 usart.o
+ .debug_macro   0x00000000       0xca usart.o
+ .debug_macro   0x00000000       0xb8 usart.o
+ .debug_macro   0x00000000       0x58 usart.o
+ .debug_macro   0x00000000      0x222 usart.o
+ .debug_macro   0x00000000       0x82 usart.o
+ .debug_macro   0x00000000      0x197 usart.o
+ .debug_macro   0x00000000       0xa0 usart.o
+ .debug_macro   0x00000000       0xbe usart.o
+ .debug_macro   0x00000000       0x1c usart.o
+ .debug_macro   0x00000000       0x1c usart.o
+ .debug_macro   0x00000000       0x1c usart.o
+ .debug_macro   0x00000000       0x82 usart.o
+ .debug_macro   0x00000000      0x112 usart.o
+ .debug_macro   0x00000000       0xdc usart.o
+ .debug_macro   0x00000000      0x12f usart.o
+ .debug_macro   0x00000000      0x12f usart.o
+ .debug_macro   0x00000000      0x11e usart.o
+ .debug_macro   0x00000000       0xe2 usart.o
+ .debug_macro   0x00000000       0xe2 usart.o
+ .debug_macro   0x00000000       0x40 usart.o
+ .debug_macro   0x00000000      0x273 usart.o
+ .debug_macro   0x00000000      0xa8f usart.o
+ .debug_macro   0x00000000       0x5f usart.o
+ .debug_macro   0x00000000       0x70 usart.o
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_udivsi3.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_udivsi3.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_dvmd_tls.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_dvmd_tls.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o)
+ .text.exit     0x00000000       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o)
+ .debug_frame   0x00000000       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o)
+ .ARM.attributes
+                0x00000000       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+ .data._impure_ptr
+                0x00000000        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
+ .text.memset   0x00000000       0x8c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
+ .debug_frame   0x00000000       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
+ .ARM.attributes
+                0x00000000       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ .text.__call_exitprocs
+                0x00000000       0xfc c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtend.o
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtend.o
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtend.o
+ .eh_frame      0x00000000        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtend.o
+ .jcr           0x00000000        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtend.o
+ .ARM.attributes
+                0x00000000       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtend.o
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtn.o
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtn.o
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+rom              0x00000000         0x00004000         xr
+ram              0x20000000         0x00001000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crti.o
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+LOAD Device_Startup/startup_samd09.o
+LOAD Device_Startup/system_samd09.o
+LOAD eeprom.o
+LOAD globalfunctions.o
+LOAD main.o
+LOAD usart.o
+START GROUP
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libm.a
+END GROUP
+START GROUP
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a
+END GROUP
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtend.o
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtn.o
+                0x00000400                STACK_SIZE = DEFINED (STACK_SIZE)?STACK_SIZE:DEFINED (__stack_size__)?__stack_size__:0x400
+
+.text           0x00000000      0x6f8
+                0x00000000                . = ALIGN (0x4)
+                0x00000000                _sfixed = .
+ *(.vectors .vectors.*)
+ .vectors       0x00000000       0x8c Device_Startup/startup_samd09.o
+                0x00000000                exception_table
+ *(.text .text.* .gnu.linkonce.t.*)
+ .text          0x0000008c       0x60 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+ .text.Dummy_Handler
+                0x000000ec        0x4 Device_Startup/startup_samd09.o
+                0x000000ec                DMAC_Handler
+                0x000000ec                HardFault_Handler
+                0x000000ec                TC2_Handler
+                0x000000ec                SysTick_Handler
+                0x000000ec                PendSV_Handler
+                0x000000ec                NMI_Handler
+                0x000000ec                SERCOM1_Handler
+                0x000000ec                ADC_Handler
+                0x000000ec                RTC_Handler
+                0x000000ec                EIC_Handler
+                0x000000ec                WDT_Handler
+                0x000000ec                TC1_Handler
+                0x000000ec                Dummy_Handler
+                0x000000ec                PM_Handler
+                0x000000ec                SVC_Handler
+                0x000000ec                EVSYS_Handler
+                0x000000ec                NVMCTRL_Handler
+                0x000000ec                SERCOM0_Handler
+                0x000000ec                PTC_Handler
+                0x000000ec                SYSCTRL_Handler
+ .text.Reset_Handler
+                0x000000f0       0xe8 Device_Startup/startup_samd09.o
+                0x000000f0                Reset_Handler
+ .text.SystemInit
+                0x000001d8       0x10 Device_Startup/system_samd09.o
+                0x000001d8                SystemInit
+ .text.enableWire
+                0x000001e8       0x2c eeprom.o
+                0x000001e8                enableWire
+ .text.startTransmissionWire
+                0x00000214       0x54 eeprom.o
+                0x00000214                startTransmissionWire
+ .text.resetWIRE
+                0x00000268       0x1c eeprom.o
+                0x00000268                resetWIRE
+ .text.I2C_sercom_init
+                0x00000284       0x5c eeprom.o
+                0x00000284                I2C_sercom_init
+ .text.pin_set_peripheral_function
+                0x000002e0       0x50 globalfunctions.o
+                0x000002e0                pin_set_peripheral_function
+ .text.main     0x00000330       0x80 main.o
+                0x00000330                main
+ .text.uart_write_byte
+                0x000003b0       0x14 usart.o
+                0x000003b0                uart_write_byte
+ .text.send_string
+                0x000003c4       0x1c usart.o
+                0x000003c4                send_string
+ .text.UART_sercom_init
+                0x000003e0       0x5c usart.o
+                0x000003e0                UART_sercom_init
+ .text          0x0000043c      0x114 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_udivsi3.o)
+                0x0000043c                __aeabi_uidiv
+                0x0000043c                __udivsi3
+                0x00000548                __aeabi_uidivmod
+ .text          0x00000550        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_dvmd_tls.o)
+                0x00000550                __aeabi_idiv0
+                0x00000550                __aeabi_ldiv0
+ .text.__libc_init_array
+                0x00000554       0x48 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
+                0x00000554                __libc_init_array
+ .text.startup.register_fini
+                0x0000059c       0x18 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ .text.atexit   0x000005b4       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
+                0x000005b4                atexit
+ .text.__libc_fini_array
+                0x000005c4       0x34 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
+                0x000005c4                __libc_fini_array
+ .text.__register_exitproc
+                0x000005f8       0xd4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
+                0x000005f8                __register_exitproc
+ *(.glue_7t)
+ .glue_7t       0x000006cc        0x0 linker stubs
+ *(.glue_7)
+ .glue_7        0x000006cc        0x0 linker stubs
+ *(.rodata .rodata* .gnu.linkonce.r.*)
+ .rodata.str1.4
+                0x000006cc        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+                                  0x2 (size before relaxing)
+ .rodata._global_impure_ptr
+                0x000006d0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+                0x000006d0                _global_impure_ptr
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+                0x000006d4                . = ALIGN (0x4)
+ *(.init)
+ .init          0x000006d4        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crti.o
+                0x000006d4                _init
+ .init          0x000006d8        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtn.o
+                0x000006e0                . = ALIGN (0x4)
+                0x000006e0                __preinit_array_start = .
+ *(.preinit_array)
+                0x000006e0                __preinit_array_end = .
+                0x000006e0                . = ALIGN (0x4)
+                0x000006e0                __init_array_start = .
+ *(SORT(.init_array.*))
+ .init_array.00000
+                0x000006e0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ *(.init_array)
+ .init_array    0x000006e4        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+                0x000006e8                __init_array_end = .
+                0x000006e8                . = ALIGN (0x4)
+ *crtbegin.o(.ctors)
+ *(EXCLUDE_FILE(*crtend.o) .ctors)
+ *(SORT(.ctors.*))
+ *crtend.o(.ctors)
+                0x000006e8                . = ALIGN (0x4)
+ *(.fini)
+ .fini          0x000006e8        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crti.o
+                0x000006e8                _fini
+ .fini          0x000006ec        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtn.o
+                0x000006f4                . = ALIGN (0x4)
+                0x000006f4                __fini_array_start = .
+ *(.fini_array)
+ .fini_array    0x000006f4        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+ *(SORT(.fini_array.*))
+                0x000006f8                __fini_array_end = .
+ *crtbegin.o(.dtors)
+ *(EXCLUDE_FILE(*crtend.o) .dtors)
+ *(SORT(.dtors.*))
+ *crtend.o(.dtors)
+                0x000006f8                . = ALIGN (0x4)
+                0x000006f8                _efixed = .
+                [!provide]                PROVIDE (__exidx_start, .)
+
+.vfp11_veneer   0x000006f8        0x0
+ .vfp11_veneer  0x000006f8        0x0 linker stubs
+
+.v4_bx          0x000006f8        0x0
+ .v4_bx         0x000006f8        0x0 linker stubs
+
+.iplt           0x000006f8        0x0
+ .iplt          0x000006f8        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+
+.eh_frame       0x000006f8        0x0
+ .eh_frame      0x000006f8        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+
+.rel.dyn        0x000006f8        0x0
+ .rel.iplt      0x000006f8        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+
+.jcr            0x000006f8        0x0
+ .jcr           0x000006f8        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+
+.igot.plt       0x000006f8        0x0
+ .igot.plt      0x000006f8        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+
+.ARM.exidx
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                [!provide]                PROVIDE (__exidx_end, .)
+                0x000006f8                . = ALIGN (0x4)
+                0x000006f8                _etext = .
+
+.relocate       0x20000000      0x440 load address 0x000006f8
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _srelocate = .
+ *(.ramfunc .ramfunc.*)
+ *(.data .data.*)
+ .data          0x20000000        0x4 Device_Startup/system_samd09.o
+                0x20000000                SystemCoreClock
+ .data          0x20000004        0xd main.o
+                0x20000004                aHello
+ *fill*         0x20000011        0x7 
+ .data.impure_data
+                0x20000018      0x428 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+                0x20000440                . = ALIGN (0x4)
+                0x20000440                _erelocate = .
+
+.bss            0x20000440       0x20 load address 0x00000b38
+                0x20000440                . = ALIGN (0x4)
+                0x20000440                _sbss = .
+                0x20000440                _szero = .
+ *(.bss .bss.*)
+ .bss           0x20000440       0x1c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+ *(COMMON)
+ COMMON         0x2000045c        0x4 main.o
+                0x2000045c                i
+                0x20000460                . = ALIGN (0x4)
+                0x20000460                _ebss = .
+                0x20000460                _ezero = .
+
+.stack          0x20000460      0x400 load address 0x00000b58
+                0x20000460                . = ALIGN (0x8)
+                0x20000460                _sstack = .
+                0x20000860                . = (. + STACK_SIZE)
+ *fill*         0x20000460      0x400 
+                0x20000860                . = ALIGN (0x8)
+                0x20000860                _estack = .
+                0x20000860                . = ALIGN (0x4)
+                0x20000860                _end = .
+OUTPUT(EEpromTest24LC256.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x28
+ .ARM.attributes
+                0x00000000       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crti.o
+ .ARM.attributes
+                0x0000001e       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtbegin.o
+ .ARM.attributes
+                0x0000004a       0x32 Device_Startup/startup_samd09.o
+ .ARM.attributes
+                0x0000007c       0x32 Device_Startup/system_samd09.o
+ .ARM.attributes
+                0x000000ae       0x32 eeprom.o
+ .ARM.attributes
+                0x000000e0       0x32 globalfunctions.o
+ .ARM.attributes
+                0x00000112       0x32 main.o
+ .ARM.attributes
+                0x00000144       0x32 usart.o
+ .ARM.attributes
+                0x00000176       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x00000194       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x000001b2       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+ .ARM.attributes
+                0x000001de       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
+ .ARM.attributes
+                0x0000020a       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ .ARM.attributes
+                0x00000236       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
+ .ARM.attributes
+                0x00000262       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
+ .ARM.attributes
+                0x0000028e       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
+ .ARM.attributes
+                0x000002ba       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m/crtn.o
+
+.comment        0x00000000       0x59
+ .comment       0x00000000       0x59 Device_Startup/startup_samd09.o
+                                 0x5a (size before relaxing)
+ .comment       0x00000059       0x5a Device_Startup/system_samd09.o
+ .comment       0x00000059       0x5a eeprom.o
+ .comment       0x00000059       0x5a globalfunctions.o
+ .comment       0x00000059       0x5a main.o
+ .comment       0x00000059       0x5a usart.o
+
+.debug_info     0x00000000     0x917f
+ .debug_info    0x00000000     0x1a83 Device_Startup/startup_samd09.o
+ .debug_info    0x00001a83       0xcd Device_Startup/system_samd09.o
+ .debug_info    0x00001b50     0x2e20 eeprom.o
+ .debug_info    0x00004970      0x759 globalfunctions.o
+ .debug_info    0x000050c9     0x1670 main.o
+ .debug_info    0x00006739     0x2a46 usart.o
+
+.debug_abbrev   0x00000000      0xa3e
+ .debug_abbrev  0x00000000      0x1e3 Device_Startup/startup_samd09.o
+ .debug_abbrev  0x000001e3       0x65 Device_Startup/system_samd09.o
+ .debug_abbrev  0x00000248      0x2dd eeprom.o
+ .debug_abbrev  0x00000525      0x16a globalfunctions.o
+ .debug_abbrev  0x0000068f      0x1b9 main.o
+ .debug_abbrev  0x00000848      0x1f6 usart.o
+
+.debug_loc      0x00000000      0x348
+ .debug_loc     0x00000000       0x20 Device_Startup/startup_samd09.o
+ .debug_loc     0x00000020      0x181 eeprom.o
+ .debug_loc     0x000001a1       0x9d globalfunctions.o
+ .debug_loc     0x0000023e       0x20 main.o
+ .debug_loc     0x0000025e       0xea usart.o
+
+.debug_aranges  0x00000000      0x138
+ .debug_aranges
+                0x00000000       0x28 Device_Startup/startup_samd09.o
+ .debug_aranges
+                0x00000028       0x28 Device_Startup/system_samd09.o
+ .debug_aranges
+                0x00000050       0x68 eeprom.o
+ .debug_aranges
+                0x000000b8       0x20 globalfunctions.o
+ .debug_aranges
+                0x000000d8       0x20 main.o
+ .debug_aranges
+                0x000000f8       0x40 usart.o
+
+.debug_ranges   0x00000000       0xd8
+ .debug_ranges  0x00000000       0x18 Device_Startup/startup_samd09.o
+ .debug_ranges  0x00000018       0x18 Device_Startup/system_samd09.o
+ .debug_ranges  0x00000030       0x58 eeprom.o
+ .debug_ranges  0x00000088       0x10 globalfunctions.o
+ .debug_ranges  0x00000098       0x10 main.o
+ .debug_ranges  0x000000a8       0x30 usart.o
+
+.debug_macro    0x00000000     0xae4d
+ .debug_macro   0x00000000      0x23b Device_Startup/startup_samd09.o
+ .debug_macro   0x0000023b      0x826 Device_Startup/startup_samd09.o
+ .debug_macro   0x00000a61       0x22 Device_Startup/startup_samd09.o
+ .debug_macro   0x00000a83       0x87 Device_Startup/startup_samd09.o
+ .debug_macro   0x00000b0a       0x44 Device_Startup/startup_samd09.o
+ .debug_macro   0x00000b4e       0xfd Device_Startup/startup_samd09.o
+ .debug_macro   0x00000c4b       0x22 Device_Startup/startup_samd09.o
+ .debug_macro   0x00000c6d      0x1df Device_Startup/startup_samd09.o
+ .debug_macro   0x00000e4c       0x3a Device_Startup/startup_samd09.o
+ .debug_macro   0x00000e86       0x3a Device_Startup/startup_samd09.o
+ .debug_macro   0x00000ec0       0x1f Device_Startup/startup_samd09.o
+ .debug_macro   0x00000edf      0x250 Device_Startup/startup_samd09.o
+ .debug_macro   0x0000112f      0x8bf Device_Startup/startup_samd09.o
+ .debug_macro   0x000019ee      0xc1a Device_Startup/startup_samd09.o
+ .debug_macro   0x00002608      0x5b8 Device_Startup/startup_samd09.o
+ .debug_macro   0x00002bc0      0x7c8 Device_Startup/startup_samd09.o
+ .debug_macro   0x00003388      0x4e3 Device_Startup/startup_samd09.o
+ .debug_macro   0x0000386b      0x3a9 Device_Startup/startup_samd09.o
+ .debug_macro   0x00003c14      0x197 Device_Startup/startup_samd09.o
+ .debug_macro   0x00003dab      0x225 Device_Startup/startup_samd09.o
+ .debug_macro   0x00003fd0      0x743 Device_Startup/startup_samd09.o
+ .debug_macro   0x00004713       0x5e Device_Startup/startup_samd09.o
+ .debug_macro   0x00004771      0x5d8 Device_Startup/startup_samd09.o
+ .debug_macro   0x00004d49      0x3b6 Device_Startup/startup_samd09.o
+ .debug_macro   0x000050ff      0xc55 Device_Startup/startup_samd09.o
+ .debug_macro   0x00005d54     0x1092 Device_Startup/startup_samd09.o
+ .debug_macro   0x00006de6      0xc19 Device_Startup/startup_samd09.o
+ .debug_macro   0x000079ff      0x6bf Device_Startup/startup_samd09.o
+ .debug_macro   0x000080be      0x34e Device_Startup/startup_samd09.o
+ .debug_macro   0x0000840c       0xa0 Device_Startup/startup_samd09.o
+ .debug_macro   0x000084ac       0xca Device_Startup/startup_samd09.o
+ .debug_macro   0x00008576       0xb8 Device_Startup/startup_samd09.o
+ .debug_macro   0x0000862e       0x58 Device_Startup/startup_samd09.o
+ .debug_macro   0x00008686      0x222 Device_Startup/startup_samd09.o
+ .debug_macro   0x000088a8       0x82 Device_Startup/startup_samd09.o
+ .debug_macro   0x0000892a      0x197 Device_Startup/startup_samd09.o
+ .debug_macro   0x00008ac1       0xa0 Device_Startup/startup_samd09.o
+ .debug_macro   0x00008b61       0xbe Device_Startup/startup_samd09.o
+ .debug_macro   0x00008c1f       0x1c Device_Startup/startup_samd09.o
+ .debug_macro   0x00008c3b       0x1c Device_Startup/startup_samd09.o
+ .debug_macro   0x00008c57       0x1c Device_Startup/startup_samd09.o
+ .debug_macro   0x00008c73       0x82 Device_Startup/startup_samd09.o
+ .debug_macro   0x00008cf5      0x112 Device_Startup/startup_samd09.o
+ .debug_macro   0x00008e07       0xdc Device_Startup/startup_samd09.o
+ .debug_macro   0x00008ee3      0x12f Device_Startup/startup_samd09.o
+ .debug_macro   0x00009012      0x12f Device_Startup/startup_samd09.o
+ .debug_macro   0x00009141      0x11e Device_Startup/startup_samd09.o
+ .debug_macro   0x0000925f       0xe2 Device_Startup/startup_samd09.o
+ .debug_macro   0x00009341       0xe2 Device_Startup/startup_samd09.o
+ .debug_macro   0x00009423       0x40 Device_Startup/startup_samd09.o
+ .debug_macro   0x00009463      0x273 Device_Startup/startup_samd09.o
+ .debug_macro   0x000096d6      0xa8f Device_Startup/startup_samd09.o
+ .debug_macro   0x0000a165       0x5f Device_Startup/startup_samd09.o
+ .debug_macro   0x0000a1c4      0x241 Device_Startup/system_samd09.o
+ .debug_macro   0x0000a405      0x276 eeprom.o
+ .debug_macro   0x0000a67b       0x70 eeprom.o
+ .debug_macro   0x0000a6eb      0x276 globalfunctions.o
+ .debug_macro   0x0000a961      0x276 main.o
+ .debug_macro   0x0000abd7      0x276 usart.o
+
+.debug_line     0x00000000     0x25bd
+ .debug_line    0x00000000      0x60a Device_Startup/startup_samd09.o
+ .debug_line    0x0000060a      0x5f4 Device_Startup/system_samd09.o
+ .debug_line    0x00000bfe      0x70f eeprom.o
+ .debug_line    0x0000130d      0x622 globalfunctions.o
+ .debug_line    0x0000192f      0x61b main.o
+ .debug_line    0x00001f4a      0x673 usart.o
+
+.debug_str      0x00000000    0x41687
+ .debug_str     0x00000000    0x40363 Device_Startup/startup_samd09.o
+                              0x4061e (size before relaxing)
+ .debug_str     0x00040363       0x6c Device_Startup/system_samd09.o
+                              0x3fcc1 (size before relaxing)
+ .debug_str     0x000403cf      0xd40 eeprom.o
+                              0x40ac0 (size before relaxing)
+ .debug_str     0x0004110f      0x19f globalfunctions.o
+                              0x40029 (size before relaxing)
+ .debug_str     0x000412ae      0x390 main.o
+                              0x403cc (size before relaxing)
+ .debug_str     0x0004163e       0x49 usart.o
+                              0x40812 (size before relaxing)
+
+.debug_frame    0x00000000      0x334
+ .debug_frame   0x00000000       0x38 Device_Startup/startup_samd09.o
+ .debug_frame   0x00000038       0x30 Device_Startup/system_samd09.o
+ .debug_frame   0x00000068       0xcc eeprom.o
+ .debug_frame   0x00000134       0x2c globalfunctions.o
+ .debug_frame   0x00000160       0x28 main.o
+ .debug_frame   0x00000188       0x7c usart.o
+ .debug_frame   0x00000204       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/armv6-m\libgcc.a(_udivsi3.o)
+ .debug_frame   0x00000224       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
+ .debug_frame   0x00000250       0x54 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x000002a4       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
+ .debug_frame   0x000002cc       0x2c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
+ .debug_frame   0x000002f8       0x3c c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)

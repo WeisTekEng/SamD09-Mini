@@ -44,7 +44,7 @@ bool manual_page_write;																										/* If \c false, a page write co
 
 /*Micro related defines*/
 #define _DID								DSU->DID.reg																	/*so we can access the DID reg*/
-//#define VERSION																												/*tells the compiler to compile versioning info, comment out if you want more space.*/
+#define VERSION																												/*tells the compiler to compile versioning info, comment out if you want more space.*/
 //#define NEW_FRONT_END																											/*used for the specialTalk variable, comment this if you want the bootloader smaller.*/
 
 #ifdef NEW_FRONT_END																										/*extracted function from samd_math.h <- something like that.*/
@@ -58,12 +58,12 @@ bool specialTalk;																											/*used for talking to an experimenti
 
 
 /*quick defines for testing*/
-#define SAMD10
-//#define SAMD09
+//#define SAMD10
+#define SAMD09
 #if defined(SAMD10)
 	#define BOOT_PIN							25
 #elif defined(SAMD09)
-	#define BOOT_PIN							15																				/*PA15 for bootloader en, toggled by the python script. or DTR from serial coms.*/
+	#define BOOT_PIN							16																				/*PA15 for bootloader en, toggled by the python script. or DTR from serial coms.*/
 #endif
 /* Application starts from 1kB memory - Bootloader size is 1kB */
 /* Change the address if higher boot size is needed */
