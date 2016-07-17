@@ -17,6 +17,8 @@ args = parser.parse_args()
 
 page_size = 64;
 response = "n";
+miniSam_Zero = "01041000"
+samD09_dev = "00000000" #Al1's board.
 
 # Opening COM port
 ser = serial.Serial(
@@ -37,6 +39,18 @@ while(response == "n"):
         
 #sleep(.001)
 #ser.setDTR(False)
+length = ser.write("^")
+while ser.inWaiting == 0:
+        pass
+read = ''
+read += ser.read(4)
+
+read = read.encode('hex')
+if read == miniSam_Zero:
+        print("miniSam-Zero found. ID: 0x" + str(read))
+else:
+        print("Other board found. ID: 0x" + str(read))
+
 length = ser.write('#')
 while ser.inWaiting == 0:
 	pass

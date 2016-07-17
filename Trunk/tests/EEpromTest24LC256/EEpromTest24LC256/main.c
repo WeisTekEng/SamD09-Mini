@@ -15,10 +15,16 @@
 
 
 #include "includes.h"
+#include <inttypes.h>
+#include <string.h>
 
 uint32_t i;
 
 char aHello[] = {"Hello World\n"};
+uint8_t data[] = {};
+uint8_t Size = 8;
+uint8_t found = 0;
+uint32_t addr;
 
 int main(void)
 {
@@ -37,14 +43,28 @@ int main(void)
 	pin_set_peripheral_function(SCL);
 	
 	/*init USART*/
-	UART_sercom_init();
-	/*init I2C*/
-	I2C_sercom_init();
-	enableWire();
+	//UART_sercom_init();
 	
-	send_string(aHello,i);
-	startTransmissionWire(0x50,WIRE_WRITE_FLAG);
-    /* Replace with your application code */
+	/*init I2C*/
+	i2c_setup(SERCOM0); /*this works*/
+	
+	/*search for device. eeprom should be at 0x50*/
+	for(uint32_t y = 0;y<= 0x65;y++)
+	{
+		uint8_t stuff = startTransmissionWire(y,0x0ul);
+		if(stuff !=0)
+		{
+			found = 1;
+			addr = y;
+		} 
+	}
+	
+	startTransmissionWire(0x50,0x1ul);
+	
+	volatile uint8_t stuff;
+	stuff = i2c_read(SERCOM0,data,8,&addr); //this at least gives some data. 0xff
+	stuff = i2c_read(SERCOM0,data,8,&addr);
+	//send_string(aHello,i);
     while (1) 
     {
     }

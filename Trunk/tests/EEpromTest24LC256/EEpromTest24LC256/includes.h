@@ -17,7 +17,8 @@
 //#include "sam.h"
 #include "defines.h"
 #include "usart.h"
-#include "eeprom.h"
+//#include "eeprom.h"
 #include "globalfunctions.h"
+#include "i2c.h"
 
 #endif /* INCLUDES_H_ */

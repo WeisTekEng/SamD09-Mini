@@ -35,6 +35,59 @@ uint8_t i2c_read_byte(void)
 	return((uint8_t)(I2C_SERCOM->I2CM.DATA.reg & 0x00FF));
 }
 
+//void i2c_setup()
+//{
+	//
+	    ///* port mux configuration*/
+    //PORT->Group[0].PINCFG[PIN_PA15].reg = PORT_PINCFG_PMUXEN | PORT_PINCFG_INEN | PORT_PINCFG_PULLEN; /* SDA */
+    //PORT->Group[0].PINCFG[PIN_PA14].reg = PORT_PINCFG_PMUXEN | PORT_PINCFG_INEN | PORT_PINCFG_PULLEN; /* SCL */
+    //
+    ///*PMUX: even = n/2, odd: (n-1)/2 */
+    //PORT->Group[0].PMUX[PIN_PA14/2].reg = 0x02;
+    //PORT->Group[0].PMUX[PIN_PA15/2].reg = 0x20;
+	//
+	///* APBCMASK */
+	//PM->APBCMASK.reg |= PM_APBCMASK_SERCOM0;
+	//
+	///*gclk configuration for sercom1 module*/
+	//GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID (SERCOM0_GCLK_ID_CORE) |
+	//GCLK_CLKCTRL_ID (SERCOM0_GCLK_ID_SLOW) |
+	//GCLK_CLKCTRL_GEN(0) |
+	//GCLK_CLKCTRL_CLKEN;
+	//
+	///* set configuration for SERCOM1 I2C module */
+	//SERCOM0->I2CM.CTRLB.reg = SERCOM_I2CM_CTRLB_SMEN; /* smart mode enable */
+	//while (SERCOM0->I2CM.SYNCBUSY.reg);
+	//
+	///* Set baudrate */
+	//uint32_t fgclk        = 8000000;    /* 8MHz */
+	//uint32_t fscl        = 1000; /* 1kHz SCL */
+	//uint32_t trise        = 215; /* 215 ns rising time */
+	//int32_t numerator    = fgclk - fscl*(10 + fgclk*trise/1000000000);
+	//int32_t denominator    = 2*fscl;
+	//int32_t tmp_baud = (int32_t)(div_ceil(numerator, denominator));
+	//SERCOM0->I2CM.BAUD.bit.BAUD = SERCOM_I2CM_BAUD_BAUD(tmp_baud);
+	//while (SERCOM0->I2CM.SYNCBUSY.reg);
+	//
+	//SERCOM0->I2CM.CTRLA.reg =    SERCOM_I2CM_CTRLA_ENABLE |            /* enable module */
+	//SERCOM_I2CM_CTRLA_MODE_I2C_MASTER |    /* i2c master mode */
+	//SERCOM_I2CM_CTRLA_SDAHOLD(3);        /* SDA hold time to 600ns */
+	//while (SERCOM0->I2CM.SYNCBUSY.reg);
+	//uint16_t timeout_counter = 0;
+	//
+	///*if buss state is uknown set to idle after timeout*/
+	//while(!(SERCOM0->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_BUSSTATE(1)))
+	//{
+		//timeout_counter++;
+		//if(timeout_counter >= 65535)
+		//{
+			//SERCOM0->I2CM.STATUS.reg |= SERCOM_I2CM_STATUS_BUSSTATE(1); /* set to idle state */
+		//}
+	//}
+	//
+	//while (SERCOM0->I2CM.SYNCBUSY.reg);
+//}
+
 
 I2C_sercom_init()
 {
@@ -44,9 +97,7 @@ I2C_sercom_init()
   // Initialize the peripheral clock and interruption
   //initClockNVIC() ;
   /*gclk configuration for sercom1 module*/
-  GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID (SERCOM1_GCLK_ID_CORE) |
-  GCLK_CLKCTRL_GEN(0) |
-  GCLK_CLKCTRL_CLKEN;
+  GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID (GCLK_CLKCTRL_GEN_GCLK0_Val | GCLK_CLKCTRL_ID(SERCOM0_GCLK_ID_CORE) | GCLK_CLKCTRL_CLKEN);
 
   resetWIRE() ;
 
@@ -55,35 +106,16 @@ I2C_sercom_init()
                             SERCOM_I2CM_CTRLA_SCLSM*/ ;
 
   // Enable Smart mode and Quick Command
-  //sercom->I2CM.CTRLB.reg =  SERCOM_I2CM_CTRLB_SMEN /*| SERCOM_I2CM_CTRLB_QCEN*/ ;
-
+  SERCOM0->I2CM.CTRLB.reg =  SERCOM_I2CM_CTRLB_SMEN; /*| SERCOM_I2CM_CTRLB_QCEN*/ ;
+  
+  // run standby
+  SERCOM0->I2CM.CTRLA.reg = SERCOM_I2CM_CTRLA_RUNSTDBY;
 
   // Enable all interrupts
-//  sercom->I2CM.INTENSET.reg = SERCOM_I2CM_INTENSET_MB | SERCOM_I2CM_INTENSET_SB | SERCOM_I2CM_INTENSET_ERROR ;
+  SERCOM0->I2CM.INTENSET.reg = SERCOM_I2CM_INTENSET_MB | SERCOM_I2CM_INTENSET_SB | SERCOM_I2CM_INTENSET_ERROR;
 
   // Synchronous arithmetic baudrate
   SERCOM0->I2CM.BAUD.bit.BAUD = SystemCoreClock / ( 2 * TWI_CLOCK) - 1 ;
-}
-
-void enableWire()
-{
-  // I2C Master and Slave modes share the ENABLE bit function.
-
-  // Enable the I²C master mode
-  SERCOM0->I2CM.CTRLA.bit.ENABLE = 1 ;
-
-  while ( SERCOM0->I2CM.SYNCBUSY.bit.ENABLE != 0 )
-  {
-    // Waiting the enable bit from SYNCBUSY is equal to 0;
-  }
-
-  // Setting bus idle mode
-  SERCOM0->I2CM.STATUS.bit.BUSSTATE = 1 ;
-
-  while ( SERCOM0->I2CM.SYNCBUSY.bit.SYSOP != 0 )
-  {
-    // Wait the SYSOP bit from SYNCBUSY coming back to 0
-  }	
 }
 
 bool startTransmissionWire(uint8_t address, SercomWireReadWriteFlag flag)

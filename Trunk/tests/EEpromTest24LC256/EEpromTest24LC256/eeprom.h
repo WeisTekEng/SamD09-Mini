@@ -29,6 +29,7 @@ typedef enum
 } SercomWireBusState;
 
 
+//void i2c_setup();
 
 I2C_sercom_init();
 
@@ -39,8 +40,6 @@ uint8_t isBusIdleWIRE( void );
 uint8_t isBusOwnerWIRE( void );
 
 void resetWIRE();
-
-void enableWire();
 
 void i2c_send_string(char s[],uint32_t i);
 
