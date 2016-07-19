@@ -2,7 +2,7 @@
  * ineeprom.h
  *
  * Created: 7/14/2016 6:51:47 PM
- *  Author: Jeremy
+ *  Author: arduino? I forgot to get the link.
  */ 
 
 

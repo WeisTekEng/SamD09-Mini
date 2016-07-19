@@ -50,21 +50,9 @@ main.d main.o: .././main.c .././includes.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/instance/tc2.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/instance/wdt.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio/samd09d14a.h \
+ D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/sam.h \
  .././defines.h .././usart.h .././globalfunctions.h .././i2c.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\config.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\ieeefp.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.9.3\include\stddef.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\reent.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_types.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_types.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\lock.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\cdefs.h \
- d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h
+ .././clocks.h
 
 .././includes.h:
 
@@ -170,6 +158,8 @@ D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/ins
 
 D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio/samd09d14a.h:
 
+D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/sam.h:
+
 .././defines.h:
 
 .././usart.h:
@@ -178,30 +168,4 @@ D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio
 
 .././i2c.h:
 
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\config.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\ieeefp.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.9.3\include\stddef.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\reent.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_types.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_types.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\lock.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\cdefs.h:
-
-d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h:
+.././clocks.h:

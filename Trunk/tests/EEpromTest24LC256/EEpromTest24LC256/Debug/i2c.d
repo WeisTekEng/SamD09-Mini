@@ -50,7 +50,9 @@ i2c.d i2c.o: .././i2c.c .././includes.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/instance/tc2.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/instance/wdt.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio/samd09d14a.h \
- .././defines.h .././usart.h .././globalfunctions.h .././i2c.h
+ D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/sam.h \
+ .././defines.h .././usart.h .././globalfunctions.h .././i2c.h \
+ .././clocks.h
 
 .././includes.h:
 
@@ -156,6 +158,8 @@ D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/ins
 
 D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio/samd09d14a.h:
 
+D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/sam.h:
+
 .././defines.h:
 
 .././usart.h:
@@ -163,3 +167,5 @@ D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio
 .././globalfunctions.h:
 
 .././i2c.h:
+
+.././clocks.h:

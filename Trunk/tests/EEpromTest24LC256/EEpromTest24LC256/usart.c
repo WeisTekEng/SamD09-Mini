@@ -18,8 +18,9 @@ void sendConfirm()
 }
 
 /*send a char array and format as a string*/
-void send_string(char s[],uint32_t i)
+void send_string(volatile char s[])
 {
+	uint32_t i;
 	while(s[i] != 0x00)
 	{
 		uart_write_byte(s[i]);
@@ -71,10 +72,9 @@ void UART_sercom_init()
 	#endif
 	
 	//apbcmak
-	PM->APBCMASK.reg |= PM_APBCMASK_SERCOM1;
+	
 	
 	//gclk config
-	GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID(SERCOM1_GCLK_ID_CORE) | GCLK_CLKCTRL_GEN(0) | GCLK_CLKCTRL_CLKEN;
 	
 	//Config SERCOM1 module for UART
 	SERCOM1->USART.CTRLA.reg = SERCOM_USART_CTRLA_MODE_USART_INT_CLK | SERCOM_USART_CTRLA_DORD | SERCOM_USART_CTRLA_RXPO(0x3) | SERCOM_USART_CTRLA_TXPO(0x1);

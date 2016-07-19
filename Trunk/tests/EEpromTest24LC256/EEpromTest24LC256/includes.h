@@ -11,14 +11,12 @@
 #ifndef INCLUDES_H_
 #define INCLUDES_H_
 
-//#include "samd10.h"
 #include "samd09.h"
-
-//#include "sam.h"
+#include "sam.h"
 #include "defines.h"
 #include "usart.h"
-//#include "eeprom.h"
 #include "globalfunctions.h"
 #include "i2c.h"
+#include "clocks.h"
 
 #endif /* INCLUDES_H_ */

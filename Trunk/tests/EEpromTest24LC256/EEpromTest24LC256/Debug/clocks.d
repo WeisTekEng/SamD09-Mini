@@ -1,5 +1,4 @@
-globalfunctions.d globalfunctions.o: .././globalfunctions.c \
- .././includes.h \
+clocks.d clocks.o: .././clocks.c .././includes.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/samd09.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/samd09d14a.h \
  d:\program\ file(x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.9.3\include\stdint.h \

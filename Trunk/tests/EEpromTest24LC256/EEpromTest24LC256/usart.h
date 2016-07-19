@@ -15,7 +15,7 @@
 void sendConfirm();
 
 
-void send_string(char s[],uint32_t i);								/*sends a char array formated string over uart*/
+void send_string(volatile char s[]);								/*sends a char array formated string over uart*/
 
 
 void uart_write_byte(uint8_t data);						/*writes one byte to uart*/

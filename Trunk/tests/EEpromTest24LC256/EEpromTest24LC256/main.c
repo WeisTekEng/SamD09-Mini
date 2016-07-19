@@ -15,56 +15,53 @@
 
 
 #include "includes.h"
-#include <inttypes.h>
-#include <string.h>
-
-uint32_t i;
 
 char aHello[] = {"Hello World\n"};
 uint8_t data[] = {};
-uint8_t Size = 8;
-uint8_t found = 0;
-uint32_t addr;
+
+/*device address*/
+#define DEVICE_ADDRESS		0x50
+
+/*test data 2 bytes each*/
+#define TEST_DATA_DE		0xDE
+#define TEST_DATA_AD		0xAD
+#define TEST_DATA_BE		0xBE
+#define TEST_DATA_EF		0xEF
+
+/*device flags, will move later. also included in define.h*/
+#define DEVICE_READ			0x00
+#define DEVICE_WRITE		0x01
 
 int main(void)
 {
     /* Initialize the SAM system */
     SystemInit();
-	
-	/* Make CPU to run at 8MHz by clearing prescalar bits */
-	SYSCTRL->OSC8M.bit.PRESC = 0;
-	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
-	
-	//PORT->Group[BOOT_PORT].OUTSET.reg = (1>>14);
-	//PORT->Group[BOOT_PORT].OUTSET.reg = (1>>15);  
-	
-	/*setup pinmux for i2c*/
-	pin_set_peripheral_function(SDA);
-	pin_set_peripheral_function(SCL);
+	/*system clocks setup.*/
+	init_clocks();
 	
 	/*init USART*/
-	//UART_sercom_init();
+	UART_sercom_init();
 	
 	/*init I2C*/
 	i2c_setup(SERCOM0); /*this works*/
-	
-	/*search for device. eeprom should be at 0x50*/
-	for(uint32_t y = 0;y<= 0x65;y++)
-	{
-		uint8_t stuff = startTransmissionWire(y,0x0ul);
-		if(stuff !=0)
-		{
-			found = 1;
-			addr = y;
-		} 
-	}
-	
-	startTransmissionWire(0x50,0x1ul);
-	
+
 	volatile uint8_t stuff;
-	stuff = i2c_read(SERCOM0,data,8,&addr); //this at least gives some data. 0xff
-	stuff = i2c_read(SERCOM0,data,8,&addr);
-	//send_string(aHello,i);
+	/*read and write some stuff to eeprom. look at data with logic analyzer to see if its
+	*sending properly*/
+	/*initiate transmition*/
+	i2c_startTransmissionWire(DEVICE_ADDRESS,DEVICE_WRITE);
+	
+	/*write data, this kinda works. needs to be completely rewritin*/
+	i2c_write_byte(SERCOM0,TEST_DATA_DE,sizeof(TEST_DATA_DE),DEVICE_ADDRESS,0x0000,0x0000);
+	/*read data, same as above. these both at least put data on the line and receive acks*/
+	i2c_read_byte(SERCOM0,data,DEVICE_ADDRESS,0x0000,0x0000);
+	/*done transmitting*/
+	i2c_endTransmition(SERCOM0);
+	
+	/*lets us know USART is still working*/
+	send_string(aHello);
+	
+	/*infini loop*/
     while (1) 
     {
     }

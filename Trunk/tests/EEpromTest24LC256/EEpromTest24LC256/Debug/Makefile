@@ -38,6 +38,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../clocks.c \
 ../Device_Startup/startup_samd09.c \
 ../Device_Startup/system_samd09.c \
 ../globalfunctions.c \
@@ -53,6 +54,7 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+clocks.o \
 Device_Startup/startup_samd09.o \
 Device_Startup/system_samd09.o \
 globalfunctions.o \
@@ -61,6 +63,7 @@ main.o \
 usart.o
 
 OBJS_AS_ARGS +=  \
+clocks.o \
 Device_Startup/startup_samd09.o \
 Device_Startup/system_samd09.o \
 globalfunctions.o \
@@ -69,6 +72,7 @@ main.o \
 usart.o
 
 C_DEPS +=  \
+clocks.d \
 Device_Startup/startup_samd09.d \
 Device_Startup/system_samd09.d \
 globalfunctions.d \
@@ -77,6 +81,7 @@ main.d \
 usart.d
 
 C_DEPS_AS_ARGS +=  \
+clocks.d \
 Device_Startup/startup_samd09.d \
 Device_Startup/system_samd09.d \
 globalfunctions.d \
@@ -113,14 +118,16 @@ LINKER_SCRIPT_DEP+=  \
 
 
 
-Device_Startup/%.o: ../Device_Startup/%.c
+
+
+./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 4.9.3
 	$(QUOTE)D:\Program File(x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAMD09D14A__ -DDEBUG  -I"D:\Program File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include" -I"D:\Program File(x86)\Atmel\Studio\7.0\Packs\arm\cmsis\4.2.0\CMSIS\Include"  -O1 -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m0plus -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
-./%.o: .././%.c
+Device_Startup/%.o: ../Device_Startup/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 4.9.3
 	$(QUOTE)D:\Program File(x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAMD09D14A__ -DDEBUG  -I"D:\Program File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include" -I"D:\Program File(x86)\Atmel\Studio\7.0\Packs\arm\cmsis\4.2.0\CMSIS\Include"  -O1 -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m0plus -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
