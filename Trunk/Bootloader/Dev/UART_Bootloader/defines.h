@@ -53,7 +53,7 @@ bool specialTalk;																											/*used for talking to an experimenti
 #define BOOT_SERCOM							SERCOM1																			/*miniSam uses Sercom1 for USART*/
 #define BOOT_SERCOM_BAUD					115200
 #define BOOT_PORT							0
-#define BOOT_PIN							15																				/*PA15 for bootloader en, toggled by the python script. or DTR from serial coms.*/
+#define BOOT_PIN							16																				/*PA15 for bootloader en, toggled by the python script. or DTR from serial coms.*/
 /* Application starts from 1kB memory - Bootloader size is 1kB */
 /* Change the address if higher boot size is needed */
 /*good site for quick conversions.*/
