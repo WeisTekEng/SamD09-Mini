@@ -27,11 +27,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  11 .debug_macro  0000a4f3  00000000  00000000  0000b54b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   000011d1  00000000  00000000  00015a3e  2**0
+ 12 .debug_line   0000119b  00000000  00000000  00015a3e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    0004054e  00000000  00000000  00016c0f  2**0
+ 13 .debug_str    0004054e  00000000  00000000  00016bd9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  000001c0  00000000  00000000  00057160  2**2
+ 14 .debug_frame  000001c0  00000000  00000000  00057128  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -374,9 +374,9 @@ __STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
 
 void TC1_Handler()
 {
-	REG_PORT_OUTTGL0 = (1 << 14);						// toggle led PA14
+	REG_PORT_OUTTGL0 = (1 << 16);						// toggle led PA14
  a40:	2280      	movs	r2, #128	; 0x80
- a42:	01d2      	lsls	r2, r2, #7
+ a42:	0252      	lsls	r2, r2, #9
  a44:	4b02      	ldr	r3, [pc, #8]	; (a50 <TC1_Handler+0x10>)
  a46:	601a      	str	r2, [r3, #0]
 	REG_TC1_INTFLAG = TC_INTFLAG_OVF;					// reset interrupt flag - NEEDED HERE!
@@ -400,9 +400,9 @@ int main(void)
 	init_TC1();											//init the clock.
  a5e:	4b04      	ldr	r3, [pc, #16]	; (a70 <main+0x18>)
  a60:	4798      	blx	r3
-	REG_PORT_DIR0 = (1 << 14);							//set the direction to output of PA14
+	REG_PORT_DIR0 = (1 << 16);							//set the direction to output of PA14
  a62:	2280      	movs	r2, #128	; 0x80
- a64:	01d2      	lsls	r2, r2, #7
+ a64:	0252      	lsls	r2, r2, #9
  a66:	4b03      	ldr	r3, [pc, #12]	; (a74 <main+0x1c>)
  a68:	601a      	str	r2, [r3, #0]
 	

@@ -111,8 +111,8 @@ int main(void)
 
 	
 	/*set PA14 LED to output and turn on, now we know we are in bootloader mode.*/
-	REG_PORT_DIR0 |= (1 << 14); //boot en led set as output.
-	REG_PORT_OUT0 |= (1 << 14); //Turn boot en led on.
+	REG_PORT_DIR0 |= (1 << 16); //boot en led set as output.
+	REG_PORT_OUT0 |= (1 << 16); //Turn boot en led on.
 	
 	/* Make CPU to run at 8MHz by clearing prescalar bits */ 
     SYSCTRL->OSC8M.bit.PRESC = 0;

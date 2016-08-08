@@ -317,7 +317,7 @@ int main(void)
 	
 	PORT->Group[BOOT_PORT].OUTSET.reg = (1<<BOOT_PIN);  // set resistor to pull up
  1c4:	4d58      	ldr	r5, [pc, #352]	; (328 <main+0x16c>)
- 1c6:	025b      	lsls	r3, r3, #9
+ 1c6:	041b      	lsls	r3, r3, #16
  1c8:	61ab      	str	r3, [r5, #24]
 	PORT->Group[BOOT_PORT].PINCFG[BOOT_PIN].reg = PORT_PINCFG_INEN | PORT_PINCFG_PULLEN;
  1ca:	7011      	strb	r1, [r2, #0]
@@ -423,13 +423,13 @@ __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_MSP(uint32_t topOf
 
 	
 	/*set PA14 LED to output and turn on, now we know we are in bootloader mode.*/
-	REG_PORT_DIR0 |= (1 << 14); //boot en led set as output.
+	REG_PORT_DIR0 |= (1 << 16); //boot en led set as output.
  216:	2180      	movs	r1, #128	; 0x80
  218:	682a      	ldr	r2, [r5, #0]
- 21a:	01c9      	lsls	r1, r1, #7
+ 21a:	0249      	lsls	r1, r1, #9
  21c:	430a      	orrs	r2, r1
  21e:	602a      	str	r2, [r5, #0]
-	REG_PORT_OUT0 |= (1 << 14); //Turn boot en led on.
+	REG_PORT_OUT0 |= (1 << 16); //Turn boot en led on.
  220:	4a47      	ldr	r2, [pc, #284]	; (340 <main+0x184>)
  222:	6813      	ldr	r3, [r2, #0]
  224:	430b      	orrs	r3, r1
@@ -709,7 +709,7 @@ __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_MSP(uint32_t topOf
  31e:	602b      	str	r3, [r5, #0]
  320:	e7f0      	b.n	304 <main+0x148>
  322:	46c0      	nop			; (mov r8, r8)
- 324:	41004450 	.word	0x41004450
+ 324:	41004457 	.word	0x41004457
  328:	41004400 	.word	0x41004400
  32c:	00000804 	.word	0x00000804
  330:	20000038 	.word	0x20000038

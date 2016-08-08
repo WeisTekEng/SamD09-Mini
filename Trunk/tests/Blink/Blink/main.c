@@ -23,7 +23,7 @@ void init_TC1(void)
 
 void TC1_Handler()
 {
-	REG_PORT_OUTTGL0 = (1 << 14);						// toggle led PA14
+	REG_PORT_OUTTGL0 = (1 << 16);						// toggle led PA14
 	REG_TC1_INTFLAG = TC_INTFLAG_OVF;					// reset interrupt flag - NEEDED HERE!
 }
 
@@ -32,7 +32,7 @@ int main(void)
     /* Initialize the SAM system */
     SystemInit();
 	init_TC1();											//init the clock.
-	REG_PORT_DIR0 = (1 << 14);							//set the direction to output of PA14
+	REG_PORT_DIR0 = (1 << 16);							//set the direction to output of PA14
 	
     while (1) 
     {
