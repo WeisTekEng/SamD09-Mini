@@ -172,6 +172,12 @@
     <Compile Include="Device_Startup\system_samd09.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="eeprom.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="eeprom.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="globalfunctions.c">
       <SubType>compile</SubType>
     </Compile>

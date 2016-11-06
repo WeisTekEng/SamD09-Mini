@@ -41,6 +41,7 @@ C_SRCS +=  \
 ../clocks.c \
 ../Device_Startup/startup_samd09.c \
 ../Device_Startup/system_samd09.c \
+../eeprom.c \
 ../globalfunctions.c \
 ../i2c.c \
 ../main.c \
@@ -57,6 +58,7 @@ OBJS +=  \
 clocks.o \
 Device_Startup/startup_samd09.o \
 Device_Startup/system_samd09.o \
+eeprom.o \
 globalfunctions.o \
 i2c.o \
 main.o \
@@ -66,6 +68,7 @@ OBJS_AS_ARGS +=  \
 clocks.o \
 Device_Startup/startup_samd09.o \
 Device_Startup/system_samd09.o \
+eeprom.o \
 globalfunctions.o \
 i2c.o \
 main.o \
@@ -75,6 +78,7 @@ C_DEPS +=  \
 clocks.d \
 Device_Startup/startup_samd09.d \
 Device_Startup/system_samd09.d \
+eeprom.d \
 globalfunctions.d \
 i2c.d \
 main.d \
@@ -84,6 +88,7 @@ C_DEPS_AS_ARGS +=  \
 clocks.d \
 Device_Startup/startup_samd09.d \
 Device_Startup/system_samd09.d \
+eeprom.d \
 globalfunctions.d \
 i2c.d \
 main.d \
@@ -105,6 +110,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

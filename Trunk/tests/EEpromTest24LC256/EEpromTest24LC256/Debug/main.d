@@ -52,7 +52,7 @@ main.d main.o: .././main.c .././includes.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/pio/samd09d14a.h \
  D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/sam.h \
  .././defines.h .././usart.h .././globalfunctions.h .././i2c.h \
- .././clocks.h
+ .././clocks.h .././eeprom.h
 
 .././includes.h:
 
@@ -169,3 +169,5 @@ D:\Program\ File(x86)\Atmel\Studio\7.0\Packs\atmel\SAMD09_DFP\1.0.25\include/sam
 .././i2c.h:
 
 .././clocks.h:
+
+.././eeprom.h:

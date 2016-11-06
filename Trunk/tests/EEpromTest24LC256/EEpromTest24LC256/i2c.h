@@ -38,17 +38,34 @@ typedef enum
 	WIRE_BUSY_STATE
 } SercomWireBusState;
 
-// TWI clock frequency
-static const uint32_t TWI_CLOCK = 100000;
+void i2c_init(uint32_t address);
+bool i2c_write(uint8_t *data,int size);
+bool i2c_write_start(void);
+bool i2c_write_byte(uint8_t byte);
+void i2c_write_stop(void);
 
-/*used to setup i2c*/
-void i2c_setup(Sercom *sercom);
-uint8_t i2c_read_byte(Sercom *sercom, uint8_t *data,uint8_t address,uint8_t locationH,uint8_t locationL);
-void i2c_write_byte(Sercom *sercom, uint8_t data, int size,uint8_t address, uint8_t locationH,uint8_t locationL);
-uint8_t i2c_startTransmissionWire(uint8_t address, SercomWireReadWriteFlag flag);
-void i2c_endTransmition(Sercom *sercom);
-uint8_t isBusIdleWIRE( void );
-uint8_t isBusOwnerWIRE( void );
+bool i2c_read_start(void);
+uint8_t i2c_read_byte();
+bool i2c_read(uint8_t *data, int size);
+void i2c_read_stop(void);
+
+void i2c_txNak();
+bool i2c_busy(void);
+
+
+///*
+//// TWI clock frequency
+static const uint32_t TWI_CLOCK = 100000; //100khz
+//
+///*used to setup i2c*/
+///*
+//void i2c_setup(uint32_t address);//Sercom *sercom);
+//uint8_t i2c_read_byte(/*Sercom *sercom,*/ uint8_t *data,/*uint8_t address,*/uint8_t locationH,uint8_t locationL);
+//void i2c_write_byte(/*Sercom *sercom,*/ uint8_t data, int size,/*uint8_t address,*/ uint8_t locationH,uint8_t locationL);
+//uint8_t i2c_startTransmissionWire(/*uint8_t address,*/ SercomWireReadWriteFlag flag);
+//void i2c_endTransmition();
+//uint8_t isBusIdleWIRE( void );
+//uint8_t isBusOwnerWIRE( void );
 
 
 #endif /* I2C_H_ */

@@ -15,22 +15,21 @@
 
 
 #include "includes.h"
+#include "eeprom.h"
 
 char aHello[] = {"Hello World\n"};
+uint8_t page_test[] = {0xEF,0xEB,0xDA,0xAD,0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,
+						0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
 uint8_t data[] = {};
 
 /*device address*/
-#define DEVICE_ADDRESS		0x50
+#define DEVICE_ADDRESS		0x52
 
 /*test data 2 bytes each*/
 #define TEST_DATA_DE		0xDE
 #define TEST_DATA_AD		0xAD
 #define TEST_DATA_BE		0xBE
 #define TEST_DATA_EF		0xEF
-
-/*device flags, will move later. also included in define.h*/
-#define DEVICE_READ			0x00
-#define DEVICE_WRITE		0x01
 
 int main(void)
 {
@@ -42,26 +41,40 @@ int main(void)
 	/*init USART*/
 	UART_sercom_init();
 	
-	/*init I2C*/
-	i2c_setup(SERCOM0); /*this works*/
-
-	volatile uint8_t stuff;
-	/*read and write some stuff to eeprom. look at data with logic analyzer to see if its
-	*sending properly*/
 	/*initiate transmition*/
-	i2c_startTransmissionWire(DEVICE_ADDRESS,DEVICE_WRITE);
+	i2c_init(DEVICE_ADDRESS);
+
+	/*this section works, word write, writes 2x8byte words or 1 16byte word*/
+	eeprom_write_word(0xBC,0x0000);
+	eeprom_read_word(data,0x0000);
 	
-	/*write data, this kinda works. needs to be completely rewritin*/
-	i2c_write_byte(SERCOM0,TEST_DATA_DE,sizeof(TEST_DATA_DE),DEVICE_ADDRESS,0x0000,0x0000);
-	/*read data, same as above. these both at least put data on the line and receive acks*/
-	i2c_read_byte(SERCOM0,data,DEVICE_ADDRESS,0x0000,0x0000);
-	/*done transmitting*/
-	i2c_endTransmition(SERCOM0);
+	uart_write_byte(data[0]);
+	send_string("\r\n");
+	/*end*/
 	
-	/*lets us know USART is still working*/
-	send_string(aHello);
+	/*page write block*/
+	send_string("EEProm page write data: \r\n");
+	for(int x = 0;x<=sizeof(page_test);x++)
+	{
+		uart_write_byte(page_test[x]);
+	}
+	eeprom_page_write(page_test,0x0000);
 	
-	/*infini loop*/
+	/*end*/
+	
+	/*read page and send to uart*/
+	uint8_t temp[] = {};
+	send_string("EEPProm Page data\n");
+	
+	uint8_t count = 0;
+	for(int x = 0;x<=sizeof(page_test);x++)
+	{
+		//eeprom_page_read(data,0x0000);
+		uart_write_byte(i2c_read_byte()>>count);
+		//send_string(data[x]);
+		count = count + 1;
+	}
+	
     while (1) 
     {
     }

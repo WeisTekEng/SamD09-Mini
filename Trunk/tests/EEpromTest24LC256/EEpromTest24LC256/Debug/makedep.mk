@@ -8,6 +8,8 @@ Device_Startup\startup_samd09.c
 
 Device_Startup\system_samd09.c
 
+eeprom.c
+
 globalfunctions.c
 
 i2c.c
