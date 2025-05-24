@@ -4,7 +4,7 @@
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				07-11-2016
- *Summery:			Include all.
+ *Summary:			Include all.
  */ 
 
 

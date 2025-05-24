@@ -1,11 +1,11 @@
 /*
  *globalfunctions.c
- *Project:			Generic clock library for miniSam-Zero.
+ *Project:			SAMD09/D10 Peripheral Libraries
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				06-29-2016
  *Created:			7/14/2016 7:13:48 PM
- *Summery:			Generic functions.
+ *Summary:			Provides generic utility functions for SAMD09/D10, such as `pin_set_peripheral_function`.
  *
  *License:	        GNU GENERAL PUBLIC LICENSE Version 3 or newer. The header of this file may not change.
  *

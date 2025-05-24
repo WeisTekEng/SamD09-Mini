@@ -1,11 +1,13 @@
 /*
  *i2c.c
- *Project:			Generic clock library for miniSam-Zero.
+ *Project:			SAMD09/D10 Peripheral Libraries
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				06-29-2016
  *Created:			7/16/2016 2:14:26 PM
- *Summery:			header file for i2c for samd09 without asf drivers, files are still a work in progress.
+ *Summary:			Header file for `i2c.c`. Declares I2C master mode functions for SAMD09,
+ *					including direct register access and Wire-like transmission helpers.
+ *					Some advanced features or error recovery scenarios might require further testing.
  *
  *License:	        GNU GENERAL PUBLIC LICENSE Version 3 or newer. The header of this file may not change.
  *
@@ -43,9 +45,9 @@ static const uint32_t TWI_CLOCK = 100000;
 
 /*used to setup i2c*/
 void i2c_setup(Sercom *sercom);
-uint8_t i2c_read_byte(Sercom *sercom, uint8_t *data,uint8_t address,uint8_t locationH,uint8_t locationL);
-void i2c_write_byte(Sercom *sercom, uint8_t data, int size,uint8_t address, uint8_t locationH,uint8_t locationL);
-uint8_t i2c_startTransmissionWire(uint8_t address, SercomWireReadWriteFlag flag);
+bool i2c_read_byte(Sercom *sercom, uint8_t device_address, uint8_t locationH, uint8_t locationL, uint8_t *data_byte);
+bool i2c_write_byte(Sercom *sercom, uint8_t device_address, uint8_t locationH, uint8_t locationL, uint8_t data_byte);
+uint8_t i2c_startTransmissionWire(uint8_t device_address, SercomWireReadWriteFlag flag);
 void i2c_endTransmition(Sercom *sercom);
 uint8_t isBusIdleWIRE( void );
 uint8_t isBusOwnerWIRE( void );

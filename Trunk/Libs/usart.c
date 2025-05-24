@@ -1,10 +1,11 @@
 /*
  *usart.c
- *Project:			miniSam USART bootloader.
+ *Project:			SAMD09/D10 Peripheral Libraries
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				07-11-2016
- *Summery:			setup usart functions, read and write functions.
+ *Summary:			Provides USART communication functions for SERCOM1 on SAMD09/D10,
+ *					including byte read/write and string transmission.
  *
  *updated:			07/12/2016 Added send_string function.
  */ 
@@ -32,31 +33,61 @@ void send_string(volatile char s[])
 void uart_write_byte(uint8_t data)
 {
 	while(!BOOT_SERCOM->USART.INTFLAG.bit.DRE);
-	
-	#ifdef NEW_FRONT_END
-	if(!specialTalk)
-	{
-		BOOT_SERCOM->USART.DATA.reg = (uint16_t)data;
-	}
-	else
-	{
-		if(data == '\n')
-		{
-			data = ('*');
-		}
-		
-		BOOT_SERCOM->USART.DATA.reg = (uint16_t)data;
-	}
-	#endif
-	BOOT_SERCOM->USART.DATA.reg = (uint16_t)data;
+
+#ifdef NEW_FRONT_END
+    if(specialTalk) // Only apply special logic if specialTalk is true
+    {
+        if(data == '\n')
+        {
+            data = ('*');
+        }
+    }
+#endif
+    BOOT_SERCOM->USART.DATA.reg = (uint16_t)data; // Single write point
 	
 }
 
+// Define USART error flags mask for clearing if not available from headers
+#ifndef SERCOM_USART_STATUS_ERROR_MASK
+#define SERCOM_USART_STATUS_ERROR_MASK (SERCOM_USART_STATUS_PERR | SERCOM_USART_STATUS_FERR | SERCOM_USART_STATUS_BUFOVF)
+#endif
+
 //read from the usart register.
-uint8_t uart_read_byte(void)
+int uart_read_byte(void)
 {
-	while(!BOOT_SERCOM->USART.INTFLAG.bit.RXC);
-	return((uint8_t)(BOOT_SERCOM->USART.DATA.reg & 0x00FF));
+	uint8_t status_reg;
+	uint16_t data_reg;
+
+	// Wait for data to be received
+	while(!BOOT_SERCOM->USART.INTFLAG.bit.RXC) {
+		// Check for errors while waiting for RXC. 
+		// Some errors (like BUFOVF) might prevent RXC from ever setting if not handled.
+		if(BOOT_SERCOM->USART.INTFLAG.bit.ERROR) {
+			status_reg = BOOT_SERCOM->USART.STATUS.reg;
+			// Clear error flags by writing them to 1
+			BOOT_SERCOM->USART.STATUS.reg = status_reg & SERCOM_USART_STATUS_ERROR_MASK; 
+			// Optionally, clear the ERROR flag in INTFLAG by writing 1 to it (if applicable for hardware)
+			// BOOT_SERCOM->USART.INTFLAG.reg = SERCOM_USART_INTFLAG_ERROR; 
+			return -1; // Error occurred
+		}
+	}
+
+	// Check for errors after RXC is set
+	if(BOOT_SERCOM->USART.INTFLAG.bit.ERROR) {
+		status_reg = BOOT_SERCOM->USART.STATUS.reg;
+		// Clear error flags by writing them to 1
+		BOOT_SERCOM->USART.STATUS.reg = status_reg & SERCOM_USART_STATUS_ERROR_MASK;
+		// BOOT_SERCOM->USART.INTFLAG.reg = SERCOM_USART_INTFLAG_ERROR; // Clear error interrupt flag
+		
+		// Even if there was an error, try to read data to clear RXC, but still return error
+		// (though data might be corrupt)
+		data_reg = BOOT_SERCOM->USART.DATA.reg; 
+		return -1; // Error occurred
+	}
+
+	// No error, read data
+	data_reg = BOOT_SERCOM->USART.DATA.reg;
+	return (int)(data_reg & 0x00FF); // Return data byte (0-255)
 }
 
 /*init USART module on SERCOM1*/

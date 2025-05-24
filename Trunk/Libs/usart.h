@@ -1,10 +1,11 @@
 /*
  *usart.h
- *Project:			miniSam USART bootloader.
+ *Project:			SAMD09/D10 Peripheral Libraries
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				07-11-2016
- *Summery:			setup usart functions, read and write functions.
+ *Summary:			Header file for usart.c. Declares USART (SERCOM1) communication functions
+ *					for SAMD09/D10, including initialization, byte read/write, and string transmission.
  *
  *updated:			07/12/2016 Added send_string function.
  */ 
@@ -21,10 +22,7 @@ void send_string(volatile char s[]);								/*sends a char array formated string
 void uart_write_byte(uint8_t data);						/*writes one byte to uart*/
 
 
-uint8_t uart_read_byte(void);							/*reads one byte from uart*/
-
-
-void pin_set_peripheral_function(uint32_t pinmux);		/*pin pad setup for SERCOM1 and USART*/
+int uart_read_byte(void);							/*reads one byte from uart, returns -1 on error, 0-255 on success*/
 
 
 void UART_sercom_init();								/*init USART module on SERCOM1*/

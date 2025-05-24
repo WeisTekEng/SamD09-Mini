@@ -4,7 +4,7 @@
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				07-11-2016
- *Summery:			includes all the defines needed for the bootloader.
+ *Summary:			includes all the defines needed for the bootloader.
  */ 
 
 
@@ -48,7 +48,7 @@ bool manual_page_write;																										/* If \c false, a page write co
 //#define NEW_FRONT_END																											/*used for the specialTalk variable, comment this if you want the bootloader smaller.*/
 
 #ifdef NEW_FRONT_END																										/*extracted function from samd_math.h <- something like that.*/
-bool specialTalk;																											/*used for talking to an experimential front end.*/
+bool specialTalk;																											/*used for talking to an experimental front end.*/
 #endif
 
 /* Change the following if different SERCOM and boot pins are used */
@@ -87,6 +87,33 @@ bool specialTalk;																											/*used for talking to an experimenti
 #define BAUD_VAL							(65536.0*(1.0-((float)(16.0*(float)BOOT_SERCOM_BAUD)/(float)SERCOM_GCLK)))		/* calculate baud rate from SERCOM_GCLK SERCOM USART GCLK Frequency */
 												
 #define NVM_MEMORY							((volatile uint16_t *)FLASH_ADDR)												/* Memory pointer for flash memory */
+
+/* GCLK Generator IDs */
+#define GCLK_GENCTRL_ID_0                   (0U)
+#define GCLK_GENCTRL_ID_1                   (1U)
+
+/* GCLK_CLKCTRL Generic Clock Generator IDs (used as parameter to GCLK_CLKCTRL_GEN) */
+#define GCLK_CLKCTRL_GEN_ID_0               (0U)
+#define GCLK_CLKCTRL_GEN_ID_1               (1U)
+
+/* System Controller OSC8M Prescaler */
+#define OSC8M_PRESCALER_DIV_1               (0U)  /* Oscillator is divided by 1 */
+
+/* NVM Controller Cache Setting */
+#define NVM_CACHE_DISABLED                  (1U)  /* NVM Cache disabled */
+
+/* I2C Custom BAUD value */
+// This value (160) for SERCOM_I2CM_BAUD_BAUD does not directly correspond to
+// the formula: SystemCoreClock / (2 * TWI_CLOCK) - 1, using TWI_CLOCK=100kHz
+// and SystemCoreClock=8MHz (SAMD09 SERCOM_GCLK) or 1MHz (SAMD10 SERCOM_GCLK).
+// For 8MHz system clock, BAUD should be 39. For 1MHz, it should be 4.
+// This custom value might be for a different SystemCoreClock or specific target.
+#define I2C_BAUD_VALUE_CUSTOM_160           (160)
+
+/* SERCOM I2CM SDA Hold Time value */
+// The value 3 for SERCOM_I2CM_CTRLA_SDAHOLD corresponds to ~500-600ns hold time
+// depending on the GCLK_SERCOM frequency. Refer to datasheet section "I2CM Standard Mode Data Hold Time".
+#define SERCOM_I2CM_SDAHOLD_VALUE_3         (3U) // For ~500-600ns SDA Hold Time
 
 /*Board defines*/
 //#define miniSam_Zero						0x10040100																		/*this should be different between the SOIC, and QFN part.*/

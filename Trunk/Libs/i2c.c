@@ -1,12 +1,13 @@
 /*
  *i2c.c
- *Project:			Generic clock library for miniSam-Zero.
+ *Project:			SAMD09/D10 Peripheral Libraries
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				06-29-2016
  *Created:			7/16/2016 2:14:26 PM
- *Summery:			Generic functions for i2c on SERCOM0 for samd09 not using ASF drivers.
- *					This file is still a work in progress.
+ *Summary:			Provides I2C master mode communication functions for SERCOM0 on SAMD09 microcontrollers,
+ *					without using ASF drivers. Includes core functions for direct register access
+ *					(`i2c_read_byte`, `i2c_write_byte`) and a set of Arduino Wire-library inspired helper functions.
  *
  *License:	        GNU GENERAL PUBLIC LICENSE Version 3 or newer. The header of this file may not change.
  *
@@ -30,112 +31,119 @@ void i2c_setup(Sercom *sercom)
 	/*reset i2c module*/
 	sercom->I2CM.CTRLA.reg |= SERCOM_I2CM_CTRLA_SWRST;
 	
-	//sercom->I2CM.CTRLB.reg = SERCOM_I2CM_CTRLB_SMEN;
-	//while(sercom->I2CM.SYNCBUSY.reg);
-	
 	/*wait for soft reset to finish*/
-	//while(sercom->I2CM.SYNCBUSY.bit.SWRST);
+	while(sercom->I2CM.SYNCBUSY.bit.SWRST);
 	
     // Synchronous arithmetic baudrate
 	//SERCOM0->I2CM.BAUD.bit.BAUD = SystemCoreClock / ( 2 * TWI_CLOCK) - 1 ;
-	sercom->I2CM.BAUD.reg = SERCOM_I2CM_BAUD_BAUD(160);
+	// Comment regarding I2C_BAUD_VALUE_CUSTOM_160 is in defines.h
+	sercom->I2CM.BAUD.reg = SERCOM_I2CM_BAUD_BAUD(I2C_BAUD_VALUE_CUSTOM_160);
 	while (sercom->I2CM.SYNCBUSY.reg);
 	
 	/*setup module*/
 	SERCOM0->I2CM.CTRLA.reg = SERCOM_I2CM_CTRLA_ENABLE | /* enable module */
 	SERCOM_I2CM_CTRLA_MODE_I2C_MASTER |    /* i2c master mode */
-	SERCOM_I2CM_CTRLA_SDAHOLD(3);        /* SDA hold time to 600ns */
+	SERCOM_I2CM_CTRLA_SDAHOLD(SERCOM_I2CM_SDAHOLD_VALUE_3);        /* SDA hold time to ~500-600ns */
 	while (sercom->I2CM.SYNCBUSY.bit.ENABLE);
 	
-	sercom->I2CM.STATUS.reg |= SERCOM_I2CM_STATUS_BUSSTATE(1);
+	sercom->I2CM.STATUS.reg |= SERCOM_I2CM_STATUS_BUSSTATE(WIRE_IDLE_STATE);
 	while(sercom->I2CM.SYNCBUSY.reg);
-	//uint16_t timeout_counter = 0;
-	//
-	///*if buss state is uknown set to idle after timeout*/
-	//while(!(sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_BUSSTATE(1)))
-	//{
-		//timeout_counter++;
-		//if(timeout_counter >= 65535)
-		//{
-			//sercom->I2CM.STATUS.reg |= SERCOM_I2CM_STATUS_BUSSTATE(1); /* set to idle state */
-		//}
-	//}
 	
 }
 
 void i2c_endTransmition(Sercom *sercom)
 {
-	sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(2);
+	sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(2); // Send STOP condition
+	while(sercom->I2CM.SYNCBUSY.reg); // Wait for synchronization
 }
 
-uint8_t i2c_read_byte(Sercom *sercom, uint8_t *data,uint8_t address, uint8_t locationH,uint8_t locationL)
+bool i2c_read_byte(Sercom *sercom, uint8_t device_address, uint8_t locationH, uint8_t locationL, uint8_t *data_byte)
 {
-	uint8_t size = 4;
-	
-	//address = (address << 0x1ul) | (locationH << 0x1ul) | (locationL << 0x1ul) | 0x1;
-	
-	//sercom->I2CM.ADDR.reg = (address << 0x1ul) | (locationH << 0x1ul) | locationL | 1;//| 0x0ul; //i2c transfer read = 1
-	
-	sercom->I2CM.ADDR.reg = (address << 0x1ul) | 0x01;
-	
-	//while (0==(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_SB));
-	
-	if(sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK)
-	{
-		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3);
-		return False;
+	/* Send START, Device Address with WRITE bit */
+	sercom->I2CM.ADDR.reg = (device_address << 1) | WIRE_WRITE_FLAG;
+	while (!(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_MB) && !(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_SB)); // Wait for master on bus or slave on bus flag
+
+	if (sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) {
+		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // Send STOP
+		return false; // NACK received from slave
+	}
+
+	/* Send Register Address High Byte */
+	sercom->I2CM.DATA.reg = locationH;
+	while (!(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_MB)); // Wait for master on bus flag (transmit complete)
+	if (sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) {
+		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // Send STOP
+		return false; // NACK received from slave
+	}
+
+	/* Send Register Address Low Byte */
+	sercom->I2CM.DATA.reg = locationL;
+	while (!(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_MB)); // Wait for master on bus flag (transmit complete)
+	if (sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) {
+		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // Send STOP
+		return false; // NACK received from slave
+	}
+
+	/* Send REPEATED START, Device Address with READ bit */
+	sercom->I2CM.ADDR.reg = (device_address << 1) | WIRE_READ_FLAG;
+	while (!(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_SB)); // Wait for slave on bus flag (indicates slave ACK'd address)
+
+	if (sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) { // Check for NACK after sending address with read bit
+		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // Send STOP
+		return false;
 	}
 	
-	sercom->I2CM.CTRLB.reg &= -SERCOM_I2CM_CTRLB_ACKACT;
+	/* Master sends NACK after reading the byte, then STOP */
+	sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_ACKACT; // Set ACK action to NACK
+	// Reading DATA register clears SB flag
+	*data_byte = sercom->I2CM.DATA.reg;
+
+	sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // Send STOP condition
 	
-	for(int i = 0;i < size-1;i++)
-	{
-		data[i] = sercom->I2CM.DATA.reg;
-		while (0==(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_SB));
-	}
-	
-	if(size)
-	{
-		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_ACKACT;
-		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3);
-		data[size-1] = sercom->I2CM.DATA.reg;
-	}
-	return *data;
+	return true;
 }
 
-void i2c_write_byte(Sercom *sercom, uint8_t data, int size, uint8_t address, uint8_t locationH,uint8_t locationL)
+bool i2c_write_byte(Sercom *sercom, uint8_t device_address, uint8_t locationH, uint8_t locationL, uint8_t data_byte)
 {
-	//address = (address << 0x1ul) | (locationH << 0x1ul) | (locationL << 0x1ul) | 0x0;
-	
-	//sercom->I2CM.ADDR.reg = (address << 0x1ul) | 0; //tell the slave we wish to write
-	//sercom->I2CM.ADDR.reg = address;
-	
-	sercom->I2CM.ADDR.reg = 0x50 << 0x1ul | 0x0ul;
-	
-	while (0==(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_MB))
-	
-	if(sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK)
-	{
-		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3);
-		//return False;
+	/* Send START, Device Address with WRITE bit */
+	// Master issues start condition by writing device address with R/W bit = 0 to ADDR register
+	sercom->I2CM.ADDR.reg = (device_address << 1) | WIRE_WRITE_FLAG; 
+	while (!(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_MB) && !(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_SB)); // Wait for MB (transmission complete) or SB (slave ack)
+
+	if (sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) { // Check if slave NACK'd the address
+		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // Issue STOP condition
+		return false; 
 	}
-	
-	sercom->I2CM.CTRLB.reg &= -SERCOM_I2CM_CTRLB_ACKACT;
-	
-	
-	for(int i = 0;i< size-3;i++)
-	{
-		sercom->I2CM.DATA.reg = data;
-		while(0==(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_MB));
+
+	/* Send Register Address High Byte */
+	sercom->I2CM.DATA.reg = locationH;
+	while (!(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_MB)); // Wait for MB (transmission complete)
+	if (sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) { // Check if slave NACK'd the data
+		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // Issue STOP condition
+		return false;
 	}
-	
-	if(size)
-	{
-		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_ACKACT;
-		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3);
-		sercom->I2CM.DATA.reg = sizeof(data)-1;
+
+	/* Send Register Address Low Byte */
+	sercom->I2CM.DATA.reg = locationL;
+	while (!(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_MB)); // Wait for MB (transmission complete)
+	if (sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) { // Check if slave NACK'd the data
+		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // Issue STOP condition
+		return false;
 	}
-	//return *data; //just send data for now.
+
+	/* Send Data Byte */
+	sercom->I2CM.DATA.reg = data_byte;
+	while (!(sercom->I2CM.INTFLAG.reg & SERCOM_I2CM_INTFLAG_MB)); // Wait for MB (transmission complete)
+	if (sercom->I2CM.STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) { // Check if slave NACK'd the data
+		sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // Issue STOP condition
+		return false;
+	}
+
+	/* Send STOP Condition */
+	sercom->I2CM.CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3); // CMD = 3 issues STOP condition
+	// No need to wait for SYNCBUSY after STOP for this simple case, bus will be released.
+	
+	return true;
 }
 
 void enableWire()
@@ -151,7 +159,7 @@ void enableWire()
 	}
 
 	// Setting bus idle mode
-	SERCOM0->I2CM.STATUS.bit.BUSSTATE = 1 ;
+	SERCOM0->I2CM.STATUS.bit.BUSSTATE = WIRE_IDLE_STATE ;
 
 	while ( SERCOM0->I2CM.SYNCBUSY.bit.SYSOP != 0 )
 	{
@@ -159,18 +167,18 @@ void enableWire()
 	}
 }									
 
-uint8_t i2c_startTransmissionWire(uint8_t address, SercomWireReadWriteFlag flag)
+uint8_t i2c_startTransmissionWire(uint8_t device_address, SercomWireReadWriteFlag flag)
 {
-	// 7-bits address + 1-bits R/W
-	address = (0x50 << 0x1ul) | flag;
+	// 7-bits device_address + 1-bit R/W
+	uint16_t transmit_address = (device_address << 1) | flag;
 
 	// Wait idle or owner bus mode
 	while ( !isBusIdleWIRE() && !isBusOwnerWIRE() );
 
 	// Send start and address
-	//SERCOM0->I2CM.ADDR.bit.ADDR = address;
+	//SERCOM0->I2CM.ADDR.bit.ADDR = transmit_address; // This would be for bit field access
 	
-	SERCOM0->I2CM.ADDR.reg = address;//| 0x0ul; //i2c transfer read = 1
+	SERCOM0->I2CM.ADDR.reg = transmit_address;
 
 
 	// Address Transmitted
@@ -194,8 +202,7 @@ uint8_t i2c_startTransmissionWire(uint8_t address, SercomWireReadWriteFlag flag)
 			// Wait transmission complete
 		}
 
-		// Clean the 'Slave on Bus' flag, for further usage.
-		//sercom->I2CM.INTFLAG.bit.SB = 0x1ul;
+		// Clean the 'Slave on Bus' flag, for further usage. (This is normally cleared by reading DATA or writing ADDR/DATA)
 	}
 
 	//ACK received (0: ACK, 1: NACK)

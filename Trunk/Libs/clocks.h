@@ -1,11 +1,11 @@
 /*
  *clocks.h
- *Project:			Generic clock library for miniSam-Zero.
+ *Project:			SAMD09/D10 Peripheral Libraries
  *Author:			Weistek Engineering (jeremy G.)
  *website:			www.weistekengineering.com
  *date:				06-29-2016
  *Created:			7/18/2016 10:49:47 PM
- *Summery:			include file for clocks.c, init_clocks()
+ *Summary:			Header file for clocks.c. Declares the `init_clocks()` function for SAMD09/D10 system clock configuration.
  *
  *License:	        GNU GENERAL PUBLIC LICENSE Version 3 or newer. The header of this file may not change.
  *
