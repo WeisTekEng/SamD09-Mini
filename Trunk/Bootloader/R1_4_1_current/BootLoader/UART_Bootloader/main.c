@@ -118,6 +118,10 @@ int main(void)
     SYSCTRL->OSC8M.bit.PRESC = 0;
 	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
 
+	/* Initialize pointers for flash operations */
+	dest_addr = APP_START;
+	flash_byte_ptr = APP_START;
+
     while (1) 
     {
         data_8 = uart_read_byte();
@@ -163,37 +167,51 @@ int main(void)
 		}
 		else if (data_8 == 'p')
 		{
-			#ifdef NEW_FRONT_END
-				if(!specialTalk)
-				{
-					sendConfirm();
-				}
-			#else
-				sendConfirm();
-			#endif
-			
-			for (i = 0; i < PAGE_SIZE; i++)
-			{
-				page_buffer[i] = uart_read_byte();
-			}
-			nvm_write_buffer(dest_addr, page_buffer, PAGE_SIZE);
-			dest_addr += PAGE_SIZE;
-			
-			#ifdef NEW_FRONT_END
-				if(!specialTalk)
-				{
-					sendConfirm();
-				}
-				else
-				{
-					uart_write_byte('%');
-				}
-			#else
-				sendConfirm();
-			#endif
-			
-			REG_PORT_OUTTGL0 = (1 << 14); //blinks light
+			uint32_t max_app_address = APP_START + (APP_SIZE * 1024);
 
+			if (dest_addr >= max_app_address || dest_addr + PAGE_SIZE > max_app_address)
+			{
+				uart_write_byte('F'); // Signal Error: Flash full or write would exceed app limit
+			}
+			else
+			{
+				// Send initial confirmation
+				#ifdef NEW_FRONT_END
+					if(!specialTalk)
+					{
+						sendConfirm();
+					}
+					// No specific initial confirm for specialTalk in original 'p', so it gets nothing here or 'F' above.
+				#else
+					sendConfirm();
+				#endif
+				
+				// Read page data from UART
+				for (i = 0; i < PAGE_SIZE; i++)
+				{
+					page_buffer[i] = uart_read_byte();
+				}
+				
+				// Write data to NVM
+				nvm_write_buffer(dest_addr, page_buffer, PAGE_SIZE);
+				dest_addr += PAGE_SIZE; // Increment destination address
+				
+				// Send final confirmation
+				#ifdef NEW_FRONT_END
+					if(!specialTalk)
+					{
+						sendConfirm();
+					}
+					else
+					{
+						uart_write_byte('%'); // This was the original specialTalk confirmation after write
+					}
+				#else
+					sendConfirm();
+				#endif
+				
+				REG_PORT_OUTTGL0 = (1 << 14); // Toggle LED
+			}
 		}
 		else if (data_8 == 'v')
 		{
@@ -206,8 +224,14 @@ int main(void)
 				sendConfirm();
 			#endif
 			
-			for (i = 0; i < (PAGE_SIZE); i++)
-			{	
+			uint32_t max_app_address = APP_START + (APP_SIZE * 1024);
+			for (i = 0; i < PAGE_SIZE; i++) // Loop to send up to PAGE_SIZE bytes
+			{
+				if ((uint32_t)flash_byte_ptr >= max_app_address)
+				{
+					uart_write_byte('E'); // Signal End of Application or Error
+					break;                // Stop sending data
+				}
 				//++ after pointer post increments by 1
 				uart_write_byte(* flash_byte_ptr++);
 				
@@ -221,7 +245,7 @@ int main(void)
 		#ifdef VERSION
 			else if (data_8 == 'i')
 			{
-				send_string(aVER_Array,i);
+				send_string(aVER_Array, 0);
 			}
 		#endif
 		#ifdef NEW_FRONT_END
